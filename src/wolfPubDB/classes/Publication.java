@@ -1,15 +1,15 @@
-package wolfPubDB.getsetdbvalues;
+package wolfPubDB.classes;
 
-public class GetSetPublication {
+public class Publication {
 
     public String publicationId;
     public String title;
     public String periodicity;
     public String topics;
 
-    public GetPublication(Integer publicationId, String title, String periodicity, String topics)
+    public Publication(Integer publicationId, String title, String periodicity, String topics)
     {
-        this.PID = PID;
+        this.publicationId = publicationId;
         this.periodicity = periodicity;
         this.topics = topics;
         this.title = title;
