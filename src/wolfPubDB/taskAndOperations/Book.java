@@ -10,12 +10,12 @@ import java.sql.Statement;
 import wolfPubDB.classes.Book;
 import wolfPub.connect.*;
 
-public class BookMenu{
+public class Book{
 
-    public static ArrayList<Book> selectBook(){
+    public static ArrayList<Book> selectBook() throws SQLException{
         try {   
             Connection conn = DbConnect.getConnection();
-            ArrayList<Publication> output = new ArrayList<>();
+            ArrayList<Book> output = new ArrayList<>();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("select * from book");
             while (res.next()) {
@@ -30,10 +30,10 @@ public class BookMenu{
         }
     }
 
-    public static ArrayList<Book> selectBook(String publicationId){
+    public static ArrayList<Book> selectBook(String publicationId) throws SQLException{
         try {   
             Connection conn = DbConnect.getConnection();
-            ArrayList<Publication> output = new ArrayList<>();
+            ArrayList<Book> output = new ArrayList<>();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("select * from book where publication="+publicationId);
             while (res.next()) {
@@ -88,9 +88,10 @@ public class BookMenu{
                 conn.close()
             }
     }
+}
 
 
-    public static Boolean updateBook(String publicationId, String isbn, Date publicationDate, String edition ) throws SQLException{
+    public static Boolean updateBook(String publicationId, String isbn, Date publicationDate, String edition) throws SQLException{
         int count = 0;
         try{
             Connection conn = DbConnect.getConnection();
@@ -119,7 +120,7 @@ public class BookMenu{
         }
     }
 
-    public static Boolean deletePublication(String publicationId) {
+    public static Boolean deletePublication(String publicationId) throws SQLException {
         try {
             Connection conn = DbConnect.getConnection();
             Statement stat = conn.createStatement();

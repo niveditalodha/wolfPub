@@ -19,7 +19,7 @@ public class Issue {
             ResultSet res = stat.executeQuery("Select * from issue");
             ArrayList<Issue> output = new ArrayList<>();
             while (res.next()) {
-                Issue p = new Issue(res.String("publicationId"), Date.valueOf(res.getDate("issueDate")), res.getString("type"));
+                Issue p = new Issue(res.getString("publicationId"), Date.valueOf(res.getDate("issueDate")), res.getString("type"));
                 output.add(p);
             }
             conn.close()
