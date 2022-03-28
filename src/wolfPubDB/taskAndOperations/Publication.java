@@ -23,7 +23,7 @@ public class Publication {
                 Publication pub = new Publication(res.getString("publicationId"), res.getString("title"), res.getString("periodicity"), res.getString("topics"));
                 output.add(pub);
             }
-            conn.close()
+            conn.close();
             return output;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -42,7 +42,7 @@ public class Publication {
                 Publication pub = new Publication(res.getInt("publicationId"), res.getString("title"), res.getString("periodicity"), res.getString("topics"));
                 output.add(pub);
             }
-            conn.close()
+            conn.close();
             return output;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -66,11 +66,11 @@ public class Publication {
             while (res.next())
                 publicationId = res.getInt("publicationId");
             conn.commit();
-            conn.close()
+            conn.close();
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
-            conn.close()
+            conn.close();
             return false;
         }
     }
@@ -96,23 +96,23 @@ public class Publication {
             if(t1 && t2){
                 conn.commit();
                 System.out.println("Transaction successful");
-                conn.close()
+                conn.close();
                 return true;
             }else{
                 conn.rollback();
                 System.out.println("Transaction Failed");
-                conn.close()
+                conn.close();
                 return false;
             }
         } catch (SQLException ex) {
             conn.rollback();
             System.out.println("Transaction Failed");
-            conn.close()
+            conn.close();
             return false;
         } finally {
             if(conn != null){
                 conn.setAutoCommit(true);
-                conn.close()
+                conn.close();
             }
         }
     }
@@ -139,23 +139,23 @@ public class Publication {
             if(t1 && t2){
                 conn.commit();
                 System.out.println("Transaction successful");
-                conn.close()
+                conn.close();
                 return true;
             }else{
                 conn.rollback();
                 System.out.println("Transaction Failed");
-                conn.close()
+                conn.close();
                 return false;
             }
         } catch (SQLException ex) {
             conn.rollback();
             System.out.println("Transaction Failed");
-            conn.close()
+            conn.close();
             return false;
         } finally {
             if(conn != null){
                 conn.setAutoCommit(true);
-                conn.close()
+                conn.close();
             }
         }
     }
@@ -179,10 +179,10 @@ public class Publication {
             }
 
             if (count!=0){
-                conn.close()
+                conn.close();
                 return  true;
             }
-            conn.close()
+            conn.close();
             return false;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -195,7 +195,7 @@ public class Publication {
             Connection conn = DbConnect.getConnection();
             Statement stat = conn.createStatement();
             stat.executeUpdate("DELETE FROM publication WHERE publicationId= " + publicationId);
-            conn.close()
+            conn.close();
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
