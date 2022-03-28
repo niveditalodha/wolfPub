@@ -23,6 +23,7 @@ public class Publication {
                 Publication pub = new Publication(res.getString("publicationId"), res.getString("title"), res.getString("periodicity"), res.getString("topics"));
                 output.add(pub);
             }
+            conn.close()
             return output;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -41,6 +42,7 @@ public class Publication {
                 Publication pub = new Publication(res.getInt("publicationId"), res.getString("title"), res.getString("periodicity"), res.getString("topics"));
                 output.add(pub);
             }
+            conn.close()
             return output;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -49,52 +51,13 @@ public class Publication {
     }
 
 
-//Start Transaction
-    public static boolean addPublication(String publicationId, String title, String periodicity, String topics, String isbn, String edition, Date publicationDate) throws SQLException {
-        boolean trans1 = false;
-        boolean trans2 = false;
-        Connection conn = null;
-        try {
-            conn = DbConnect.getConnection();
-            conn.setAutoCommit(false);
-            String query = "insert into publication(publicationId, title, periodicity, topics) values (?,?,?,?)";
-            PreparedStatement stat = conn.prepareStatement(query);
-            stat.setInt(1, publicationId);
-            stat.setString(2, title);
-            stat.setString(3, periodicity);
-            stat.setString(4, topics);
-            stat.executeUpdate();
-
-            trans1 = true;
-            trans2 = Book.addBook(conn, PID, PublicationDate, ISBN, Edition);
-
-            if(trans1 && trans2){
-                conn.commit();
-                System.out.println("Transaction successful");
-                return true;
-            }else{
-                conn.rollback();
-                System.out.println("Transaction Failed");
-                return false;
-            }
-        } catch (SQLException ex) {
-            conn.rollback();
-            System.out.println("Transaction Failed");
-            return false;
-        } finally {
-            if(conn != null){
-                conn.setAutoCommit(true);
-            }
-        }
-    }
-
-    public static Boolean addPublication(Integer PID, String topic, String title, String pub_no) {
+    public static Boolean addPublication(String publicationId, String title, String periodicity, String topics) {
         try {
             Connection conn = DbConnect.getConnection();
-            String query = "insert into PUBLICATION(PID, TOPIC, TITLE, PUB_NO) values (?,?,?,?)";
+            String query = "insert into publication(publicationId, title, periodicity, topics) values (?,?,?,?)";
             PreparedStatement stat = conn.prepareStatement(query);
-            stat.setString(1, publication);
-            stat.setString(2, topic);
+            stat.setString(1, publicationId);
+            stat.setString(2, title);
             stat.setString(3, periodicity);
             stat.setString(4, topics);
             stat.executeUpdate();
@@ -103,52 +66,140 @@ public class Publication {
             while (res.next())
                 publicationId = res.getInt("publicationId");
             conn.commit();
+            conn.close()
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
+            conn.close()
             return false;
         }
     }
 
-
-    public static Boolean updatePublication(Integer PID, String topic, String title, String pub_no) {
+    public static boolean addPublication(String publicationId, String title, String periodicity, String topics, String isbn, Date publicationDate, String edition) throws SQLException {
+        boolean t1 = false;
+        boolean t2 = false;
+        Connection conn = null;
         try {
-            Connection conn = DbConnect.getConnection();
-            String query = "Update PUBLICATION set TOPIC=?, TITLE=?, PUB_NO=? where PID =?";
+            conn = DbConnect.getConnection();
+            conn.setAutoCommit(false);
+            String query = "insert into publication(publicationId, title, periodicity, topics) values (?,?,?,?)";
             PreparedStatement stat = conn.prepareStatement(query);
-            stat.setString(1, topic);
+            stat.setString(1, publicationId);
             stat.setString(2, title);
-            stat.setString(3, pub_no);
-            stat.setInt(4,PID);
+            stat.setString(3, periodicity);
+            stat.setString(4, topics);
             stat.executeUpdate();
 
-            ResultSet res = stat.executeQuery("Select count(*) as count_val from PUBLICATION where PID="+PID);
+            t1 = true;
+            t2 = Book.addBook(conn, publicationId, isbn, publicationDate, edition);
+
+            if(t1 && t2){
+                conn.commit();
+                System.out.println("Transaction successful");
+                conn.close()
+                return true;
+            }else{
+                conn.rollback();
+                System.out.println("Transaction Failed");
+                conn.close()
+                return false;
+            }
+        } catch (SQLException ex) {
+            conn.rollback();
+            System.out.println("Transaction Failed");
+            conn.close()
+            return false;
+        } finally {
+            if(conn != null){
+                conn.setAutoCommit(true);
+                conn.close()
+            }
+        }
+    }
+    
+
+    public static boolean addPublication(String publicationId, String title, String periodicity, String topics, Date issueDate, String type) throws SQLException {
+        boolean t1 = false;
+        boolean t2 = false;
+        Connection conn = null;
+        try {
+            conn = DbConnect.getConnection();
+            conn.setAutoCommit(false);
+            String query = "insert into publication(publicationId, title, periodicity, topics) values (?,?,?,?)";
+            PreparedStatement stat = conn.prepareStatement(query);
+            stat.setString(1, publicationId);
+            stat.setString(2, title);
+            stat.setString(3, periodicity);
+            stat.setString(4, topics);
+            stat.executeUpdate();
+
+            t1 = true;
+            t2 = Issue.addIssue(conn, publicationId, issueDate, type);
+
+            if(t1 && t2){
+                conn.commit();
+                System.out.println("Transaction successful");
+                conn.close()
+                return true;
+            }else{
+                conn.rollback();
+                System.out.println("Transaction Failed");
+                conn.close()
+                return false;
+            }
+        } catch (SQLException ex) {
+            conn.rollback();
+            System.out.println("Transaction Failed");
+            conn.close()
+            return false;
+        } finally {
+            if(conn != null){
+                conn.setAutoCommit(true);
+                conn.close()
+            }
+        }
+    }
+
+    public static Boolean updatePublication(String publicationId, String title, String periodicity, String topics) {
+        try {
+            Connection conn = DbConnect.getConnection();
+            String query = "Update publication set title=?, periodicity=?, topics=? where publicationId =?";
+            PreparedStatement stat = conn.prepareStatement(query);
+            stat.setString(1, title);
+            stat.setString(2, periodicity);
+            stat.setString(3, topics);
+            stat.setInt(4,publicationId);
+            stat.executeUpdate();
+
+            ResultSet res = stat.executeQuery("select count(*) as total from publication where publicationId="+publicationId);
             int count = 0;
             while (res.next()) {
-                count = res.getInt("count_val");
+                count = res.getInt("total");
 
             }
 
             if (count!=0){
+                conn.close()
                 return  true;
             }
+            conn.close()
             return false;
-            //return Boolean.valueOf(true);
         } catch (SQLException e) {
             e.printStackTrace();
             return Boolean.valueOf(false);
         }
     }
 
-    public static Boolean deletePublication(Integer PID) {
+    public static Boolean deletePublication(String publicationId) {
         try {
             Connection conn = DbConnect.getConnection();
             Statement stat = conn.createStatement();
-            stat.executeUpdate("DELETE FROM PUBLICATION WHERE PID= " + PID);
-            return Boolean.valueOf(true);
+            stat.executeUpdate("DELETE FROM publication WHERE publicationId= " + publicationId);
+            conn.close()
+            return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
-            return Boolean.valueOf(false);
+            return false;
         }
     }
 
