@@ -12,6 +12,41 @@ import wolfPub.connect.*;
 
 public class BookMenu{
 
+    public static ArrayList<Book> selectBook(){
+        try {   
+            Connection conn = DbConnect.getConnection();
+            ArrayList<Publication> output = new ArrayList<>();
+            Statement stat = conn.createStatement();
+            ResultSet res = stat.executeQuery("select * from book");
+            while (res.next()) {
+                Book pub = new Book(res.getString("publicationId"), res.getString("isbn"), res.getString("publicationDate"), res.getString("edition"));
+                output.add(pub);
+            }
+            conn.close();
+            return output;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static ArrayList<Book> selectBook(String publicationId){
+        try {   
+            Connection conn = DbConnect.getConnection();
+            ArrayList<Publication> output = new ArrayList<>();
+            Statement stat = conn.createStatement();
+            ResultSet res = stat.executeQuery("select * from book where publication="+publicationId);
+            while (res.next()) {
+                Book pub = new Book(res.getString("publicationId"), res.getString("isbn"), res.getString("publicationDate"), res.getString("edition"));
+                output.add(pub);
+            }
+            conn.close();
+            return output;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     public static boolean addBook(String publicationId, String isbn, Date publicationDate, String edition) throws SQLException{
         Connection conn = null;
