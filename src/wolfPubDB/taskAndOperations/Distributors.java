@@ -39,7 +39,7 @@ public class Distributors{
             stat.setString(1, distributorId);
             stat.setString(2, name);
             stat.setString(3, type);
-            stat.setFloat(4, balnace);
+            stat.setFloat(4, balance);
             stat.setString(5, phone);
             stat.setString(6, city);
             stat.setString(7, street);
@@ -61,14 +61,14 @@ public class Distributors{
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, name);
             stat.setString(2, type);
-            stat.setFloat(3, balnace);
+            stat.setFloat(3, balance);
             stat.setString(4, phone);
             stat.setString(5, city);
             stat.setString(6, street);
             stat.setString(7, contactPerson);
             stat.setString(8, distributorId);
             stat.executeUpdate();
-            ResultSet res = stat.executeQuery("Select count(*) as total from ditributors where distributorId="+distributorId);
+            ResultSet res = stat.executeQuery("Select count(*) as total from distributors where distributorId="+distributorId);
             int count = 0;
             while (res.next()) {
                 count = res.getInt("total");

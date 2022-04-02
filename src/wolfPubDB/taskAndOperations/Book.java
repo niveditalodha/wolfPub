@@ -19,7 +19,7 @@ public class Book{
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("select * from book");
             while (res.next()) {
-                Book pub = new Book(res.getString("publicationId"), res.getString("isbn"), res.getString("publicationDate"), res.getString("edition"));
+                Book pub = new Book(res.getString("publicationId"), res.getString("isbn"), Date.valueOf(res.getDate("publicationDate")), res.getString("edition"));
                 output.add(pub);
             }
             conn.close();
@@ -37,7 +37,7 @@ public class Book{
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("select * from book where publication="+publicationId);
             while (res.next()) {
-                Book pub = new Book(res.getString("publicationId"), res.getString("isbn"), res.getString("publicationDate"), res.getString("edition"));
+                Book pub = new Book(res.getString("publicationId"), res.getString("isbn"), Date.valueOf(res.getDate("publicationDate")), res.getString("edition"));
                 output.add(pub);
             }
             conn.close();
