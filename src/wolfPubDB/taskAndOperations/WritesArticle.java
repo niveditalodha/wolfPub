@@ -31,7 +31,7 @@ public class WritesArticle{
     }
 
 
-    public static boolean uodateAuthorByArticle(String articleId, String staffId){
+    public static boolean updateWritesArticleAuthor(String articleId, String staffId){
         try {
             Connection conn = DBConnect.getConnection();
             String query = "Update writesarticle set staffId = ? where articleId = ?";
