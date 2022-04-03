@@ -36,8 +36,8 @@ public class Articles{
             String query = "insert into issue(articleId, title, creationDate, text, publicationId) values (?,?,?,?,?)";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, articleId);
-            stat.setDate(2, title);
-            stat.setString(3, creationDate);
+            stat.setString(2, title);
+            stat.setDate(3, creationDate);
             stat.setString(4, text);
             stat.setString(5, publicationId);
             stat.executeUpdate();

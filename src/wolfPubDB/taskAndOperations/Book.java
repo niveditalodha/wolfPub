@@ -120,7 +120,7 @@ public class Book{
         }
     }
 
-    public static Boolean deletePublication(String publicationId) throws SQLException {
+    public static Boolean deleteBook(String publicationId) throws SQLException {
         try {
             Connection conn = DbConnect.getConnection();
             Statement stat = conn.createStatement();
