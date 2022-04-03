@@ -50,4 +50,31 @@ public class WritesBook {
         }
     }
 
+    public static Boolean updateWritesBookChapterAuthor(String publicationId, String staffId) throws SQLException{
+        int count = 0;
+        try{
+            Connection conn = DbConnect.getConnection();
+            String query = "Update writesbook set staffId = ? where publicationId =?";
+            PreparedStatement stat = conn.prepareStatement(query);
+            stat.setString(1, staffId);
+            stat.setString(2, publicationId);
+            stat.executeUpdate();
+
+            ResultSet res = stat.executeQuery("select count(*) as total from writesbook where publicationId="+publicationId);
+            while (res.next()) {
+                count = res.getInt("total");
+            }
+            if (count!=0){
+                conn.close();
+                return  true;
+            }
+            conn.close()
+            return false;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return Boolean.valueOf(false);
+        }
+    }
+
 }

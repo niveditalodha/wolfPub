@@ -35,7 +35,7 @@ public class Book{
             Connection conn = DbConnect.getConnection();
             ArrayList<Book> output = new ArrayList<>();
             Statement stat = conn.createStatement();
-            ResultSet res = stat.executeQuery("select * from book where publication="+publicationId);
+            ResultSet res = stat.executeQuery("select * from book where publicationId="+publicationId);
             while (res.next()) {
                 Book pub = new Book(res.getString("publicationId"), res.getString("isbn"), Date.valueOf(res.getDate("publicationDate")), res.getString("edition"));
                 output.add(pub);
@@ -47,6 +47,62 @@ public class Book{
             return null;
         }
     }
+
+    public static ArrayList<Book> selectBookByTopic(String topics) throws SQLException{
+        try {   
+            Connection conn = DbConnect.getConnection();
+            ArrayList<Book> output = new ArrayList<>();
+            Statement stat = conn.createStatement();
+            ResultSet res = stat.executeQuery("select * from book where topics="+topics);
+            while (res.next()) {
+                Book pub = new Book(res.getString("publicationId"), res.getString("isbn"), Date.valueOf(res.getDate("publicationDate")), res.getString("edition"));
+                output.add(pub);
+            }
+            conn.close();
+            return output;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static ArrayList<Book> selectBookByDate(String publicationDate) throws SQLException{
+        try {   
+            Connection conn = DbConnect.getConnection();
+            ArrayList<Book> output = new ArrayList<>();
+            Statement stat = conn.createStatement();
+            ResultSet res = stat.executeQuery("select * from book where publicationDate="+publicationDate);
+            while (res.next()) {
+                Book pub = new Book(res.getString("publicationId"), res.getString("isbn"), Date.valueOf(res.getDate("publicationDate")), res.getString("edition"));
+                output.add(pub);
+            }
+            conn.close();
+            return output;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public static ArrayList<Book> selectBookByAuthor(String staffId) throws SQLException{
+        try {   
+            Connection conn = DbConnect.getConnection();
+            ArrayList<Book> output = new ArrayList<>();
+            Statement stat = conn.createStatement();
+            ResultSet res = stat.executeQuery("select * from book where publicationId in (select publicationId from writesbook where staffId = "+staffId+")");
+            while (res.next()) {
+                Book pub = new Book(res.getString("publicationId"), res.getString("isbn"), Date.valueOf(res.getDate("publicationDate")), res.getString("edition"));
+                output.add(pub);
+            }
+            conn.close();
+            return output;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+
 
     public static boolean addBook(String publicationId, String isbn, Date publicationDate, String edition) throws SQLException{
         Connection conn = null;

@@ -90,7 +90,7 @@ public class chapters{
 }
 
 
-    public static Boolean updateChapters(String publicationId, String chapterNumber, String chapterTitle) throws SQLException{
+    public static Boolean updateChaptersTitle(String publicationId, String chapterNumber, String chapterTitle) throws SQLException{
         int count = 0;
         try{
             Connection conn = DbConnect.getConnection();
@@ -117,6 +117,9 @@ public class chapters{
             return Boolean.valueOf(false);
         }
     }
+
+    
+
 
     public static Boolean deleteChapter(String publicationId, String chapterNumber) throws SQLException {
         try {
