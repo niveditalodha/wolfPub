@@ -19,7 +19,7 @@ public class Author{
             ResultSet res = stat.executeQuery("Select * from author");
             ArrayList<Author> output = new ArrayList<>();
             while (res.next()) {
-                Staff row = new Author(res.getString("staffId"));
+                Author row = new Author(res.getString("staffId"));
                 output.add(row);
             }
             conn.close();

@@ -19,7 +19,7 @@ public class Articles{
             ResultSet res = stat.executeQuery("Select * from articles");
             ArrayList<Articles> output = new ArrayList<>();
             while (res.next()) {
-                Issue a = new Articles(res.getString("articleId"), res.getString("title"), Date.valueOf(res.getDate("creationDate")), res.getString("text"), res.getString("publicationId"));
+                Articles a = new Articles(res.getString("articleId"), res.getString("title"), Date.valueOf(res.getDate("creationDate")), res.getString("text"), res.getString("publicationId"));
                 output.add(a);
             }
             conn.close()
