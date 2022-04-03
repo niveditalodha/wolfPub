@@ -7,19 +7,19 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import wolfPubDB.classes.Chapters;
+import wolfPubDB.classes.Payment;
 import wolfPub.connect.*;
 
 public class chapters{
 
-    public static ArrayList<Chapters> selectBook() throws SQLException{
+    public static ArrayList<Payment> selectPayment() throws SQLException{
         try {   
             Connection conn = DbConnect.getConnection();
-            ArrayList<Chapters> output = new ArrayList<>();
+            ArrayList<Payment> output = new ArrayList<>();
             Statement stat = conn.createStatement();
-            ResultSet res = stat.executeQuery("select * from chapters");
+            ResultSet res = stat.executeQuery("select * from payment");
             while (res.next()) {
-                Chapters chp = new Chapters(res.getString("publicationId"), res.getString("chapterNumber"), res.getString("chapterTitle"));
+                Payment chp = new Payment(res.getString("staffId"), Date.valueOf(res.getDate("paymentDate")), Integer.valueOf(res.getInt("amount")), Date.valueOf(res.getDate("paymentClaimedDate")));
                 output.add(chp);
             }
             conn.close();
@@ -30,14 +30,14 @@ public class chapters{
         }
     }
 
-    public static ArrayList<Chapters> selectChapter(String publicationId, String chapterNumber) throws SQLException{
+    public static ArrayList<Payment> selectPayment(String staffId, Date paymentDate) throws SQLException{
         try {   
             Connection conn = DbConnect.getConnection();
-            ArrayList<Chapters> output = new ArrayList<>();
+            ArrayList<Payment> output = new ArrayList<>();
             Statement stat = conn.createStatement();
-            ResultSet res = stat.executeQuery("select * from chapters where publicationId="+publicationId+" and chapterNumber="+chapterNumber);
+            ResultSet res = stat.executeQuery("select * from payment where staffId="+staffId+" and paymentDate="+Date.toString(paymentDate));
             while (res.next()) {
-                Chapters chp = new Chapters(res.getString("publicationId"), res.getString("chapterNumber"), res.getString("chapterTitle"));
+                Payment chp = new Payment(res.getString("staffId"), Date.valueOf(res.getDate("paymentDate")), Integer.valueOf(res.getInt("amount")), Date.valueOf(res.getDate("paymentClaimedDate")));
                 output.add(chp);
             }
             conn.close();
@@ -48,17 +48,18 @@ public class chapters{
         }
     }
 
-    public static boolean addChapter(String publicationId, String chapterNumber, String chapterTitle) throws SQLException{
+    public static boolean addPayment(String staffId, Date paymentDate, Integer amount, Date paymentClaimedDate) throws SQLException{
         Connection conn = null;
         boolean t1 = false;
         try{
             conn = DbConnect.getConnection();
             conn.setAutoCommit(false);
-            String query = "INSERT INTO chapters(publicationId, chapterNumber, chapterTitle) VALUES(?,?,?)";
+            String query = "INSERT INTO payment(staffId, paymentDate, amount, paymentClaimedDate) VALUES(?,?,?,?)";
             PreparedStatement stat = conn.prepareStatement(query);
-            stat.setString(1, publicationId);
-            stat.setString(2, chapterNumber);
-            stat.setString(3, chapterTitle);
+            stat.setString(1, staffId);
+            stat.setDate(2, paymentDate);
+            stat.setInt(3, amount);
+            stat.setDate(2, paymentClaimedDate);
             stat.executeUpdate();
 
             t1 = true;
@@ -90,18 +91,19 @@ public class chapters{
 }
 
 
-    public static Boolean updateChapters(String publicationId, String chapterNumber, String chapterTitle) throws SQLException{
+    public static Boolean updatePayment(String staffId, Date paymentDate, Integer amount, Date paymentClaimedDate) throws SQLException{
         int count = 0;
         try{
             Connection conn = DbConnect.getConnection();
-            String query = "Update chapters set chapterTitle = ? where publicationId =? and chapterNumber=?";
+            String query = "Update payment set amount = ?, paymentClaimedDate = ? where staffId =? and paymentDate=?";
             PreparedStatement stat = conn.prepareStatement(query);
-            stat.setString(1, chapterTitle);
-            stat.setString(2, publicationId);
-            stat.setString(2, chapterNumber);
+            stat.setInt(1, amount);
+            stat.setDate(2, paymentClaimedDate);
+            stat.setString(2, staffId);
+            stat.setDate(2, paymentDate);
             stat.executeUpdate();
 
-            ResultSet res = stat.executeQuery("select count(*) as total from chapters where publicationId="+publicationId+" and chapterNumber="+chapterNumber);
+            ResultSet res = stat.executeQuery("select count(*) as total from payment where staffId="+staffId+" and paymentDate="+Date.toString(paymentDate));
             while (res.next()) {
                 count = res.getInt("total");
             }
@@ -118,11 +120,11 @@ public class chapters{
         }
     }
 
-    public static Boolean deleteChapter(String publicationId, String chapterNumber) throws SQLException {
+    public static Boolean deletePayment(String staffId, Date paymentDate) throws SQLException {
         try {
             Connection conn = DbConnect.getConnection();
             Statement stat = conn.createStatement();
-            stat.executeUpdate("DELETE FROM chapters WHERE publicationId= "+publicationId+" and chapterNumber="+chapterNumber);
+            stat.executeUpdate("DELETE FROM payment WHERE staffId= "+staffId+" and paymentDate="+Date.toString(paymentDate));
             conn.close();
             return true;
         } catch (SQLException ex) {
