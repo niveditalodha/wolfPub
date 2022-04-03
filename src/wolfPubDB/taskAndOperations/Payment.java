@@ -30,12 +30,12 @@ public class chapters{
         }
     }
 
-    public static ArrayList<Payment> selectPayment(String staffId, Date paymentDate) throws SQLException{
+    public static ArrayList<Payment> selectPayment(String staffId) throws SQLException{
         try {   
             Connection conn = DbConnect.getConnection();
             ArrayList<Payment> output = new ArrayList<>();
             Statement stat = conn.createStatement();
-            ResultSet res = stat.executeQuery("select * from payment where staffId="+staffId+" and paymentDate="+Date.toString(paymentDate));
+            ResultSet res = stat.executeQuery("select * from payment where staffId="+staffId);
             while (res.next()) {
                 Payment chp = new Payment(res.getString("staffId"), Date.valueOf(res.getDate("paymentDate")), Integer.valueOf(res.getInt("amount")), Date.valueOf(res.getDate("paymentClaimedDate")));
                 output.add(chp);
@@ -87,8 +87,8 @@ public class chapters{
                 conn.setAutoCommit(true);
                 conn.close()
             }
+        }
     }
-}
 
 
     public static Boolean updatePayment(String staffId, Date paymentDate, Integer amount, Date paymentClaimedDate) throws SQLException{
