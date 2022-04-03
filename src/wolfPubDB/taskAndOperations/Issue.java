@@ -37,7 +37,7 @@ public class Issue {
             ResultSet res = stat.executeQuery("Select * from issue where publicationId = " +  publicationId);
             ArrayList<Issue> output = new ArrayList<>();
             while (res.next()) {
-                Issue p = new Issue(res.getString("publicationId"), Date.getDate("issueDate"), res.getString("type"));
+                Issue p = new Issue(res.getString("publicationId"), Date.valueOf(res.getDate("issueDate")), res.getString("type"));
                 output.add(p);
             }
             conn.close()
@@ -49,7 +49,7 @@ public class Issue {
     }
 
 
-    public static Boolean addIssue(String publicationId, Date issueDate String type) {
+    public static Boolean addIssue(String publicationId, Date issueDate, String type) {
         try {
             Connection conn = DBConnect.getConnection();
             String query = "insert into issue(publicationId, issueDate, type) values (?,?,?)";
@@ -66,7 +66,7 @@ public class Issue {
         }
     }
 
-    public static Boolean updateIssue(String publicationId, Date issueDate String type) {
+    public static Boolean updateIssue(String publicationId, Date issueDate, String type) {
         try {
             Connection conn = DBConnect.getConnection();
             String query = "Update issue set issueDate = ?, type = ? where publicationId =?";
