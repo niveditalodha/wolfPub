@@ -49,16 +49,65 @@ public class Articles{
         }
     }
 
-    public static Boolean updateArticle(String articleId, String title ,Date creationDate, String text, String publicationId) {
+    public static Boolean updateArticleByTitle(String articleId, String title) {
         try {
             Connection conn = DBConnect.getConnection();
-            String query = "Update articles set title = ?, creationDate = ?, text = ?, publicationId = ? where articleId = ?";
+            String query = "Update articles set title = ? where articleId = ?";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, title);
-            stat.setDate(2, creationDate);
-            stat.setString(3, text);
-            stat.setString(4,publicationId);
-            stat.setString(5, articleId);
+            stat.setString(2, articleId);
+            stat.executeUpdate();
+            ResultSet res = stat.executeQuery("Select count(*) as total from articles where articleId="+articleId);
+            int count = 0;
+            while (res.next()) {
+                count = res.getInt("total");
+            }
+            conn.commit();
+            if (count!=0){
+                conn.close()
+                return  true;
+            }
+            conn.close()
+            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Boolean.valueOf(false);
+        }
+    }
+
+    public static Boolean updateArticleByCreationDate(String articleId, Date creationDate) {
+        try {
+            Connection conn = DBConnect.getConnection();
+            String query = "Update articles set creationDate = ? where articleId = ?";
+            PreparedStatement stat = conn.prepareStatement(query);
+            stat.setDate(1, creationDate);
+            stat.setString(2, articleId);
+            stat.executeUpdate();
+            ResultSet res = stat.executeQuery("Select count(*) as total from articles where articleId="+articleId);
+            int count = 0;
+            while (res.next()) {
+                count = res.getInt("total");
+            }
+            conn.commit();
+            if (count!=0){
+                conn.close()
+                return  true;
+            }
+            conn.close()
+            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Boolean.valueOf(false);
+        }
+    }
+
+    public static Boolean updateArticleByText(String articleId, String text) {
+        try {
+            Connection conn = DBConnect.getConnection();
+            String query = "Update articles set text = ? where articleId = ?";
+            PreparedStatement stat = conn.prepareStatement(query);
+            stat.setString(1, text);
+            stat.setString(2, articleId);
             stat.executeUpdate();
             ResultSet res = stat.executeQuery("Select count(*) as total from articles where articleId="+articleId);
             int count = 0;

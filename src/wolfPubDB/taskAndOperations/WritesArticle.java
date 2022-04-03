@@ -31,6 +31,31 @@ public class WritesArticle{
     }
 
 
+    public static boolean uodateAuthorByArticle(String articleId, String staffId){
+        try {
+            Connection conn = DBConnect.getConnection();
+            String query = "Update writesarticle set staffId = ? where articleId = ?";
+            PreparedStatement stat = conn.prepareStatement(query);
+            stat.setString(1, staffId);
+            stat.setString(2, articleId);
+            stat.executeUpdate();
+            ResultSet res = stat.executeQuery("Select count(*) as total from writesarticle where articleId="+articleId);
+            int count = 0;
+            while (res.next()) {
+                count = res.getInt("total");
+            }
+            conn.commit();
+            if (count!=0){
+                conn.close()
+                return  true;
+            }
+            conn.close()
+            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Boolean.valueOf(false);
+        }
+    }
 
     public static boolean addWritesArticle(String staffId, String articleId) {
         boolean state = false;
