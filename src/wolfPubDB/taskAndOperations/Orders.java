@@ -19,7 +19,7 @@ public class Orders{
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("select * from orders");
             while (res.next()) {
-                Orders pub = new Orders(res.getString("orderId"), Date.valueOf(res.getDate("deadline")), res.getfloat("price"), Date.valueOf(res.getDate("orderDate")), res.getInt("noOfCopies"), res.getfloat("shippingCost"), res.getString("publicationId"), res.getString("distributorId"));
+                Orders pub = new Orders(res.getString("orderId"), Date.valueOf(res.getDate("deadline")), Float.valueOf(res.getfloat("price")), Date.valueOf(res.getDate("orderDate")), Integer.valueOf(res.getInt("noOfCopies")), Float.valueOf(res.getfloat("shippingCost")), res.getString("publicationId"), res.getString("distributorId"));
                 output.add(pub);
             }
             conn.close();
@@ -30,14 +30,14 @@ public class Orders{
         }
     }
 
-    public static ArrayList<Orders> selectOrder(Date orderDate) {
+    public static ArrayList<Orders> selectOrderByDate(Date orderDate) {
         try {
             Connection conn = DbConnect.getConnection();
             ArrayList<Orders> output = new ArrayList<>();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("Select * from orders where orderDate = " + orderDate);
             while (res.next()) {
-                Orders pub = new Orders(res.getString("orderId"), Date.valueOf(res.getDate("deadline")), res.getfloat("price"), Date.valueOf(res.getDate("orderDate")), res.getInt("noOfCopies"), res.getfloat("shippingCost"), res.getString("publicationId"), res.getString("distributorId"));
+                Orders pub = new Orders(res.getString("orderId"), Date.valueOf(res.getDate("deadline")), Float.valueOf(res.getfloat("price")), Date.valueOf(res.getDate("orderDate")), Integer.valueOf(res.getInt("noOfCopies")), Float.valueOf(res.getfloat("shippingCost")), res.getString("publicationId"), res.getString("distributorId"));
                 output.add(pub);
             }
             conn.close();
@@ -49,7 +49,7 @@ public class Orders{
     }
 
 
-    public static Boolean addOrder(String orderId, Date deadline, float price, Date orderDate, int noOfCopies, float shippingCost, String publicationId, String distributorId) {
+    public static Boolean addOrder(String orderId, Date deadline, Float price, Date orderDate, Integer noOfCopies, Float shippingCost, String publicationId, String distributorId) {
         try {
             Connection conn = DbConnect.getConnection();
             String query = "insert into orders(orderId, deadline, price, orderDate, noOfCopies, shippingCost, publicationId, distributorId) values (?,?,?,?,?,?,?,?)";
@@ -58,8 +58,8 @@ public class Orders{
             stat.setDate(2, deadline);
             stat.setFloat(3, price);
             stat.setDate(4, orderDate);
-            stat.setString(5, noOfCopies);
-            stat.setString(6, shippingCost);
+            stat.setInt(5, noOfCopies);
+            stat.setFloat(6, shippingCost);
             stat.setString(7, publicationId);
             stat.setString(8, distributorId);
             stat.executeUpdate();
@@ -73,7 +73,7 @@ public class Orders{
     }
 
 
-    public static Boolean updateOrder(String orderId, Date deadline, float price, Date orderDate, int noOfCopies, float shippingCost, String publicationId, String distributorId) {
+    public static Boolean updateOrder(String orderId, Date deadline, Float price, Date orderDate, Integer noOfCopies, Float shippingCost, String publicationId, String distributorId) {
         try {
             Connection conn = DBConnect.getConnection();
             String query = "Update orders set deadline = ?, price = ?, orderDate = ?, noOfCopies = ?, shippingCost = ?, publicationId = ?, distributorId = ? where orderId =?";
@@ -81,8 +81,8 @@ public class Orders{
             stat.setDate(1, deadline);
             stat.setFloat(2, price);
             stat.setDate(3, orderDate);
-            stat.setString(4, noOfCopies);
-            stat.setString(5, shippingCost);
+            stat.setInt(4, noOfCopies);
+            stat.setFloat(5, shippingCost);
             stat.setString(6, publicationId);
             stat.setString(7, distributorId);
             stat.setString(8, orderId);
