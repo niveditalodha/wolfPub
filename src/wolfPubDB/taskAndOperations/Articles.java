@@ -34,7 +34,7 @@ public class Articles{
         try {
             Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
-            ResultSet res = stat.executeQuery("Select * from articles where publicationId in (select publicationId from publication where topics = "+topics);
+            ResultSet res = stat.executeQuery("Select * from articles where publicationId in (select publicationId from publication where topics = "+topics+")");
             ArrayList<Articles> output = new ArrayList<>();
             while (res.next()) {
                 Articles a = new Articles(res.getString("articleId"), res.getString("title"), Date.valueOf(res.getDate("creationDate")), res.getString("text"), res.getString("publicationId"));
