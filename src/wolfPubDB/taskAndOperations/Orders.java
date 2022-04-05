@@ -8,37 +8,19 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import wolfPubDB.connect.*;
-import wolfPubDB.classes.Issue;
+import wolfPubDB.classes.Orders;
 
-public class Orders {
+public class Orders{
 
-    public static ArrayList<Orders> selectOrders() {
+    public static ArrayList<Orders> selectOrder() {
         try {
-            Connection conn = DBConnect.getConnection();
-            Statement stat = conn.createStatement();
-            ResultSet res = stat.executeQuery("Select * from orders");
-            ArrayList<Orders> output = new ArrayList<>();
-            while (res.next()) {
-                Orders p = new Orders(res.getString("orderId"), Date.valueOf(res.getDate("deadline")), res.getString("price"), Date.valueOf(res.getDate("orderDate")), res.getString("noOfCopies"), res.getString("shippingCost"), res.getString("publicationId"), res.getString("distributorId"));
-                output.add(p);
-            }
-            conn.close()
-            return output;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public static ArrayList<Book> selectOrders(String orderId) throws SQLException{
-        try {   
             Connection conn = DbConnect.getConnection();
             ArrayList<Orders> output = new ArrayList<>();
             Statement stat = conn.createStatement();
-            ResultSet res = stat.executeQuery("select * from orders where order="+orderId);
+            ResultSet res = stat.executeQuery("select * from orders");
             while (res.next()) {
-                Issue p = new Issue(res.getString("orderId"), Date.valueOf(res.getDate("deadline")), res.getString("price"), Date.valueOf(res.getDate("orderDate")), res.getString("noOfCopies"), res.getString("shippingCost"), res.getString("publicationId"), res.getString("distributorId"));
-                output.add(p);
+                Orders pub = new Orders(res.getString("orderId"), Date.valueOf(res.getDate("deadline")), Float.valueOf(res.getfloat("price")), Date.valueOf(res.getDate("orderDate")), Integer.valueOf(res.getInt("noOfCopies")), Float.valueOf(res.getfloat("shippingCost")), res.getString("publicationId"), res.getString("distributorId"));
+                output.add(pub);
             }
             conn.close();
             return output;
@@ -48,43 +30,62 @@ public class Orders {
         }
     }
 
-    public static Boolean addOrders(String orderId, String name, String type, Float balance, String phone, String city, String street, String contactPerson) throws SQLException{
+    public static ArrayList<Orders> selectOrderByDate(Date orderDate) {
         try {
-            Connection conn = DBConnect.getConnection();
-            String query = "insert into orders(orderId, name, type, balance, phone, city, stret, contactPerson) values (?,?,?,?,?,?,?,?)";
+            Connection conn = DbConnect.getConnection();
+            ArrayList<Orders> output = new ArrayList<>();
+            Statement stat = conn.createStatement();
+            ResultSet res = stat.executeQuery("Select * from orders where orderDate = " + orderDate);
+            while (res.next()) {
+                Orders pub = new Orders(res.getString("orderId"), Date.valueOf(res.getDate("deadline")), Float.valueOf(res.getfloat("price")), Date.valueOf(res.getDate("orderDate")), Integer.valueOf(res.getInt("noOfCopies")), Float.valueOf(res.getfloat("shippingCost")), res.getString("publicationId"), res.getString("distributorId"));
+                output.add(pub);
+            }
+            conn.close();
+            return output;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Boolean addOrders(String orderId, Date deadline, Float price, Date orderDate, Integer noOfCopies, Float shippingCost, String publicationId, String distributorId) {
+        try {
+            Connection conn = DbConnect.getConnection();
+            String query = "insert into orders(orderId, deadline, price, orderDate, noOfCopies, shippingCost, publicationId, distributorId) values (?,?,?,?,?,?,?,?)";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, orderId);
             stat.setDate(2, deadline);
-            stat.setString(3, price);
+            stat.setFloat(3, price);
             stat.setDate(4, orderDate);
-            stat.setString(5, noOfCopies);
-            stat.setString(6, shippingCost);
+            stat.setInt(5, noOfCopies);
+            stat.setFloat(6, shippingCost);
             stat.setString(7, publicationId);
             stat.setString(8, distributorId);
             stat.executeUpdate();
-            conn.close()
+            conn.close();
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
+            conn.close();
             return false;
         }
     }
 
-    public static Boolean updateOrders(String publicationId, Date issueDate String type) {
-         try {
+    public static Boolean updateOrder(String orderId, Date deadline, Float price, Date orderDate, Integer noOfCopies, Float shippingCost, String publicationId, String distributorId) {
+        try {
             Connection conn = DBConnect.getConnection();
-            String query = "Update issue set deadline = ?, price = ?, orderDate = ?, noOfCopies = ?, shippingCost = ?, publicationId = ?, distributorId = ?,  where orderId =?";
+            String query = "Update orders set deadline = ?, price = ?, orderDate = ?, noOfCopies = ?, shippingCost = ?, publicationId = ?, distributorId = ? where orderId =?";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setDate(1, deadline);
-            stat.setString(2, price);
+            stat.setFloat(2, price);
             stat.setDate(3, orderDate);
-            stat.setString(4, noOfCopies);
-            stat.setString(5, shippingCost);
+            stat.setInt(4, noOfCopies);
+            stat.setFloat(5, shippingCost);
             stat.setString(6, publicationId);
             stat.setString(7, distributorId);
             stat.setString(8, orderId);
             stat.executeUpdate();
-            ResultSet res = stat.executeQuery("Select count(*) as total from issue where publicationId=" + publicationId);
+            ResultSet res = stat.executeQuery("Select count(*) as orders from issue where orderId="+orderId);
             int count = 0;
             while (res.next()) {
                 count = res.getInt("total");
@@ -102,6 +103,7 @@ public class Orders {
         }
 
     public static Boolean deleteOrders(String orderId) {
+
         try {
             Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
@@ -112,4 +114,8 @@ public class Orders {
             ex.printStackTrace();
             return false;
         }
+    }
+
+
+
 }

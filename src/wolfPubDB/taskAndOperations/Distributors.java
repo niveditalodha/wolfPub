@@ -219,7 +219,7 @@ public class Distributors{
             stat.setString(7, contactPerson);
             stat.setString(8, distributorId);
             stat.executeUpdate();
-            ResultSet res = stat.executeQuery("Select count(*) as total from ditributors where distributorId="+distributorId);
+            ResultSet res = stat.executeQuery("Select count(*) as total from distributors where distributorId="+distributorId);
             int count = 0;
             while (res.next()) {
                 count = res.getInt("total");
