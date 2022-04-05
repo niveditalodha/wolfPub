@@ -183,7 +183,6 @@ public class Distributors{
         }
     }
 
-
     public static Boolean addDistributor(String distributorId, String name, String type, Float balance, String phone, String city, String street, String contactPerson) throws SQLException{
         try {
             Connection conn = DBConnect.getConnection();
@@ -205,7 +204,6 @@ public class Distributors{
             return false;
         }
     }   
-
 
     public static Boolean updateDistributors(String distributorId, String name, String type, Float balance, String phone, String city, String street, String contactPerson) throws SQLException{
         try {
@@ -238,7 +236,6 @@ public class Distributors{
             return Boolean.valueOf(false);
         }
     }
-
 
     public static Boolean deleteDistributors(String distributorId) {
         try {

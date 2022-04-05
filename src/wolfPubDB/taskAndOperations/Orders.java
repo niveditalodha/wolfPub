@@ -47,6 +47,7 @@ public class Orders {
             return null;
         }
     }
+
     public static Boolean addOrders(String orderId, String name, String type, Float balance, String phone, String city, String street, String contactPerson) throws SQLException{
         try {
             Connection conn = DBConnect.getConnection();
@@ -69,36 +70,37 @@ public class Orders {
         }
     }
 
-public static Boolean updateOrders(String publicationId, Date issueDate String type) {
-    try {
-        Connection conn = DBConnect.getConnection();
-        String query = "Update issue set deadline = ?, price = ?, orderDate = ?, noOfCopies = ?, shippingCost = ?, publicationId = ?, distributorId = ?,  where orderId =?";
-        PreparedStatement stat = conn.prepareStatement(query);
-        stat.setDate(1, deadline);
-        stat.setString(2, price);
-        stat.setDate(3, orderDate);
-        stat.setString(4, noOfCopies);
-        stat.setString(5, shippingCost);
-        stat.setString(6, publicationId);
-        stat.setString(7, distributorId);
-        stat.setString(8, orderId);
-        stat.executeUpdate();
-        ResultSet res = stat.executeQuery("Select count(*) as total from issue where publicationId=" + publicationId);
-        int count = 0;
-        while (res.next()) {
-            count = res.getInt("total");
-        }
-        conn.commit();
-        if (count!=0){
+    public static Boolean updateOrders(String publicationId, Date issueDate String type) {
+         try {
+            Connection conn = DBConnect.getConnection();
+            String query = "Update issue set deadline = ?, price = ?, orderDate = ?, noOfCopies = ?, shippingCost = ?, publicationId = ?, distributorId = ?,  where orderId =?";
+            PreparedStatement stat = conn.prepareStatement(query);
+            stat.setDate(1, deadline);
+            stat.setString(2, price);
+            stat.setDate(3, orderDate);
+            stat.setString(4, noOfCopies);
+            stat.setString(5, shippingCost);
+            stat.setString(6, publicationId);
+            stat.setString(7, distributorId);
+            stat.setString(8, orderId);
+            stat.executeUpdate();
+            ResultSet res = stat.executeQuery("Select count(*) as total from issue where publicationId=" + publicationId);
+            int count = 0;
+            while (res.next()) {
+                count = res.getInt("total");
+            }
+            conn.commit();
+            if (count!=0){
+                conn.close()
+                return  true;
+            }
             conn.close()
-            return  true;
+            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Boolean.valueOf(false);
         }
-        conn.close()
-        return false;
-    } catch (SQLException e) {
-        e.printStackTrace();
-        return Boolean.valueOf(false);
-    }
+
     public static Boolean deleteOrders(String orderId) {
         try {
             Connection conn = DBConnect.getConnection();
