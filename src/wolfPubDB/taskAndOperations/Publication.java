@@ -61,10 +61,6 @@ public class Publication {
             stat.setString(3, periodicity);
             stat.setString(4, topics);
             stat.executeUpdate();
-            ResultSet res = stat.executeQuery("select publicationId from publication");
-            int p_id = 0;
-            while (res.next())
-                publicationId = res.getInt("publicationId");
             conn.commit();
             conn.close();
             return true;
@@ -168,7 +164,7 @@ public class Publication {
             stat.setString(1, title);
             stat.setString(2, periodicity);
             stat.setString(3, topics);
-            stat.setInt(4,publicationId);
+            stat.setString(4, publicationId);
             stat.executeUpdate();
 
             ResultSet res = stat.executeQuery("select count(*) as total from publication where publicationId="+publicationId);
