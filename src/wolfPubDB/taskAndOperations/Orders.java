@@ -48,8 +48,7 @@ public class Orders{
         }
     }
 
-
-    public static Boolean addOrder(String orderId, Date deadline, Float price, Date orderDate, Integer noOfCopies, Float shippingCost, String publicationId, String distributorId) {
+    public static Boolean addOrders(String orderId, Date deadline, Float price, Date orderDate, Integer noOfCopies, Float shippingCost, String publicationId, String distributorId) {
         try {
             Connection conn = DbConnect.getConnection();
             String query = "insert into orders(orderId, deadline, price, orderDate, noOfCopies, shippingCost, publicationId, distributorId) values (?,?,?,?,?,?,?,?)";
@@ -71,7 +70,6 @@ public class Orders{
             return false;
         }
     }
-
 
     public static Boolean updateOrder(String orderId, Date deadline, Float price, Date orderDate, Integer noOfCopies, Float shippingCost, String publicationId, String distributorId) {
         try {
@@ -103,10 +101,9 @@ public class Orders{
             e.printStackTrace();
             return Boolean.valueOf(false);
         }
-    }
 
+    public static Boolean deleteOrders(String orderId) {
 
-    public static Boolean deleteOrder(String orderId) {
         try {
             Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();

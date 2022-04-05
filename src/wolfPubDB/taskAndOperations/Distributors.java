@@ -31,6 +31,158 @@ public class Distributors{
         }
     }
 
+    public static ArrayList<Distributors> selectDistributorsByDistributorId(string distributorId) throws SQLException{
+        try{
+            Connection conn = DBConnect.getConnection();
+            Statement stat = conn.createStatement();
+            ArrayList<Distributors> output = new ArrayList<>();
+            ResultSet res = stat.executeQuery("Select * from distributors where distributorId="+distributorId);
+            while (res.next()){
+                Distributors d = new Distributors(res.getString("distributorId"), res.getString("name"), res.getString("type"), res.getFloat("balance"), res.getString("phone"), res.getString("city"), res.getString("street"), res.getString("contactPerson"));
+                output.add(d);
+            }
+            conn.close();
+            return output;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public static ArrayList<Distributors> selectDistributorsByName(string name) throws SQLException{
+        try{
+            Connection conn = DBConnect.getConnection();
+            Statement stat = conn.createStatement();
+            ArrayList<Distributors> output = new ArrayList<>();
+            ResultSet res = stat.executeQuery("Select * from distributors where name="+name);
+            while (res.next()){
+                Distributors d = new Distributors(res.getString("distributorId"), res.getString("name"), res.getString("type"), res.getFloat("balance"), res.getString("phone"), res.getString("city"), res.getString("street"), res.getString("contactPerson"));
+                output.add(d);
+            }
+            conn.close();
+            return output;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static ArrayList<Distributors> selectDistributorsByType(string type) throws SQLException{
+        try{
+            Connection conn = DBConnect.getConnection();
+            Statement stat = conn.createStatement();
+            ArrayList<Distributors> output = new ArrayList<>();
+            ResultSet res = stat.executeQuery("Select * from distributors where type="+type);
+            while (res.next()){
+                Distributors d = new Distributors(res.getString("distributorId"), res.getString("name"), res.getString("type"), res.getFloat("balance"), res.getString("phone"), res.getString("city"), res.getString("street"), res.getString("contactPerson"));
+                output.add(d);
+            }
+            conn.close();
+            return output;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public static ArrayList<Distributors> selectDistributorsByBalance(float balance) throws SQLException{
+        try{
+            Connection conn = DBConnect.getConnection();
+            Statement stat = conn.createStatement();
+            ArrayList<Distributors> output = new ArrayList<>();
+            ResultSet res = stat.executeQuery("Select * from distributors where balance="+balance);
+            while (res.next()){
+                Distributors d = new Distributors(res.getString("distributorId"), res.getString("name"), res.getString("type"), res.getFloat("balance"), res.getString("phone"), res.getString("city"), res.getString("street"), res.getString("contactPerson"));
+                output.add(d);
+            }
+            conn.close();
+            return output;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static ArrayList<Distributors> selectDistributorsByPhone(string phone) throws SQLException{
+        try{
+            Connection conn = DBConnect.getConnection();
+            Statement stat = conn.createStatement();
+            ArrayList<Distributors> output = new ArrayList<>();
+            ResultSet res = stat.executeQuery("Select * from distributors where phone="+phone);
+            while (res.next()){
+                Distributors d = new Distributors(res.getString("distributorId"), res.getString("name"), res.getString("type"), res.getFloat("balance"), res.getString("phone"), res.getString("city"), res.getString("street"), res.getString("contactPerson"));
+                output.add(d);
+            }
+            conn.close();
+            return output;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static ArrayList<Distributors> selectDistributorsByCity(string city) throws SQLException{
+        try{
+            Connection conn = DBConnect.getConnection();
+            Statement stat = conn.createStatement();
+            ArrayList<Distributors> output = new ArrayList<>();
+            ResultSet res = stat.executeQuery("Select * from distributors where city="+city);
+            while (res.next()){
+                Distributors d = new Distributors(res.getString("distributorId"), res.getString("name"), res.getString("type"), res.getFloat("balance"), res.getString("phone"), res.getString("city"), res.getString("street"), res.getString("contactPerson"));
+                output.add(d);
+            }
+            conn.close();
+            return output;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static ArrayList<Distributors> selectDistributorsByStreet(string street) throws SQLException{
+        try{
+            Connection conn = DBConnect.getConnection();
+            Statement stat = conn.createStatement();
+            ArrayList<Distributors> output = new ArrayList<>();
+            ResultSet res = stat.executeQuery("Select * from distributors where street="+street);
+            while (res.next()){
+                Distributors d = new Distributors(res.getString("distributorId"), res.getString("name"), res.getString("type"), res.getFloat("balance"), res.getString("phone"), res.getString("city"), res.getString("street"), res.getString("contactPerson"));
+                output.add(d);
+            }
+            conn.close();
+            return output;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public static ArrayList<Distributors> selectDistributorsByContactPerson(string contactPerson) throws SQLException{
+        try{
+            Connection conn = DBConnect.getConnection();
+            Statement stat = conn.createStatement();
+            ArrayList<Distributors> output = new ArrayList<>();
+            ResultSet res = stat.executeQuery("Select * from distributors where contactPerson="+contactPerson);
+            while (res.next()){
+                Distributors d = new Distributors(res.getString("distributorId"), res.getString("name"), res.getString("type"), res.getFloat("balance"), res.getString("phone"), res.getString("city"), res.getString("street"), res.getString("contactPerson"));
+                output.add(d);
+            }
+            conn.close();
+            return output;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static Boolean addDistributor(String distributorId, String name, String type, Float balance, String phone, String city, String street, String contactPerson) throws SQLException{
         try {
             Connection conn = DBConnect.getConnection();
@@ -52,7 +204,6 @@ public class Distributors{
             return false;
         }
     }   
-
 
     public static Boolean updateDistributors(String distributorId, String name, String type, Float balance, String phone, String city, String street, String contactPerson) throws SQLException{
         try {
@@ -85,7 +236,6 @@ public class Distributors{
             return Boolean.valueOf(false);
         }
     }
-
 
     public static Boolean deleteDistributors(String distributorId) {
         try {
