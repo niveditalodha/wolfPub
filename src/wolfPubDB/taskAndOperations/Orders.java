@@ -72,11 +72,16 @@ public class Orders {
 public static Boolean updateOrders(String publicationId, Date issueDate String type) {
     try {
         Connection conn = DBConnect.getConnection();
-        String query = "Update issue set deadline = ?, noOfCopies = ? where orderId =?";
+        String query = "Update issue set deadline = ?, price = ?, orderDate = ?, noOfCopies = ?, shippingCost = ?, publicationId = ?, distributorId = ?,  where orderId =?";
         PreparedStatement stat = conn.prepareStatement(query);
         stat.setDate(1, deadline);
-        stat.setString(2, noOfCopies);
-        stat.setString(3, orderId);
+        stat.setString(2, price);
+        stat.setDate(3, orderDate);
+        stat.setString(4, noOfCopies);
+        stat.setString(5, shippingCost);
+        stat.setString(6, publicationId);
+        stat.setString(7, distributorId);
+        stat.setString(8, orderId);
         stat.executeUpdate();
         ResultSet res = stat.executeQuery("Select count(*) as total from issue where publicationId=" + publicationId);
         int count = 0;
