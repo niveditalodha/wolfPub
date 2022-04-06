@@ -235,6 +235,32 @@ public class Distributors{
             e.printStackTrace();
             return Boolean.valueOf(false);
         }
+    }    
+    
+    public static Boolean updateDistributorBalance(String distributorId, Float balance) throws SQLException{
+        try {
+            Connection conn = DBConnect.getConnection();
+            String query = "update distributors set balance = ? where distributorId = ?;";
+            PreparedStatement stat = conn.prepareStatement(query);
+            stat.setFloat(1, balance);
+            stat.setString(2, distributorId);
+            stat.executeUpdate();
+            ResultSet res = stat.executeQuery("Select count(*) as total from distributors where distributorId="+distributorId);
+            int count = 0;
+            while (res.next()) {
+                count = res.getInt("total");
+            }
+            conn.commit();
+            if (count!=0){
+                conn.close()
+                return  true;
+            }
+            conn.close()
+            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Boolean.valueOf(false);
+        }
     }
 
     public static Boolean deleteDistributors(String distributorId) {
