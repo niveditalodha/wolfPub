@@ -235,6 +235,189 @@ public class Distributors{
             e.printStackTrace();
             return Boolean.valueOf(false);
         }
+    }    
+
+    public static Boolean updateDistributorName(String distributorId, String name) throws SQLException{
+        try {
+            Connection conn = DBConnect.getConnection();
+            String query = "Update distributors set name = ? where distributorId = ?";
+            PreparedStatement stat = conn.prepareStatement(query);
+            stat.setString(1, name);
+            stat.setString(2, distributorId);
+            stat.executeUpdate();
+            ResultSet res = stat.executeQuery("Select count(*) as total from distributors where distributorId="+distributorId);
+            int count = 0;
+            while (res.next()) {
+                count = res.getInt("total");
+            }
+            conn.commit();
+            if (count!=0){
+                conn.close()
+                return  true;
+            }
+            conn.close()
+            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Boolean.valueOf(false);
+        }
+    }    
+
+    public static Boolean updateDistributorType(String distributorId, String type) throws SQLException{
+        try {
+            Connection conn = DBConnect.getConnection();
+            String query = "Update distributors set type = ? where distributorId = ?";
+            PreparedStatement stat = conn.prepareStatement(query);
+            stat.setString(1, type);
+            stat.setString(2, distributorId);
+            stat.executeUpdate();
+            ResultSet res = stat.executeQuery("Select count(*) as total from distributors where distributorId="+distributorId);
+            int count = 0;
+            while (res.next()) {
+                count = res.getInt("total");
+            }
+            conn.commit();
+            if (count!=0){
+                conn.close()
+                return  true;
+            }
+            conn.close()
+            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Boolean.valueOf(false);
+        }
+    }    
+
+    public static Boolean updateDistributorPhone(String distributorId, String phone) throws SQLException{
+        try {
+            Connection conn = DBConnect.getConnection();
+            String query = "Update distributors set phone = ? where distributorId = ?";
+            PreparedStatement stat = conn.prepareStatement(query);
+            stat.setString(1, phone);
+            stat.setString(2, distributorId);
+            stat.executeUpdate();
+            ResultSet res = stat.executeQuery("Select count(*) as total from distributors where distributorId="+distributorId);
+            int count = 0;
+            while (res.next()) {
+                count = res.getInt("total");
+            }
+            conn.commit();
+            if (count!=0){
+                conn.close()
+                return  true;
+            }
+            conn.close()
+            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Boolean.valueOf(false);
+        }
+    }    
+
+    public static Boolean updateDistributorCity(String distributorId, String city) throws SQLException{
+        try {
+            Connection conn = DBConnect.getConnection();
+            String query = "Update distributors set city = ? where distributorId = ?";
+            PreparedStatement stat = conn.prepareStatement(query);
+            stat.setString(1, city);
+            stat.setString(2, distributorId);
+            stat.executeUpdate();
+            ResultSet res = stat.executeQuery("Select count(*) as total from distributors where distributorId="+distributorId);
+            int count = 0;
+            while (res.next()) {
+                count = res.getInt("total");
+            }
+            conn.commit();
+            if (count!=0){
+                conn.close()
+                return  true;
+            }
+            conn.close()
+            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Boolean.valueOf(false);
+        }
+    }    
+
+    public static Boolean updateDistributorStreet(String distributorId, String street) throws SQLException{
+        try {
+            Connection conn = DBConnect.getConnection();
+            String query = "Update distributors set street = ? where distributorId = ?";
+            PreparedStatement stat = conn.prepareStatement(query);
+            stat.setString(1, street);
+            stat.setString(2, distributorId);
+            stat.executeUpdate();
+            ResultSet res = stat.executeQuery("Select count(*) as total from distributors where distributorId="+distributorId);
+            int count = 0;
+            while (res.next()) {
+                count = res.getInt("total");
+            }
+            conn.commit();
+            if (count!=0){
+                conn.close()
+                return  true;
+            }
+            conn.close()
+            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Boolean.valueOf(false);
+        }
+    }    
+
+    public static Boolean updateDistributorContactPerson(String distributorId, String contactPerson) throws SQLException{
+        try {
+            Connection conn = DBConnect.getConnection();
+            String query = "Update distributors set contactPerson = ? where distributorId = ?";
+            PreparedStatement stat = conn.prepareStatement(query);
+            stat.setString(1, contactPerson);
+            stat.setString(2, distributorId);
+            stat.executeUpdate();
+            ResultSet res = stat.executeQuery("Select count(*) as total from distributors where distributorId="+distributorId);
+            int count = 0;
+            while (res.next()) {
+                count = res.getInt("total");
+            }
+            conn.commit();
+            if (count!=0){
+                conn.close()
+                return  true;
+            }
+            conn.close()
+            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Boolean.valueOf(false);
+        }
+    }    
+
+
+    public static Boolean updateDistributorBalance(String distributorId, Float balance) throws SQLException{
+        try {6
+-            Connection conn = DBConnect.getConnection();
+            String query = "update distributors set balance = ? where distributorId = ?;";
+            PreparedStatement stat = conn.prepareStatement(query);
+            stat.setFloat(1, balance);
+            stat.setString(2, distributorId);
+            stat.executeUpdate();
+            ResultSet res = stat.executeQuery("Select count(*) as total from distributors where distributorId="+distributorId);
+            int count = 0;
+            while (res.next()) {
+                count = res.getInt("total");
+            }
+            conn.commit();
+            if (count!=0){
+                conn.close()
+                return  true;
+            }
+            conn.close()
+            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Boolean.valueOf(false);
+        }
     }
 
     public static Boolean deleteDistributors(String distributorId) {
