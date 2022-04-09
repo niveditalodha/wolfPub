@@ -14,29 +14,29 @@ public class MainMenu{
         Scanner sc = new Scanner(System.in);
 
         while (true) {
-            System.out.println("Welcome to the WOLFPUB Database");
-            System.out.println("Menu: Please select your option");
-            System.out.println("1. ADMIN");
-            System.out.println("2. STAFF");
-            System.out.println("3. SALES");
-            System.out.println("4. EXIT");
-            int choice = sc.nextInt();
+            System.out.println("Welcome to Sales!!");
+            System.out.println("Please select from the following!!");
+            System.out.println("1. View Distributor Information");
+            System.out.println("2. View Order Details");
+            System.out.println("3. Reports");
+            System.out.println("4. Back to Main Menu");
+            int option = sc.nextInt();
             try {
-                switch (choice) {
+                switch (option) {
                     case 1:
-                        AdminMenu.adminMenu();
+                        DistributorMenu.distributorMenu();
                         break;
                     case 2:
-                        StaffMenu.staffMenu();
+                        OrderMenu.orderMenu();
                         break;
                     case 3:
-                        SalesMenu.salesMenu();
+                        ReportMenu.reportMenu();
                         break;
                     case 4:
                         System.exit(0);
                         break;
                 }
-                System.out.println("Please enter a valid choice");
+                System.out.println("Please enter a valid option");
             } catch (IOException | SQLException e) {
                 e.printStackTrace();
             }
