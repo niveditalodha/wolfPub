@@ -80,12 +80,12 @@ public class chapters{
         catch (SQLException ex) {
             conn.rollback();
             System.out.println("Transaction Failed");
-            conn.close()
+            conn.close();
             return false;
         } finally {
             if(conn != null){
                 conn.setAutoCommit(true);
-                conn.close()
+                conn.close();
             }
         }
     }
@@ -111,7 +111,7 @@ public class chapters{
                 conn.close();
                 return  true;
             }
-            conn.close()
+            conn.close();
             return false;
         }
         catch (SQLException e) {

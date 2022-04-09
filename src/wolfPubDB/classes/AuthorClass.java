@@ -1,9 +1,9 @@
 package wolfPubDB.classes;
 
-public class Author{
+public class AuthorClass{
     public String staffId;
 
-    public Author(String staffId){
+    public AuthorClass(String staffId){
         this.staffId = staffId;
     }
 

@@ -1,12 +1,12 @@
 package wolfPubDB.classes;
 
-public class Book{
+public class BookClass{
     public String publicationId;
     public String isbn;
     public Date publicationDate;
     public String edition;
 
-    public Book(String publicationId, String isbn, Date publicationDate, String edition){
+    public BookClass(String publicationId, String isbn, Date publicationDate, String edition){
         this.publicationId = publicationId;
         this.isbn = isbn;
         this.publicationDate = publicationDate;

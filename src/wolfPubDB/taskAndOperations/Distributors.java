@@ -13,8 +13,8 @@ import wolfPubDB.classes.Distributors;
 public class Distributors{
 
     public static ArrayList<Distributors> selectDistributors() throws SQLException{
+        Connection conn = DBConnect.getConnection();
         try{
-            Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             ArrayList<Distributors> output = new ArrayList<>();
             ResultSet res = stat.executeQuery("Select * from distributors");
@@ -22,18 +22,21 @@ public class Distributors{
                 Distributors d = new Distributors(res.getString("distributorId"), res.getString("name"), res.getString("type"), res.getFloat("balance"), res.getString("phone"), res.getString("city"), res.getString("street"), res.getString("contactPerson"));
                 output.add(d);
             }
-            conn.close();
             return output;
         }
         catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
+        finally{
+            conn.close();
+        }
     }
 
-    public static ArrayList<Distributors> selectDistributorsByDistributorId(string distributorId) throws SQLException{
+    public static ArrayList<Distributors> selectDistributorsByDistributorId(String distributorId) throws SQLException{
+        
+        Connection conn = DBConnect.getConnection();
         try{
-            Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             ArrayList<Distributors> output = new ArrayList<>();
             ResultSet res = stat.executeQuery("Select * from distributors where distributorId="+distributorId);
@@ -41,18 +44,21 @@ public class Distributors{
                 Distributors d = new Distributors(res.getString("distributorId"), res.getString("name"), res.getString("type"), res.getFloat("balance"), res.getString("phone"), res.getString("city"), res.getString("street"), res.getString("contactPerson"));
                 output.add(d);
             }
-            conn.close();
             return output;
         }
         catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
+        finally{
+            conn.close();
+        }
     }
     
-    public static ArrayList<Distributors> selectDistributorsByName(string name) throws SQLException{
+    public static ArrayList<Distributors> selectDistributorsByName(String name) throws SQLException{
+        
+        Connection conn = DBConnect.getConnection();
         try{
-            Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             ArrayList<Distributors> output = new ArrayList<>();
             ResultSet res = stat.executeQuery("Select * from distributors where name="+name);
@@ -60,18 +66,21 @@ public class Distributors{
                 Distributors d = new Distributors(res.getString("distributorId"), res.getString("name"), res.getString("type"), res.getFloat("balance"), res.getString("phone"), res.getString("city"), res.getString("street"), res.getString("contactPerson"));
                 output.add(d);
             }
-            conn.close();
             return output;
         }
         catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
+        finally{
+            conn.close();
+        }
     }
 
-    public static ArrayList<Distributors> selectDistributorsByType(string type) throws SQLException{
+    public static ArrayList<Distributors> selectDistributorsByType(String type) throws SQLException{
+        
+        Connection conn = DBConnect.getConnection();
         try{
-            Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             ArrayList<Distributors> output = new ArrayList<>();
             ResultSet res = stat.executeQuery("Select * from distributors where type="+type);
@@ -79,18 +88,21 @@ public class Distributors{
                 Distributors d = new Distributors(res.getString("distributorId"), res.getString("name"), res.getString("type"), res.getFloat("balance"), res.getString("phone"), res.getString("city"), res.getString("street"), res.getString("contactPerson"));
                 output.add(d);
             }
-            conn.close();
             return output;
         }
         catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
+        finally{
+            conn.close();
+        }
     }
     
-    public static ArrayList<Distributors> selectDistributorsByBalance(float balance) throws SQLException{
+    public static ArrayList<Distributors> selectDistributorsByBalance(Float balance) throws SQLException{
+        
+        Connection conn = DBConnect.getConnection();
         try{
-            Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             ArrayList<Distributors> output = new ArrayList<>();
             ResultSet res = stat.executeQuery("Select * from distributors where balance="+balance);
@@ -98,18 +110,21 @@ public class Distributors{
                 Distributors d = new Distributors(res.getString("distributorId"), res.getString("name"), res.getString("type"), res.getFloat("balance"), res.getString("phone"), res.getString("city"), res.getString("street"), res.getString("contactPerson"));
                 output.add(d);
             }
-            conn.close();
             return output;
         }
         catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
+        finally{
+            Connection conn = DBConnect.getConnection();
+        }
     }
 
-    public static ArrayList<Distributors> selectDistributorsByPhone(string phone) throws SQLException{
+    public static ArrayList<Distributors> selectDistributorsByPhone(String phone) throws SQLException{
+        
+        Connection conn = DBConnect.getConnection();
         try{
-            Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             ArrayList<Distributors> output = new ArrayList<>();
             ResultSet res = stat.executeQuery("Select * from distributors where phone="+phone);
@@ -117,18 +132,21 @@ public class Distributors{
                 Distributors d = new Distributors(res.getString("distributorId"), res.getString("name"), res.getString("type"), res.getFloat("balance"), res.getString("phone"), res.getString("city"), res.getString("street"), res.getString("contactPerson"));
                 output.add(d);
             }
-            conn.close();
             return output;
         }
         catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
+        finally{
+            conn.close();
+        }
     }
 
-    public static ArrayList<Distributors> selectDistributorsByCity(string city) throws SQLException{
+    public static ArrayList<Distributors> selectDistributorsByCity(String city) throws SQLException{
+        
+        Connection conn = DBConnect.getConnection();
         try{
-            Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             ArrayList<Distributors> output = new ArrayList<>();
             ResultSet res = stat.executeQuery("Select * from distributors where city="+city);
@@ -136,18 +154,21 @@ public class Distributors{
                 Distributors d = new Distributors(res.getString("distributorId"), res.getString("name"), res.getString("type"), res.getFloat("balance"), res.getString("phone"), res.getString("city"), res.getString("street"), res.getString("contactPerson"));
                 output.add(d);
             }
-            conn.close();
             return output;
         }
         catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
+        finally{
+            conn.close();
+        }
     }
 
-    public static ArrayList<Distributors> selectDistributorsByStreet(string street) throws SQLException{
+    public static ArrayList<Distributors> selectDistributorsByStreet(String street) throws SQLException{
+        
+        Connection conn = DBConnect.getConnection();
         try{
-            Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             ArrayList<Distributors> output = new ArrayList<>();
             ResultSet res = stat.executeQuery("Select * from distributors where street="+street);
@@ -155,18 +176,21 @@ public class Distributors{
                 Distributors d = new Distributors(res.getString("distributorId"), res.getString("name"), res.getString("type"), res.getFloat("balance"), res.getString("phone"), res.getString("city"), res.getString("street"), res.getString("contactPerson"));
                 output.add(d);
             }
-            conn.close();
             return output;
         }
         catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
+        finally{
+            conn.close();
+        }
     }
     
-    public static ArrayList<Distributors> selectDistributorsByContactPerson(string contactPerson) throws SQLException{
+    public static ArrayList<Distributors> selectDistributorsByContactPerson(String contactPerson) throws SQLException{
+        
+        Connection conn = DBConnect.getConnection();
         try{
-            Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             ArrayList<Distributors> output = new ArrayList<>();
             ResultSet res = stat.executeQuery("Select * from distributors where contactPerson="+contactPerson);
@@ -174,18 +198,21 @@ public class Distributors{
                 Distributors d = new Distributors(res.getString("distributorId"), res.getString("name"), res.getString("type"), res.getFloat("balance"), res.getString("phone"), res.getString("city"), res.getString("street"), res.getString("contactPerson"));
                 output.add(d);
             }
-            conn.close();
             return output;
         }
         catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
+        finally{
+            conn.close();
+        }
     }
 
     public static Boolean addDistributor(String distributorId, String name, String type, Float balance, String phone, String city, String street, String contactPerson) throws SQLException{
+        
+        Connection conn = DBConnect.getConnection();
         try {
-            Connection conn = DBConnect.getConnection();
             String query = "insert into distributors(distributorId, name, type, balance, phone, city, stret, contactPerson) values (?,?,?,?,?,?,?,?)";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, distributorId);
@@ -197,17 +224,21 @@ public class Distributors{
             stat.setString(7, street);
             stat.setString(8, contactPerson);
             stat.executeUpdate();
-            conn.close()
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
             return false;
         }
+        finally{
+            
+            conn.close();
+        }
     }   
 
     public static Boolean updateDistributors(String distributorId, String name, String type, Float balance, String phone, String city, String street, String contactPerson) throws SQLException{
+        
+        Connection conn = DBConnect.getConnection();
         try {
-            Connection conn = DBConnect.getConnection();
             String query = "Update distributors set name = ?, type = ?, balance = ?, phone = ?, city = ?, street = ?, contactPerson = ? where distributorId = ?";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, name);
@@ -226,20 +257,22 @@ public class Distributors{
             }
             conn.commit();
             if (count!=0){
-                conn.close()
                 return  true;
             }
-            conn.close()
             return false;
         } catch (SQLException e) {
             e.printStackTrace();
             return Boolean.valueOf(false);
         }
+        finally{
+            conn.close();
+        }
     }    
 
     public static Boolean updateDistributorName(String distributorId, String name) throws SQLException{
+        
+        Connection conn = DBConnect.getConnection();
         try {
-            Connection conn = DBConnect.getConnection();
             String query = "Update distributors set name = ? where distributorId = ?";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, name);
@@ -252,20 +285,24 @@ public class Distributors{
             }
             conn.commit();
             if (count!=0){
-                conn.close()
+                conn.close();
                 return  true;
             }
-            conn.close()
             return false;
         } catch (SQLException e) {
             e.printStackTrace();
             return Boolean.valueOf(false);
         }
+        finally{
+            
+            conn.close();
+        }
     }    
 
     public static Boolean updateDistributorType(String distributorId, String type) throws SQLException{
-        try {
+        
             Connection conn = DBConnect.getConnection();
+        try {
             String query = "Update distributors set type = ? where distributorId = ?";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, type);
@@ -278,20 +315,23 @@ public class Distributors{
             }
             conn.commit();
             if (count!=0){
-                conn.close()
                 return  true;
             }
-            conn.close()
             return false;
         } catch (SQLException e) {
             e.printStackTrace();
             return Boolean.valueOf(false);
         }
+        finally{
+            
+            conn.close();
+        }
     }    
 
     public static Boolean updateDistributorPhone(String distributorId, String phone) throws SQLException{
-        try {
+        
             Connection conn = DBConnect.getConnection();
+        try {
             String query = "Update distributors set phone = ? where distributorId = ?";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, phone);
@@ -304,20 +344,23 @@ public class Distributors{
             }
             conn.commit();
             if (count!=0){
-                conn.close()
                 return  true;
             }
-            conn.close()
             return false;
         } catch (SQLException e) {
             e.printStackTrace();
             return Boolean.valueOf(false);
         }
+        finally{
+            
+            conn.close();
+        }
     }    
 
     public static Boolean updateDistributorCity(String distributorId, String city) throws SQLException{
-        try {
+        
             Connection conn = DBConnect.getConnection();
+        try {
             String query = "Update distributors set city = ? where distributorId = ?";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, city);
@@ -330,20 +373,23 @@ public class Distributors{
             }
             conn.commit();
             if (count!=0){
-                conn.close()
                 return  true;
             }
-            conn.close()
             return false;
         } catch (SQLException e) {
             e.printStackTrace();
             return Boolean.valueOf(false);
         }
+        finally{
+            
+            conn.close();
+        }
     }    
 
     public static Boolean updateDistributorStreet(String distributorId, String street) throws SQLException{
-        try {
+        
             Connection conn = DBConnect.getConnection();
+        try {
             String query = "Update distributors set street = ? where distributorId = ?";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, street);
@@ -356,20 +402,23 @@ public class Distributors{
             }
             conn.commit();
             if (count!=0){
-                conn.close()
                 return  true;
             }
-            conn.close()
             return false;
         } catch (SQLException e) {
             e.printStackTrace();
             return Boolean.valueOf(false);
         }
+        finally{
+            
+            conn.close();
+        }
     }    
 
     public static Boolean updateDistributorContactPerson(String distributorId, String contactPerson) throws SQLException{
-        try {
+        
             Connection conn = DBConnect.getConnection();
+        try {
             String query = "Update distributors set contactPerson = ? where distributorId = ?";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, contactPerson);
@@ -382,21 +431,24 @@ public class Distributors{
             }
             conn.commit();
             if (count!=0){
-                conn.close()
                 return  true;
             }
-            conn.close()
             return false;
         } catch (SQLException e) {
             e.printStackTrace();
             return Boolean.valueOf(false);
         }
+        finally{
+            
+            conn.close();
+        }
     }    
 
 
     public static Boolean updateDistributorBalance(String distributorId, Float balance) throws SQLException{
-        try {6
--            Connection conn = DBConnect.getConnection();
+        
+-       Connection conn = DBConnect.getConnection();
+        try {
             String query = "update distributors set balance = ? where distributorId = ?;";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setFloat(1, balance);
@@ -409,27 +461,31 @@ public class Distributors{
             }
             conn.commit();
             if (count!=0){
-                conn.close()
                 return  true;
             }
-            conn.close()
             return false;
         } catch (SQLException e) {
             e.printStackTrace();
             return Boolean.valueOf(false);
         }
+        finally{
+            conn.close();
+        }
     }
 
     public static Boolean deleteDistributors(String distributorId) {
+        
+        Connection conn = DBConnect.getConnection();
         try {
-            Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             stat.executeUpdate("DELETE FROM distributors WHERE distributorId= " + distributorId);
-            conn.close()
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
             return false;
+        }
+        finally{
+            conn.close();
         }
     }
 

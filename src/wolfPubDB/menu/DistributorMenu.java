@@ -1,14 +1,15 @@
 package wolfPubDB.menu;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.*;
 
+import java.io.*;
 import wolfPubDB.taskAndOperations.*;
 
 
 public class DistributorMenu {
 
-    public static void distributorUI() throws NumberFormatException, IOException {
+    public static void distributorMenu() throws NumberFormatException, IOException {
         Float balance;
         String distributorId, name, type, phone,contactPerson,street,city;
         String[] args;
@@ -63,7 +64,7 @@ public class DistributorMenu {
                     street = args[6];
                     city = args[7];
 
-                    if (Distributors.updateDistributors(distributorId, name, type, balance, phone, contact_person, street, city).booleanValue()) {
+                    if (Distributors.updateDistributors(distributorId, name, type, balance, phone, contactPerson, street, city).booleanValue()) {
                         System.out.println("Records Updated!!");
                     } else {
                         System.out.println("Updation Failed!!");
@@ -72,8 +73,8 @@ public class DistributorMenu {
                 case 4:
 
                     System.out.println("Enter distributorId");
-                    String distributorId = sc.next();
-                    if(Distributors.deleteDistributor(distirbutorId)){
+                    String did = sc.nextLine();
+                    if(Distributors.deleteDistributor(did)){
                         System.out.println("Records Updated!!");
                     } else {
                         System.out.println("Updation Failed!!");

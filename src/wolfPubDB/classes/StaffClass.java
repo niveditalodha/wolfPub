@@ -1,11 +1,11 @@
 package wolfPubDB.classes;
 
-public class Staff{
+public class StaffClass{
     public String staffId;
     public String name;
     public String type;
 
-    public Staff(String staffId){
+    public StaffClass(String staffId){
         this.staffId = staffId;
         this.name = name;
         this.type = type;

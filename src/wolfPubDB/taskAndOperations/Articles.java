@@ -22,7 +22,7 @@ public class Articles{
                 Articles a = new Articles(res.getString("articleId"), res.getString("title"), Date.valueOf(res.getDate("creationDate")), res.getString("text"), res.getString("publicationId"));
                 output.add(a);
             }
-            conn.close()
+            conn.close();
             return output;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -40,7 +40,7 @@ public class Articles{
                 Articles a = new Articles(res.getString("articleId"), res.getString("title"), Date.valueOf(res.getDate("creationDate")), res.getString("text"), res.getString("publicationId"));
                 output.add(a);
             }
-            conn.close()
+            conn.close();
             return output;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -58,7 +58,7 @@ public class Articles{
                 Articles a = new Articles(res.getString("articleId"), res.getString("title"), Date.valueOf(res.getDate("creationDate")), res.getString("text"), res.getString("publicationId"));
                 output.add(a);
             }
-            conn.close()
+            conn.close();
             return output;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -76,7 +76,7 @@ public class Articles{
                 Articles a = new Articles(res.getString("articleId"), res.getString("title"), Date.valueOf(res.getDate("creationDate")), res.getString("text"), res.getString("publicationId"));
                 output.add(a);
             }
-            conn.close()
+            conn.close();
             return output;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -95,7 +95,7 @@ public class Articles{
             stat.setString(4, text);
             stat.setString(5, publicationId);
             stat.executeUpdate();
-            conn.close()
+            conn.close();
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -118,10 +118,10 @@ public class Articles{
             }
             conn.commit();
             if (count!=0){
-                conn.close()
+                conn.close();
                 return  true;
             }
-            conn.close()
+            conn.close();
             return false;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -144,10 +144,10 @@ public class Articles{
             }
             conn.commit();
             if (count!=0){
-                conn.close()
+                conn.close();
                 return  true;
             }
-            conn.close()
+            conn.close();
             return false;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -170,10 +170,10 @@ public class Articles{
             }
             conn.commit();
             if (count!=0){
-                conn.close()
+                conn.close();
                 return  true;
             }
-            conn.close()
+            conn.close();
             return false;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -196,10 +196,10 @@ public class Articles{
             }
             conn.commit();
             if (count!=0){
-                conn.close()
+                conn.close();
                 return  true;
             }
-            conn.close()
+            conn.close();
             return false;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -212,7 +212,7 @@ public class Articles{
             Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             stat.executeUpdate("DELETE FROM articles WHERE articleId= " + articleId);
-            conn.close()
+            conn.close();
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();

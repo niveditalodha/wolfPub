@@ -46,10 +46,10 @@ public class WritesArticle{
             }
             conn.commit();
             if (count!=0){
-                conn.close()
+                conn.close();
                 return  true;
             }
-            conn.close()
+            conn.close();
             return false;
         } catch (SQLException e) {
             e.printStackTrace();

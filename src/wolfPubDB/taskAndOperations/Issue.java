@@ -22,7 +22,7 @@ public class Issue {
                 Issue p = new Issue(res.getString("publicationId"), Date.valueOf(res.getDate("issueDate")), res.getString("type"));
                 output.add(p);
             }
-            conn.close()
+            conn.close();
             return output;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -40,7 +40,7 @@ public class Issue {
                 Issue p = new Issue(res.getString("publicationId"), Date.valueOf(res.getDate("issueDate")), res.getString("type"));
                 output.add(p);
             }
-            conn.close()
+            conn.close();
             return output;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -58,7 +58,7 @@ public class Issue {
             stat.setDate(2, issueDate);
             stat.setString(3, type);
             stat.executeUpdate();
-            conn.close()
+            conn.close();
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -82,10 +82,10 @@ public class Issue {
             }
             conn.commit();
             if (count!=0){
-                conn.close()
+                conn.close();
                 return  true;
             }
-            conn.close()
+            conn.close();
             return false;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -98,7 +98,7 @@ public class Issue {
             Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             stat.executeUpdate("DELETE FROM issue WHERE publicationId= " + publicationId);
-            conn.close()
+            conn.close();
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();

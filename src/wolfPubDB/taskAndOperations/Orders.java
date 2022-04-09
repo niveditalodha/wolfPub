@@ -200,10 +200,10 @@ public class Orders{
             }
             conn.commit();
             if (count!=0){
-                conn.close()
+                conn.close();
                 return  true;
             }
-            conn.close()
+            conn.close();
             return false;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -216,7 +216,7 @@ public class Orders{
             Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             stat.executeUpdate("DELETE FROM orders WHERE orderId= " + orderId);
-            conn.close()
+            conn.close();
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();

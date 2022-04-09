@@ -1,16 +1,15 @@
 package wolfPubDB.menu;
-
 import wolfPubDB.connect.DBConnect;
 import wolfPubDB.taskAndOperations.*;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Scanner;
+import java.util.*;
 import java.sql.*;
 
 public class MainMenu{
 
-    public static void main (Strings[] arg){
+    public static void main (String[] args){
         Scanner sc = new Scanner(System.in);
 
         while (true) {
@@ -27,7 +26,7 @@ public class MainMenu{
                         AdminMenu.adminMenu();
                         break;
                     case 2:
-                        StaffMenu.staffMenu();
+                        // StaffMenu.staffMenu();
                         break;
                     case 3:
                         SalesMenu.salesMenu();

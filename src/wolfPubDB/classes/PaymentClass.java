@@ -1,13 +1,13 @@
 package wolfPubDB.classes;
 
-public class Payment {
+public class PaymentClass {
 
     public String staffId;
     public Date paymentDate;
     public Integer amount;
     public Date paymentClaimedDate;
 
-    public Payment(String staffId, Date paymentDate, Integer periodicity, Date paymentClaimedDate) {
+    public PaymentClass(String staffId, Date paymentDate, Integer periodicity, Date paymentClaimedDate) {
         this.publicationId = publicationId;
         this.paymentDate = paymentDate;
         this.amount = amount;

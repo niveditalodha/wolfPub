@@ -1,8 +1,8 @@
 package wolfPubDB.menu;
 
 import wolfPubDB.taskAndOperations.*;
-
-import java.io.Scanner;
+import java.util.*;
+import java.io.*;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -10,7 +10,7 @@ public class AdminMenu {
 
     public static void adminMenu() throws NumberFormatException, IOException, SQLException {
         Scanner sc = new Scanner(System.in);
-        
+        String[] main_args = null;
         while (true) {
             System.out.println("Welcome to the ADMIN MENU !!");
             System.out.println("Please select your option:");
@@ -29,22 +29,22 @@ public class AdminMenu {
                     PublicationMenu.publicationMenu();
                     break;
                 case 2:
-                    StaffMenu.staffMenu();
+                    // StaffMenu.staffMenu();
                     break;
                 case 3:
-                    OrderMenu.orderMenu();
+                    // OrderMenu.orderMenu();
                     break;
                 case 4:
                     DistributorMenu.distributorMenu();
                     break;
                 case 5:
-                    PaymentMenu.paymentMenu();
+                    // PaymentMenu.paymentMenu();
                     break;
                 case 6:
-                    ReportMenu.reportMenu();
+                    // ReportMenu.reportMenu();
                     break;
                 case 7:
-                    MainMenu.main();
+                    MainMenu.main(main_args);
                 default:
                     System.out.println("Enter a valid choice");
             }

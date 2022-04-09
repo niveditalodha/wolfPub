@@ -3,7 +3,7 @@ package wolfPubDB.menu;
 import wolfPubDB.taskAndOperations.*;
 import wolfPubDB.classes.*;
 
-import java.io.Scanner;
+import java.util.*;
 import java.io.*;
 import java.sql.SQLException;
 import java.sql.SQLOutput;
@@ -41,5 +41,6 @@ public class PublicationMenu {
             
 
     }
+}
 }
 }

@@ -68,7 +68,7 @@ public class WritesBook {
                 conn.close();
                 return  true;
             }
-            conn.close()
+            conn.close();
             return false;
         }
         catch (SQLException e) {

@@ -1,6 +1,6 @@
 package wolfPubDB.classes;
 
-public class Distributors {
+public class DistributorsClass {
 
     public String distributorId;
     public String name;
@@ -11,7 +11,7 @@ public class Distributors {
     public String street;
     public String contactPerson;
 
-    public Distributors(String distributorId, String name, String type, Float balance, String phone, String city, String street, String contactPerson) {
+    public DistributorsClass(String distributorId, String name, String type, Float balance, String phone, String city, String street, String contactPerson) {
         this.distributorId = distributorId;
         this.name = name;
         this.type = type;
