@@ -27,17 +27,17 @@ public class SalesMenu{
                         DistributorMenu.distributorMenu();
                         break;
                     case 2:
-                        OrderMenu.orderMenu();
+                        // OrderMenu.orderMenu();
                         break;
                     case 3:
-                        ReportMenu.reportMenu();
+                        // ReportMenu.reportMenu();
                         break;
                     case 4:
                         System.exit(0);
                         break;
                 }
                 System.out.println("Please enter a valid option");
-            } catch (IOException | SQLException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
