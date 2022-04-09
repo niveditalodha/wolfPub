@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import wolfPubDB.connect.*;
-import wolfPubDB.classes.Orders;
+import wolfPubDB.classes.OrdersClass;
 
 public class Orders{
 

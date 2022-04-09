@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import wolfPubDB.classes.Edits;
+import wolfPubDB.classes.EditsClass;
 import wolfPubDB.connect.*;
 
 

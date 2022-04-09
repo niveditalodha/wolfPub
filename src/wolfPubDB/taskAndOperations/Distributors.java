@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import wolfPubDB.connect.*;
-import wolfPubDB.classes.Distributors;
+import wolfPubDB.classes.DistributorsClass;
 
 public class Distributors{
 

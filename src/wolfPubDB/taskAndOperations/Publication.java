@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import wolfPubDB.classes.Publication;
+import wolfPubDB.classes.PublicationClass;
 import wolfPub.connect.*;
 
 
