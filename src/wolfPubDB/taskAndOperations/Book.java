@@ -124,13 +124,13 @@ public class Book{
             if (t1){
                 conn.commit();
                 System.out.println("Transaction Successful");
-                conn.close();
+                // conn.close();
                 return true;
             }
             else{
                 conn.rollback();
                 System.out.println("Transaction Failed");
-                conn.close();
+                // conn.close();
                 return false;
             }
         }

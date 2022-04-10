@@ -59,7 +59,6 @@ public class Issue {
             stat.setDate(2, issueDate);
             stat.setString(3, type);
             stat.executeUpdate();
-            conn.close();
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();

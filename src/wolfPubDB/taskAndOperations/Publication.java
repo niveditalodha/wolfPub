@@ -87,17 +87,14 @@ public class Publication {
             stat.executeUpdate();
 
             t1 = true;
+            conn.commit();
             t2 = Book.addBook(publicationId, isbn, publicationDate, edition);
-
-            if(t1 && t2){
-                conn.commit();
+            
+            if(t2){
                 System.out.println("Transaction successful");
-                conn.close();
                 return true;
             }else{
-                conn.rollback();
                 System.out.println("Transaction Failed");
-                conn.close();
                 return false;
             }
         } catch (SQLException ex) {
@@ -130,17 +127,16 @@ public class Publication {
             stat.executeUpdate();
 
             t1 = true;
+            conn.commit();
             t2 = Issue.addIssue(publicationId, issueDate, type);
 
             if(t1 && t2){
                 conn.commit();
                 System.out.println("Transaction successful");
-                conn.close();
                 return true;
             }else{
                 conn.rollback();
                 System.out.println("Transaction Failed");
-                conn.close();
                 return false;
             }
         } catch (SQLException ex) {
