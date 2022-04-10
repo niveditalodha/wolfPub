@@ -1,5 +1,7 @@
 package wolfPubDB.classes;
 
+import java.util.Date;
+
 public class ArticlesClass{
     public String articleId;
     public String publicationId;
