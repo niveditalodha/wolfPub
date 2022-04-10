@@ -1,11 +1,13 @@
 package wolfPubDB.classes;
 
-public class Issue{
+import java.util.Date;
+
+public class IssueClass{
     public String publicationId;
     public Date issueDate;
     public String type;
 
-    public Issue(String publicationId, Date issueDate, String type){
+    public IssueClass(String publicationId, Date issueDate, String type){
         this.publicationId = publicationId;
         this.issueDate = issueDate;
         this.type = type;

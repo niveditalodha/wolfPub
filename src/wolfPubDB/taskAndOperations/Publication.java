@@ -1,26 +1,27 @@
 package wolfPubDB.taskAndOperations;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import wolfPubDB.classes.Publication;
-import wolfPub.connect.*;
+import wolfPubDB.classes.PublicationClass;
+import wolfPubDB.connect.*;
 
 
 public class Publication {
 
-    public static ArrayList<Publication> selectPublication() {
+    public static ArrayList<PublicationClass> selectPublication() {
         try {
-            Connection conn = DbConnect.getConnection();
-            ArrayList<Publication> output = new ArrayList<>();
+            Connection conn = DBConnect.getConnection();
+            ArrayList<PublicationClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("select * from publication");
             while (res.next()) {
-                Publication pub = new Publication(res.getString("publicationId"), res.getString("title"), res.getString("periodicity"), res.getString("topics"));
+                PublicationClass pub = new PublicationClass(res.getString("publicationId"), res.getString("title"), res.getString("periodicity"), res.getString("topics"));
                 output.add(pub);
             }
             conn.close();
@@ -32,14 +33,14 @@ public class Publication {
     }
 
 
-    public static ArrayList<Publication> selectPublication(String publicationId) {
+    public static ArrayList<PublicationClass> selectPublication(String publicationId) {
         try {
-            Connection conn = DbConnect.getConnection();
+            Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("select * from publication where publicationId = " +  publicationId);
-            ArrayList<Publication> output = new ArrayList<>();
+            ArrayList<PublicationClass> output = new ArrayList<>();
             while (res.next()) {
-                Publication pub = new Publication(res.getInt("publicationId"), res.getString("title"), res.getString("periodicity"), res.getString("topics"));
+                PublicationClass pub = new PublicationClass(res.getString("publicationId"), res.getString("title"), res.getString("periodicity"), res.getString("topics"));
                 output.add(pub);
             }
             conn.close();
@@ -51,9 +52,9 @@ public class Publication {
     }
 
 
-    public static Boolean addPublication(String publicationId, String title, String periodicity, String topics) {
+    public static Boolean addPublication(String publicationId, String title, String periodicity, String topics) throws SQLException {
         try {
-            Connection conn = DbConnect.getConnection();
+            Connection conn = DBConnect.getConnection();
             String query = "insert into publication(publicationId, title, periodicity, topics) values (?,?,?,?)";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, publicationId);
@@ -66,7 +67,6 @@ public class Publication {
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
-            conn.close();
             return false;
         }
     }
@@ -76,7 +76,7 @@ public class Publication {
         boolean t2 = false;
         Connection conn = null;
         try {
-            conn = DbConnect.getConnection();
+            conn = DBConnect.getConnection();
             conn.setAutoCommit(false);
             String query = "insert into publication(publicationId, title, periodicity, topics) values (?,?,?,?)";
             PreparedStatement stat = conn.prepareStatement(query);
@@ -87,7 +87,7 @@ public class Publication {
             stat.executeUpdate();
 
             t1 = true;
-            t2 = Book.addBook(conn, publicationId, isbn, publicationDate, edition);
+            t2 = Book.addBook(publicationId, isbn, publicationDate, edition);
 
             if(t1 && t2){
                 conn.commit();
@@ -119,7 +119,7 @@ public class Publication {
         boolean t2 = false;
         Connection conn = null;
         try {
-            conn = DbConnect.getConnection();
+            conn = DBConnect.getConnection();
             conn.setAutoCommit(false);
             String query = "insert into publication(publicationId, title, periodicity, topics) values (?,?,?,?)";
             PreparedStatement stat = conn.prepareStatement(query);
@@ -130,7 +130,7 @@ public class Publication {
             stat.executeUpdate();
 
             t1 = true;
-            t2 = Issue.addIssue(conn, publicationId, issueDate, type);
+            t2 = Issue.addIssue(publicationId, issueDate, type);
 
             if(t1 && t2){
                 conn.commit();
@@ -158,7 +158,7 @@ public class Publication {
 
     public static Boolean updatePublication(String publicationId, String title, String periodicity, String topics) {
         try {
-            Connection conn = DbConnect.getConnection();
+            Connection conn = DBConnect.getConnection();
             String query = "Update publication set title=?, periodicity=?, topics=? where publicationId =?";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, title);
@@ -188,7 +188,7 @@ public class Publication {
 
     public static Boolean deletePublication(String publicationId) {
         try {
-            Connection conn = DbConnect.getConnection();
+            Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             stat.executeUpdate("DELETE FROM publication WHERE publicationId= " + publicationId);
             conn.close();

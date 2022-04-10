@@ -1,13 +1,15 @@
 package wolfPubDB.classes;
 
-public class Articles{
+import java.util.Date;
+
+public class ArticlesClass{
     public String articleId;
     public String publicationId;
     public String title;
     public Date creationDate;
     public String text;
 
-    public Articles(String articleId, String publicationId, String title, Date creationDate, String text){
+    public ArticlesClass(String articleId, String publicationId, String title, Date creationDate, String text){
         this.articleId = articleId;
         this.publicationId = publicationId;
         this.title = title;

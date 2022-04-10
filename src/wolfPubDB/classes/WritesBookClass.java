@@ -1,11 +1,11 @@
 package wolfPubDB.classes;
 
-public class Edits {
+public class WritesBookClass {
 
     public String staffId;
     public String publicationId;
 
-    public Edits(String staffId, string publicationId) {
+    public WritesBookClass(String staffId, String publicationId) {
         this.staffId = staffId;
         this.publicationId = publicationId;
     }

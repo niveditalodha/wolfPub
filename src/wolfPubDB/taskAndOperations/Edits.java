@@ -6,20 +6,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import wolfPubDB.classes.Edits;
+import wolfPubDB.classes.EditsClass;
+import wolfPubDB.classes.PublicationClass;
 import wolfPubDB.connect.*;
 
 
 
 public class Edits {
-    public static ArrayList<Edits> selectEdits() {
+    public static ArrayList<EditsClass> selectEdits() {
         try {
             Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("Select * from edits");
-            ArrayList<Edits> output = new ArrayList<>();
+            ArrayList<EditsClass> output = new ArrayList<>();
             while (res.next()) {
-                Edits row = new Edits(res.getString("staffId"), res.getString("publicationId"));
+                EditsClass row = new EditsClass(res.getString("staffId"), res.getString("publicationId"));
                 output.add(row);
             }
             conn.close();
@@ -51,17 +52,17 @@ public class Edits {
     }
 
 
-    public static  ArrayList<Edits> selectEditorPublication(String staffId){
+    public static  ArrayList<PublicationClass> selectEditorPublication(String staffId){
         try{
 
-            Connection conn = DbConnection.getConnection();
-            ArrayList<Edits> output = new ArrayList<>();
+            Connection conn = DBConnect.getConnection();
+            ArrayList<PublicationClass> output = new ArrayList<>();
             String query = "Select * from publication where publicationId IN (Select publicationId from edits where staffId=" + staffId +")";
             Statement stat = conn.createStatement();
-            ResultSet res =  st.executeQuery(query);
+            ResultSet res =  stat.executeQuery(query);
 
             while(res.next()){
-                Edits row = new Edits(res.getString("publicationId"), res.getString("title"), res.getString("periodicity"), res.getString("topics"));
+                PublicationClass row = new PublicationClass(res.getString("publicationId"), res.getString("title"), res.getString("periodicity"), res.getString("topics"));
                 output.add(row);
             }
             conn.close();

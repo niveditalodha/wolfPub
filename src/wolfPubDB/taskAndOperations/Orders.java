@@ -1,6 +1,7 @@
 package wolfPubDB.taskAndOperations;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.PreparedStatement;
@@ -8,18 +9,18 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import wolfPubDB.connect.*;
-import wolfPubDB.classes.Orders;
+import wolfPubDB.classes.OrdersClass;
 
 public class Orders{
 
-    public static ArrayList<Orders> selectOrder() {
+    public static ArrayList<OrdersClass> selectOrder() {
         try {
-            Connection conn = DbConnect.getConnection();
-            ArrayList<Orders> output = new ArrayList<>();
+            Connection conn = DBConnect.getConnection();
+            ArrayList<OrdersClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("select * from orders");
             while (res.next()) {
-                Orders pub = new Orders(res.getString("orderId"), Date.valueOf(res.getDate("deadline")), Float.valueOf(res.getfloat("price")), Date.valueOf(res.getDate("orderDate")), Integer.valueOf(res.getInt("noOfCopies")), Float.valueOf(res.getfloat("shippingCost")), res.getString("publicationId"), res.getString("distributorId"));
+                OrdersClass pub = new OrdersClass(res.getString("orderId"), res.getDate("deadline"), Float.valueOf(res.getFloat("price")), res.getDate("orderDate"), Integer.valueOf(res.getInt("noOfCopies")), Float.valueOf(res.getFloat("shippingCost")), res.getString("publicationId"), res.getString("distributorId"));
                 output.add(pub);
             }
             conn.close();
@@ -30,14 +31,14 @@ public class Orders{
         }
     }
 
-    public static ArrayList<Orders> selectOrderByDistributorId(String distributorId) {
+    public static ArrayList<OrdersClass> selectOrderByDistributorId(String distributorId) {
         try {
-            Connection conn = DbConnect.getConnection();
-            ArrayList<Orders> output = new ArrayList<>();
+            Connection conn = DBConnect.getConnection();
+            ArrayList<OrdersClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("Select * from orders where distributorId = " + distributorId);
             while (res.next()) {
-                Orders pub = new Orders(res.getString("orderId"), Date.valueOf(res.getDate("deadline")), Float.valueOf(res.getfloat("price")), Date.valueOf(res.getDate("orderDate")), Integer.valueOf(res.getInt("noOfCopies")), Float.valueOf(res.getfloat("shippingCost")), res.getString("publicationId"), res.getString("distributorId"));
+                OrdersClass pub = new OrdersClass(res.getString("orderId"), res.getDate("deadline"), Float.valueOf(res.getFloat("price")), res.getDate("orderDate"), Integer.valueOf(res.getInt("noOfCopies")), Float.valueOf(res.getFloat("shippingCost")), res.getString("publicationId"), res.getString("distributorId"));
                 output.add(pub);
             }
             conn.close();
@@ -48,14 +49,14 @@ public class Orders{
         }
     }
 
-    public static ArrayList<Orders> selectOrderByDate(Date orderDate) {
+    public static ArrayList<OrdersClass> selectOrderByDate(Date orderDate) {
         try {
-            Connection conn = DbConnect.getConnection();
-            ArrayList<Orders> output = new ArrayList<>();
+            Connection conn = DBConnect.getConnection();
+            ArrayList<OrdersClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("Select * from orders where orderDate = " + orderDate);
             while (res.next()) {
-                Orders pub = new Orders(res.getString("orderId"), Date.valueOf(res.getDate("deadline")), Float.valueOf(res.getfloat("price")), Date.valueOf(res.getDate("orderDate")), Integer.valueOf(res.getInt("noOfCopies")), Float.valueOf(res.getfloat("shippingCost")), res.getString("publicationId"), res.getString("distributorId"));
+                OrdersClass pub = new OrdersClass(res.getString("orderId"), res.getDate("deadline"), Float.valueOf(res.getFloat("price")), res.getDate("orderDate"), Integer.valueOf(res.getInt("noOfCopies")), Float.valueOf(res.getFloat("shippingCost")), res.getString("publicationId"), res.getString("distributorId"));
                 output.add(pub);
             }
             conn.close();
@@ -66,14 +67,14 @@ public class Orders{
         }
     }
 
-    public static ArrayList<Orders> selectOrderByDeadline(Date deadline) {
+    public static ArrayList<OrdersClass> selectOrderByDeadline(Date deadline) {
         try {
-            Connection conn = DbConnect.getConnection();
-            ArrayList<Orders> output = new ArrayList<>();
+            Connection conn = DBConnect.getConnection();
+            ArrayList<OrdersClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("Select * from orders where deadline = " + deadline);
             while (res.next()) {
-                Orders pub = new Orders(res.getString("orderId"), Date.valueOf(res.getDate("deadline")), Float.valueOf(res.getfloat("price")), Date.valueOf(res.getDate("orderDate")), Integer.valueOf(res.getInt("noOfCopies")), Float.valueOf(res.getfloat("shippingCost")), res.getString("publicationId"), res.getString("distributorId"));
+                OrdersClass pub = new OrdersClass(res.getString("orderId"), res.getDate("deadline"), Float.valueOf(res.getFloat("price")), res.getDate("orderDate"), Integer.valueOf(res.getInt("noOfCopies")), Float.valueOf(res.getFloat("shippingCost")), res.getString("publicationId"), res.getString("distributorId"));
                 output.add(pub);
             }
             conn.close();
@@ -84,14 +85,14 @@ public class Orders{
         }
     }
 
-    public static ArrayList<Orders> selectOrderByPrice(Float price) {
+    public static ArrayList<OrdersClass> selectOrderByPrice(Float price) {
         try {
-            Connection conn = DbConnect.getConnection();
-            ArrayList<Orders> output = new ArrayList<>();
+            Connection conn = DBConnect.getConnection();
+            ArrayList<OrdersClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("Select * from orders where orderDate = " + price);
             while (res.next()) {
-                Orders pub = new Orders(res.getString("orderId"), Date.valueOf(res.getDate("deadline")), Float.valueOf(res.getfloat("price")), Date.valueOf(res.getDate("orderDate")), Integer.valueOf(res.getInt("noOfCopies")), Float.valueOf(res.getfloat("shippingCost")), res.getString("publicationId"), res.getString("distributorId"));
+                OrdersClass pub = new OrdersClass(res.getString("orderId"), res.getDate("deadline"), Float.valueOf(res.getFloat("price")), res.getDate("orderDate"), Integer.valueOf(res.getInt("noOfCopies")), Float.valueOf(res.getFloat("shippingCost")), res.getString("publicationId"), res.getString("distributorId"));
                 output.add(pub);
             }
             conn.close();
@@ -102,14 +103,14 @@ public class Orders{
         }
     }
 
-    public static ArrayList<Orders> selectOrderByNoOfCopies(Integer noOfCopies) {
+    public static ArrayList<OrdersClass> selectOrderByNoOfCopies(Integer noOfCopies) {
         try {
-            Connection conn = DbConnect.getConnection();
-            ArrayList<Orders> output = new ArrayList<>();
+            Connection conn = DBConnect.getConnection();
+            ArrayList<OrdersClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("Select * from orders where noOfCopies = " + noOfCopies);
             while (res.next()) {
-                Orders pub = new Orders(res.getString("orderId"), Date.valueOf(res.getDate("deadline")), Float.valueOf(res.getfloat("price")), Date.valueOf(res.getDate("orderDate")), Integer.valueOf(res.getInt("noOfCopies")), Float.valueOf(res.getfloat("shippingCost")), res.getString("publicationId"), res.getString("distributorId"));
+                OrdersClass pub = new OrdersClass(res.getString("orderId"), res.getDate("deadline"), Float.valueOf(res.getFloat("price")), res.getDate("orderDate"), Integer.valueOf(res.getInt("noOfCopies")), Float.valueOf(res.getFloat("shippingCost")), res.getString("publicationId"), res.getString("distributorId"));
                 output.add(pub);
             }
             conn.close();
@@ -120,14 +121,14 @@ public class Orders{
         }
     }
 
-    public static ArrayList<Orders> selectOrderByShippingCosts(Float shippingCost) {
+    public static ArrayList<OrdersClass> selectOrderByShippingCosts(Float shippingCost) {
         try {
-            Connection conn = DbConnect.getConnection();
-            ArrayList<Orders> output = new ArrayList<>();
+            Connection conn = DBConnect.getConnection();
+            ArrayList<OrdersClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("Select * from orders where shippingCost = " + shippingCost);
             while (res.next()) {
-                Orders pub = new Orders(res.getString("orderId"), Date.valueOf(res.getDate("deadline")), Float.valueOf(res.getfloat("price")), Date.valueOf(res.getDate("orderDate")), Integer.valueOf(res.getInt("noOfCopies")), Float.valueOf(res.getfloat("shippingCost")), res.getString("publicationId"), res.getString("distributorId"));
+                OrdersClass pub = new OrdersClass(res.getString("orderId"), res.getDate("deadline"), Float.valueOf(res.getFloat("price")), res.getDate("orderDate"), Integer.valueOf(res.getInt("noOfCopies")), Float.valueOf(res.getFloat("shippingCost")), res.getString("publicationId"), res.getString("distributorId"));
                 output.add(pub);
             }
             conn.close();
@@ -138,14 +139,14 @@ public class Orders{
         }
     }
 
-    public static ArrayList<Orders> selectOrderByPublicationId(String publicationId) {
+    public static ArrayList<OrdersClass> selectOrderByPublicationId(String publicationId) {
         try {
-            Connection conn = DbConnect.getConnection();
-            ArrayList<Orders> output = new ArrayList<>();
+            Connection conn = DBConnect.getConnection();
+            ArrayList<OrdersClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("Select * from orders where publicationId = " + publicationId);
             while (res.next()) {
-                Orders pub = new Orders(res.getString("orderId"), Date.valueOf(res.getDate("deadline")), Float.valueOf(res.getfloat("price")), Date.valueOf(res.getDate("orderDate")), Integer.valueOf(res.getInt("noOfCopies")), Float.valueOf(res.getfloat("shippingCost")), res.getString("publicationId"), res.getString("distributorId"));
+                OrdersClass pub = new OrdersClass(res.getString("orderId"), res.getDate("deadline"), Float.valueOf(res.getFloat("price")), res.getDate("orderDate"), Integer.valueOf(res.getInt("noOfCopies")), Float.valueOf(res.getFloat("shippingCost")), res.getString("publicationId"), res.getString("distributorId"));
                 output.add(pub);
             }
             conn.close();
@@ -158,7 +159,7 @@ public class Orders{
 
     public static Boolean addOrders(String orderId, Date deadline, Float price, Date orderDate, Integer noOfCopies, Float shippingCost, String publicationId, String distributorId) {
         try {
-            Connection conn = DbConnect.getConnection();
+            Connection conn = DBConnect.getConnection();
             String query = "insert into orders(orderId, deadline, price, orderDate, noOfCopies, shippingCost, publicationId, distributorId) values (?,?,?,?,?,?,?,?)";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, orderId);
@@ -174,7 +175,6 @@ public class Orders{
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
-            conn.close();
             return false;
         }
     }
@@ -200,14 +200,15 @@ public class Orders{
             }
             conn.commit();
             if (count!=0){
-                conn.close()
+                conn.close();
                 return  true;
             }
-            conn.close()
+            conn.close();
             return false;
         } catch (SQLException e) {
             e.printStackTrace();
             return Boolean.valueOf(false);
+        }
         }
 
     public static Boolean deleteOrders(String orderId) {
@@ -216,7 +217,7 @@ public class Orders{
             Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             stat.executeUpdate("DELETE FROM orders WHERE orderId= " + orderId);
-            conn.close()
+            conn.close();
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();

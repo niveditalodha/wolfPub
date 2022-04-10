@@ -1,9 +1,9 @@
 package wolfPubDB.classes;
 
-public class Editor{
+public class EditorClass{
     public String staffId;
 
-    public Editor(String staffId){
+    public EditorClass(String staffId){
         this.staffId = staffId;
     }
 

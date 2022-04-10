@@ -16,12 +16,12 @@ public class DBConnect {
             try {
                 Class.forName("org.mariadb.jdbc.Driver");
                 conn = DriverManager.getConnection(jdbcUrl, user, password);
+                System.out.println("Connection initiated");
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-            System.out.println("Connection initiated");
             return conn;
         }
 

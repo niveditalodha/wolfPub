@@ -1,6 +1,8 @@
 package wolfPubDB.classes;
 
-public class Orders {
+import java.util.Date;
+
+public class OrdersClass {
 
     public String orderId;
     public Date deadline;
@@ -12,7 +14,7 @@ public class Orders {
     public String distributorId;
 
 
-    public Orders(String orderId, Date deadline, Float price, Date orderDate, Integer noOfCopies, Float shippingCost, String publicationId, String distributorId) {
+    public OrdersClass(String orderId, Date deadline, Float price, Date orderDate, Integer noOfCopies, Float shippingCost, String publicationId, String distributorId) {
         this.orderId = orderId;
         this.deadline = deadline;
         this.price = price;

@@ -1,25 +1,26 @@
 package wolfPubDB.taskAndOperations;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import wolfPubDB.classes.Book;
-import wolfPub.connect.*;
+import wolfPubDB.classes.BookClass;
+import wolfPubDB.connect.*;
 
 public class Book{
 
-    public static ArrayList<Book> selectBook() throws SQLException{
+    public static ArrayList<BookClass> selectBook() throws SQLException{
         try {   
-            Connection conn = DbConnect.getConnection();
-            ArrayList<Book> output = new ArrayList<>();
+            Connection conn = DBConnect.getConnection();
+            ArrayList<BookClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("select * from book");
             while (res.next()) {
-                Book pub = new Book(res.getString("publicationId"), res.getString("isbn"), Date.valueOf(res.getDate("publicationDate")), res.getString("edition"));
+                BookClass pub = new BookClass(res.getString("publicationId"), res.getString("isbn"), res.getDate("publicationDate"), res.getString("edition"));
                 output.add(pub);
             }
             conn.close();
@@ -30,14 +31,14 @@ public class Book{
         }
     }
 
-    public static ArrayList<Book> selectBook(String publicationId) throws SQLException{
+    public static ArrayList<BookClass> selectBook(String publicationId) throws SQLException{
         try {   
-            Connection conn = DbConnect.getConnection();
-            ArrayList<Book> output = new ArrayList<>();
+            Connection conn = DBConnect.getConnection();
+            ArrayList<BookClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("select * from book where publicationId="+publicationId);
             while (res.next()) {
-                Book pub = new Book(res.getString("publicationId"), res.getString("isbn"), Date.valueOf(res.getDate("publicationDate")), res.getString("edition"));
+                BookClass pub = new BookClass(res.getString("publicationId"), res.getString("isbn"), res.getDate("publicationDate"), res.getString("edition"));
                 output.add(pub);
             }
             conn.close();
@@ -48,14 +49,14 @@ public class Book{
         }
     }
 
-    public static ArrayList<Book> selectBookByTopic(String topics) throws SQLException{
+    public static ArrayList<BookClass> selectBookByTopic(String topics) throws SQLException{
         try {   
-            Connection conn = DbConnect.getConnection();
-            ArrayList<Book> output = new ArrayList<>();
+            Connection conn = DBConnect.getConnection();
+            ArrayList<BookClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("select * from book where topics="+topics);
             while (res.next()) {
-                Book pub = new Book(res.getString("publicationId"), res.getString("isbn"), Date.valueOf(res.getDate("publicationDate")), res.getString("edition"));
+                BookClass pub = new BookClass(res.getString("publicationId"), res.getString("isbn"), res.getDate("publicationDate"), res.getString("edition"));
                 output.add(pub);
             }
             conn.close();
@@ -66,14 +67,14 @@ public class Book{
         }
     }
 
-    public static ArrayList<Book> selectBookByDate(String publicationDate) throws SQLException{
+    public static ArrayList<BookClass> selectBookByDate(String publicationDate) throws SQLException{
         try {   
-            Connection conn = DbConnect.getConnection();
-            ArrayList<Book> output = new ArrayList<>();
+            Connection conn = DBConnect.getConnection();
+            ArrayList<BookClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("select * from book where publicationDate="+publicationDate);
             while (res.next()) {
-                Book pub = new Book(res.getString("publicationId"), res.getString("isbn"), Date.valueOf(res.getDate("publicationDate")), res.getString("edition"));
+                BookClass pub = new BookClass(res.getString("publicationId"), res.getString("isbn"), res.getDate("publicationDate"), res.getString("edition"));
                 output.add(pub);
             }
             conn.close();
@@ -84,14 +85,14 @@ public class Book{
         }
     }
     
-    public static ArrayList<Book> selectBookByAuthor(String staffId) throws SQLException{
+    public static ArrayList<BookClass> selectBookByAuthor(String staffId) throws SQLException{
         try {   
-            Connection conn = DbConnect.getConnection();
-            ArrayList<Book> output = new ArrayList<>();
+            Connection conn = DBConnect.getConnection();
+            ArrayList<BookClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("select * from book where publicationId in (select publicationId from writesbook where staffId = "+staffId+")");
             while (res.next()) {
-                Book pub = new Book(res.getString("publicationId"), res.getString("isbn"), Date.valueOf(res.getDate("publicationDate")), res.getString("edition"));
+                BookClass pub = new BookClass(res.getString("publicationId"), res.getString("isbn"), res.getDate("publicationDate"), res.getString("edition"));
                 output.add(pub);
             }
             conn.close();
@@ -108,7 +109,7 @@ public class Book{
         Connection conn = null;
         boolean t1 = false;
         try{
-            conn = DbConnect.getConnection();
+            conn = DBConnect.getConnection();
             conn.setAutoCommit(false);
             String query = "INSERT INTO book(publicationId, isbn, publicationDate, edition) VALUES(?,?,?,?)";
             PreparedStatement stat = conn.prepareStatement(query);
@@ -136,12 +137,12 @@ public class Book{
         catch (SQLException ex) {
             conn.rollback();
             System.out.println("Transaction Failed");
-            conn.close()
+            conn.close();
             return false;
         } finally {
             if(conn != null){
                 conn.setAutoCommit(true);
-                conn.close()
+                conn.close();
             }
     }
 }
@@ -150,7 +151,7 @@ public class Book{
     public static Boolean updateBook(String publicationId, String isbn, Date publicationDate, String edition) throws SQLException{
         int count = 0;
         try{
-            Connection conn = DbConnect.getConnection();
+            Connection conn = DBConnect.getConnection();
             String query = "Update book set isbn=?, publicationDate=?, edition=? where publicationId =?";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, isbn);
@@ -167,7 +168,7 @@ public class Book{
                 conn.close();
                 return  true;
             }
-            conn.close()
+            conn.close();
             return false;
         }
         catch (SQLException e) {
@@ -178,7 +179,7 @@ public class Book{
 
     public static Boolean deleteBook(String publicationId) throws SQLException {
         try {
-            Connection conn = DbConnect.getConnection();
+            Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             stat.executeUpdate("DELETE FROM book WHERE publicationId= " + publicationId);
             conn.close();

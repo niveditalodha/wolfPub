@@ -1,11 +1,11 @@
 package wolfPubDB.classes;
 
-public class Chapters{
+public class ChaptersClass{
     public String publicationId;
     public String chapterNumber;
     public String chapterTitle;
 
-    public Chapters(String publicationId, String chapterNumber, String chapterTitle){
+    public ChaptersClass(String publicationId, String chapterNumber, String chapterTitle){
         this.publicationId = publicationId;
         this.chapterNumber = chapterNumber;
         this.chapterTitle = chapterTitle;
@@ -14,10 +14,10 @@ public class Chapters{
     public String getPublicationId(){
         return this.publicationId;
     }
-    public getChapterNumber(){
+    public String getChapterNumber(){
         return this.chapterNumber;
     }
-    public getChapterTitle(){
+    public String getChapterTitle(){
         return this.chapterTitle;
     }
 

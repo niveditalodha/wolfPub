@@ -7,19 +7,19 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import wolfPubDB.classes.Chapters;
-import wolfPub.connect.*;
+import wolfPubDB.classes.ChaptersClass;
+import wolfPubDB.connect.*;
 
-public class chapters{
+public class Chapters{
 
-    public static ArrayList<Chapters> selectBook() throws SQLException{
+    public static ArrayList<ChaptersClass> selectBook() throws SQLException{
         try {   
-            Connection conn = DbConnect.getConnection();
-            ArrayList<Chapters> output = new ArrayList<>();
+            Connection conn = DBConnect.getConnection();
+            ArrayList<ChaptersClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("select * from chapters");
             while (res.next()) {
-                Chapters chp = new Chapters(res.getString("publicationId"), res.getString("chapterNumber"), res.getString("chapterTitle"));
+                ChaptersClass chp = new ChaptersClass(res.getString("publicationId"), res.getString("chapterNumber"), res.getString("chapterTitle"));
                 output.add(chp);
             }
             conn.close();
@@ -30,14 +30,14 @@ public class chapters{
         }
     }
 
-    public static ArrayList<Chapters> selectChapter(String publicationId, String chapterNumber) throws SQLException{
+    public static ArrayList<ChaptersClass> selectChapter(String publicationId, String chapterNumber) throws SQLException{
         try {   
-            Connection conn = DbConnect.getConnection();
-            ArrayList<Chapters> output = new ArrayList<>();
+            Connection conn = DBConnect.getConnection();
+            ArrayList<ChaptersClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("select * from chapters where publicationId="+publicationId+" and chapterNumber="+chapterNumber);
             while (res.next()) {
-                Chapters chp = new Chapters(res.getString("publicationId"), res.getString("chapterNumber"), res.getString("chapterTitle"));
+                ChaptersClass chp = new ChaptersClass(res.getString("publicationId"), res.getString("chapterNumber"), res.getString("chapterTitle"));
                 output.add(chp);
             }
             conn.close();
@@ -52,7 +52,7 @@ public class chapters{
         Connection conn = null;
         boolean t1 = false;
         try{
-            conn = DbConnect.getConnection();
+            conn = DBConnect.getConnection();
             conn.setAutoCommit(false);
             String query = "INSERT INTO chapters(publicationId, chapterNumber, chapterTitle) VALUES(?,?,?)";
             PreparedStatement stat = conn.prepareStatement(query);
@@ -79,12 +79,12 @@ public class chapters{
         catch (SQLException ex) {
             conn.rollback();
             System.out.println("Transaction Failed");
-            conn.close()
+            conn.close();
             return false;
         } finally {
             if(conn != null){
                 conn.setAutoCommit(true);
-                conn.close()
+                conn.close();
             }
     }
 }
@@ -93,7 +93,7 @@ public class chapters{
     public static Boolean updateChaptersTitle(String publicationId, String chapterNumber, String chapterTitle) throws SQLException{
         int count = 0;
         try{
-            Connection conn = DbConnect.getConnection();
+            Connection conn = DBConnect.getConnection();
             String query = "Update chapters set chapterTitle = ? where publicationId =? and chapterNumber=?";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, chapterTitle);
@@ -109,7 +109,7 @@ public class chapters{
                 conn.close();
                 return  true;
             }
-            conn.close()
+            conn.close();
             return false;
         }
         catch (SQLException e) {
@@ -123,7 +123,7 @@ public class chapters{
 
     public static Boolean deleteChapter(String publicationId, String chapterNumber) throws SQLException {
         try {
-            Connection conn = DbConnect.getConnection();
+            Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             stat.executeUpdate("DELETE FROM chapters WHERE publicationId= "+publicationId+" and chapterNumber="+chapterNumber);
             conn.close();

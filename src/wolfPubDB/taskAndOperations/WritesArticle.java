@@ -8,18 +8,18 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import wolfPubDB.connect.*;
-import wolfPubDB.classes.WritesArticle;
+import wolfPubDB.classes.WritesArticleClass;
 
 public class WritesArticle{
 
-    public static ArrayList<WritesArticle> selectWritesArticle() {
+    public static ArrayList<WritesArticleClass> selectWritesArticle() throws SQLException {
+        Connection conn = DBConnect.getConnection();
         try {
-            Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("Select * from writesarticle");
-            ArrayList<WritesArticle> output = new ArrayList<>();
+            ArrayList<WritesArticleClass> output = new ArrayList<>();
             while (res.next()) {
-                WritesArticle row = new WritesArticle(res.getString("staffId"), res.getString("articleId"));
+                WritesArticleClass row = new WritesArticleClass(res.getString("staffId"), res.getString("articleId"));
                 output.add(row);
             }
             conn.close();
@@ -28,10 +28,13 @@ public class WritesArticle{
             e.printStackTrace();
             return null;
         }
+        finally{
+            conn.close();
+        }
     }
 
 
-    public static boolean updateWritesArticleAuthor(String articleId, String staffId){
+    public static boolean updateWritesArticleAuthor(String articleId, String staffId) throws SQLException{
         try {
             Connection conn = DBConnect.getConnection();
             String query = "Update writesarticle set staffId = ? where articleId = ?";
@@ -46,10 +49,10 @@ public class WritesArticle{
             }
             conn.commit();
             if (count!=0){
-                conn.close()
+                conn.close();
                 return  true;
             }
-            conn.close()
+            conn.close();
             return false;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -57,7 +60,7 @@ public class WritesArticle{
         }
     }
 
-    public static boolean addWritesArticle(String staffId, String articleId) {
+    public static boolean addWritesArticle(String staffId, String articleId) throws SQLException {
         boolean state = false;
         try {
             Connection conn = DBConnect.getConnection();
