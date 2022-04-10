@@ -181,14 +181,17 @@ public class PublicationMenu {
         
         case 9:
             // Adding new Issue of a publication
-            System.out.println("Enter String publicationId, Date issueDate YYYY-MM-DD, String type");
+            System.out.println("Enter String publicationId, String title, String periodicity, String topics, Date issueDate, String type");
             args = sc.next().split("[|]");
             publicationId = args[0];
-            issueDate = Date.valueOf(args[1]);
-            type = args[2];
+            title = args[1];
+            periodicity = args[2];
+            topics = args[3];
+            issueDate = Date.valueOf(args[4]);
+            type = args[5];
 
-            if (Issue.addIssue(publicationId, issueDate, type)){
-                System.out.println("Operation Successful");
+            if (Publication.addPublication(publicationId, title,periodicity, topics, issueDate, type)){
+                System.out.println("Issue Added Successfully");
             }else {
                 System.out.println("Operation Failed");
             }
