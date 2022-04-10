@@ -38,5 +38,8 @@ public class PublicationClass {
     public void setTopics(String topic) {  
         this.topics =  topics;
     }
-
+    @Override
+    public String toString(){
+        return this.publicationId + " " +this.title+ " "+this.periodicity + " "+this.topics;
+    }
 }

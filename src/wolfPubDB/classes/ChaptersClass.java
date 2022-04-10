@@ -30,5 +30,9 @@ public class ChaptersClass{
     public void setChapterTitle(){
         this.chapterTitle = chapterTitle;
     }
+    @Override
+    public String toString(){
+        return this.publicationId + " " +this.chapterNumber+ " "+this.chapterTitle;
+    }
 
 }

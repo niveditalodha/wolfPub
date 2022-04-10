@@ -34,6 +34,7 @@ public class DistributorMenu {
                 int choice = sc.nextInt();
                 switch (choice) {
                     case 1:
+                        
                         Distributors.selectDistributors().forEach(System.out::println);
                         return;
                     case 2:

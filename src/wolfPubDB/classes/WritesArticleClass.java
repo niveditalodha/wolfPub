@@ -22,5 +22,8 @@ public class WritesArticleClass {
     public void setArticleId(String articleId) {  
         this.articleId =  articleId;
     }
-
+    @Override
+    public String toString(){
+        return this.staffId + " " +this.articleId;
+    }
 }

@@ -30,5 +30,8 @@ public class StaffClass{
     public void setType(){
         this.type = type;
     }
-
+    @Override
+    public String toString(){
+        return this.staffId + " " +this.name+ " "+this.type;
+    }
 }

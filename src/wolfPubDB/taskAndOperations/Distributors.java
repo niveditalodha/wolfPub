@@ -3,6 +3,9 @@ package wolfPubDB.taskAndOperations;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+
+import org.mariadb.jdbc.client.result.ResultSetMetaData;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
