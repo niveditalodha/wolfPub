@@ -57,7 +57,7 @@ public class Edits {
 
             Connection conn = DBConnect.getConnection();
             ArrayList<PublicationClass> output = new ArrayList<>();
-            String query = "Select * from publication where publicationId IN (Select publicationId from edits where staffId=" + staffId +")";
+            String query = "Select * from publication left outer join book left outer join issue where publication.publicationId IN (Select publicationId from edits where staffId=" + staffId +")";
             Statement stat = conn.createStatement();
             ResultSet res =  stat.executeQuery(query);
 

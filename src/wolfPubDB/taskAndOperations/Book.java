@@ -67,7 +67,7 @@ public class Book{
         }
     }
 
-    public static ArrayList<BookClass> selectBookByDate(String publicationDate) throws SQLException{
+    public static ArrayList<BookClass> selectBookByDate(Date publicationDate) throws SQLException{
         try {   
             Connection conn = DBConnect.getConnection();
             ArrayList<BookClass> output = new ArrayList<>();
