@@ -5,7 +5,7 @@ public class EditsClass {
     public String staffId;
     public String publicationId;
 
-    public EditsClass(String staffId, string publicationId) {
+    public EditsClass(String staffId, String publicationId) {
         this.staffId = staffId;
         this.publicationId = publicationId;
     }

@@ -5,7 +5,7 @@ public class WritesArticleClass {
     public String staffId;
     public String articleId;
 
-    public WritesArticleClass(String staffId, string articleId) {
+    public WritesArticleClass(String staffId, String articleId) {
         this.staffId = staffId;
         this.articleId = articleId;
     }

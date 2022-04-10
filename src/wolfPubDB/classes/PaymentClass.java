@@ -1,5 +1,7 @@
 package wolfPubDB.classes;
 
+import java.util.Date;
+
 public class PaymentClass {
 
     public String staffId;
@@ -8,13 +10,13 @@ public class PaymentClass {
     public Date paymentClaimedDate;
 
     public PaymentClass(String staffId, Date paymentDate, Integer periodicity, Date paymentClaimedDate) {
-        this.publicationId = publicationId;
+        this.staffId = staffId;
         this.paymentDate = paymentDate;
         this.amount = amount;
         this.paymentClaimedDate = paymentClaimedDate;
     }
-    public String getPublicationId() { 
-        return this.publicationId; 
+    public String getStaffId() { 
+        return this.staffId; 
     }
     public Date getPaymentDate() { 
         return this.paymentDate; 
@@ -26,8 +28,8 @@ public class PaymentClass {
         return this.paymentClaimedDate; 
     }
 
-    public void setPublicationId(String publicationId) {  
-        this.publicationId =  publicationId;
+    public void setStaffId(String staffId) {  
+        this.staffId =  staffId;
     }
     public void setPaymentDate(Date paymentDate) {  
         this.paymentDate = paymentDate; 

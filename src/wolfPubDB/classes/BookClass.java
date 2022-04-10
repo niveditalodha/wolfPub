@@ -1,5 +1,7 @@
 package wolfPubDB.classes;
 
+import java.util.Date;
+
 public class BookClass{
     public String publicationId;
     public String isbn;
@@ -10,7 +12,7 @@ public class BookClass{
         this.publicationId = publicationId;
         this.isbn = isbn;
         this.publicationDate = publicationDate;
-        this.edition = edition
+        this.edition = edition;
     }
 
     public String getPublicationId(){
@@ -23,7 +25,7 @@ public class BookClass{
         return this.publicationDate;
     }
     public String getEdition(){
-        this.edition = edition
+        return this.edition = edition;
     }
 
     public void setPublicationId(){

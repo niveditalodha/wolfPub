@@ -14,10 +14,10 @@ public class ChaptersClass{
     public String getPublicationId(){
         return this.publicationId;
     }
-    public getChapterNumber(){
+    public String getChapterNumber(){
         return this.chapterNumber;
     }
-    public getChapterTitle(){
+    public String getChapterTitle(){
         return this.chapterTitle;
     }
 

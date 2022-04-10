@@ -1,5 +1,7 @@
 package wolfPubDB.classes;
 
+import java.util.Date;
+
 public class OrdersClass {
 
     public String orderId;
