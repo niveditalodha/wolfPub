@@ -34,7 +34,7 @@ public class Edits {
 
 
     public static boolean addEdits(String staffId, String publicationId) {
-        boolean state = false;
+        
         try {
             Connection conn = DBConnect.getConnection();
             String query = "insert into edits(staffId, publicationId) values (?,?)";

@@ -61,7 +61,6 @@ public class WritesArticle{
     }
 
     public static boolean addWritesArticle(String staffId, String articleId) throws SQLException {
-        boolean state = false;
         try {
             Connection conn = DBConnect.getConnection();
             String query = "insert into writesarticle(staffId, articlesId) values (?,?)";

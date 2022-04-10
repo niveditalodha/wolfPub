@@ -52,7 +52,6 @@ public class Staff {
 
 
     public static boolean addAuthor(String staffId, String name, String type) {
-        boolean state = false;
         try {
             Connection conn = DBConnect.getConnection();
             String query = "insert into staff(staffId, name, type) values (?,?,?)";
