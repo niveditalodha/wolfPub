@@ -36,7 +36,6 @@ public class WritesBook {
 
 
     public static boolean addWritesBook(String staffId, String publicationId) throws SQLException{
-        boolean state = false;
         Connection conn = DBConnect.getConnection();
         try {
             String query = "insert into writesBook(staffId, publicationId) values (?,?)";

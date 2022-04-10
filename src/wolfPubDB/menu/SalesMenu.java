@@ -16,8 +16,8 @@ public class SalesMenu{
         while (true) {
             System.out.println("Welcome to Sales!!");
             System.out.println("Please select from the following!!");
-            System.out.println("1. View Distributor Information");
-            System.out.println("2. View Order Details");
+            System.out.println("1. Distributor Operations");
+            System.out.println("2. Order Operation");
             System.out.println("3. Reports");
             System.out.println("4. Back to Main Menu");
             int option = sc.nextInt();
