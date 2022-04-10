@@ -1,6 +1,7 @@
 package wolfPubDB.taskAndOperations;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.PreparedStatement;
@@ -12,14 +13,14 @@ import wolfPubDB.classes.IssueClass;
 
 public class Issue {
 
-    public static ArrayList<Issue> selectIssue() {
+    public static ArrayList<IssueClass> selectIssue() {
         try {
             Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("Select * from issue");
-            ArrayList<Issue> output = new ArrayList<>();
+            ArrayList<IssueClass> output = new ArrayList<>();
             while (res.next()) {
-                Issue p = new Issue(res.getString("publicationId"), Date.valueOf(res.getDate("issueDate")), res.getString("type"));
+                IssueClass p = new IssueClass(res.getString("publicationId"), res.getDate("issueDate"), res.getString("type"));
                 output.add(p);
             }
             conn.close();
@@ -30,14 +31,14 @@ public class Issue {
         }
     }
 
-    public static ArrayList<Issue> selectIssue(String publicationId) {
+    public static ArrayList<IssueClass> selectIssue(String publicationId) {
         try {
             Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("Select * from issue where publicationId = " +  publicationId);
-            ArrayList<Issue> output = new ArrayList<>();
+            ArrayList<IssueClass> output = new ArrayList<>();
             while (res.next()) {
-                Issue p = new Issue(res.getString("publicationId"), Date.valueOf(res.getDate("issueDate")), res.getString("type"));
+                IssueClass p = new IssueClass(res.getString("publicationId"), res.getDate("issueDate"), res.getString("type"));
                 output.add(p);
             }
             conn.close();

@@ -5,7 +5,7 @@ public class StaffClass{
     public String name;
     public String type;
 
-    public StaffClass(String staffId){
+    public StaffClass(String staffId, String name, String type){
         this.staffId = staffId;
         this.name = name;
         this.type = type;

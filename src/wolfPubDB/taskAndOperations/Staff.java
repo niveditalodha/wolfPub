@@ -1,4 +1,4 @@
-package wolfPubDB.taskAnd;
+package wolfPubDB.taskAndOperations;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,14 +12,14 @@ import wolfPubDB.connect.*;
 
 
 public class Staff {
-    public static ArrayList<Staff> selectStaff() {
+    public static ArrayList<StaffClass> selectStaff() {
         try {
             Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("Select * from staff");
-            ArrayList<Staff> output = new ArrayList<>();
+            ArrayList<StaffClass> output = new ArrayList<>();
             while (res.next()) {
-                Staff row = new Staff(res.getString("staffId"), res.getString("name"), res.getString("type"));
+                StaffClass row = new StaffClass(res.getString("staffId"), res.getString("name"), res.getString("type"));
                 output.add(row);
             }
             conn.close();
@@ -31,14 +31,14 @@ public class Staff {
     }
 
 
-    public static ArrayList<Staff> selectStaff(Integer staffId) {
+    public static ArrayList<StaffClass> selectStaff(Integer staffId) {
         try {
             Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("Select * from staff where staffId = " +  staffId);
-            ArrayList<Staff> output = new ArrayList<>();
+            ArrayList<StaffClass> output = new ArrayList<>();
             while (res.next()) {
-                Staff row = new Staff(res.getString("staffId"), res.getString("name"), res.getString("type"));
+                StaffClass row = new StaffClass(res.getString("staffId"), res.getString("name"), res.getString("type"));
                 output.add(row);
             }
             conn.close();
