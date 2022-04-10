@@ -77,7 +77,7 @@ public class Articles{
         }
     }
 
-    public static ArrayList<ArticlesClass> selectArticlesByDate(String creationDate) throws SQLException {
+    public static ArrayList<ArticlesClass> selectArticlesByDate(Date creationDate) throws SQLException {
         Connection conn = DBConnect.getConnection();
         try {
             

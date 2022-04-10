@@ -17,9 +17,10 @@ public class PublicationMenu {
         String[] main_args = null;
 
         String edition;
-        Date publicationDate, issueDate, creationDate;
+        Integer amount;
+        Date publicationDate, issueDate, creationDate,paymentDate, paymentClaimedDate;
         String  staffId, articleId, chapterId,chapterNumber, chapterTitle;
-        String publicationId, topics, title, isbn, type, periodicity, text;
+        String publicationId, topics, title, isbn, type, periodicity, text, name;
 
         String[] args;
 
@@ -41,13 +42,13 @@ public class PublicationMenu {
         System.out.println("15. Assign Author to Book");
         System.out.println("16. Assign Author to Article");
         System.out.println("17. Insert Articles");
-        System.out.println("19. Update Articles Text");
-        System.out.println("20. Update Article's author name");
-        System.out.println("21. Update Article's title");
-        System.out.println("22. Update Article's topic");
-        System.out.println("23. Update Article's date");
-        System.out.println("24. Find Article by topic");
-        System.out.println("25. Find Article by author name");
+        System.out.println("18. Update Articles Text");
+        System.out.println("19. Update Article's author name");
+        System.out.println("20. Update Article's title");
+        System.out.println("21. Update Article's topic");
+        System.out.println("22. Update Article's date");
+        System.out.println("23. Find Article by topic");
+        System.out.println("24. Find Article by author name");
         System.out.println("25. Find Article by date");
         System.out.println("26. Delete Articles");
         System.out.println("27. Insert Chapters");
@@ -146,9 +147,9 @@ public class PublicationMenu {
 
         case 6:
             // Find book by author name
-            System.out.println("Enter String Author name");
+            System.out.println("Enter String Author Name");
             args = sc.next().split("[|]");
-            String name = args[0];
+            name = args[0];
 
             Book.selectBookByAuthor(name).forEach(System.out::println);
 
@@ -292,7 +293,7 @@ public class PublicationMenu {
             }
             return;
 
-        case 19:
+        case 18:
             // Updating Article's Text
             System.out.println("Enter String articleId and String text");
             args = sc.next().split("[|]");
@@ -304,6 +305,96 @@ public class PublicationMenu {
                 System.out.println("Operation Failed");
             }
             return;
+
+
+        case 19:
+            // Updating Article's Author name
+            System.out.println("Enter String articleId and String staffId");
+            args = sc.next().split("[|]");
+            articleId = args[0];
+            staffId = args[1];
+            if (WritesArticle.updateWritesArticleAuthor(articleId, staffId)) {
+                System.out.println("Updated Articles Author name Successfully");
+            } else {
+                System.out.println("Operation Failed");
+            }
+            return;
+
+        
+        case 20:
+            // Updating Article's Title
+            System.out.println("Enter String articleId and String Title");
+            args = sc.next().split("[|]");
+            articleId = args[0];
+            title = args[1];
+            if (Articles.updateArticleTitle(articleId, title)) {
+                System.out.println("Updated Articles Title Successfully");
+            } else {
+                System.out.println("Operation Failed");
+            }
+            return;
+
+
+        case 21:
+            // Updating Article's Topic
+            System.out.println("Enter String articleId and String Topic");
+            args = sc.next().split("[|]");
+            articleId = args[0];
+            topics = args[1];
+            if (Articles.updateArticlesTopic(articleId, topics)) {
+                System.out.println("Updated Articles Topic Successfully");
+            } else {
+                System.out.println("Operation Failed");
+            }
+            return;
+
+        
+        case 22:
+            // Updating Article's CreationDate
+            System.out.println("Enter String articleId and String CreationDate");
+            args = sc.next().split("[|]");
+            articleId = args[0];
+            creationDate = Date.valueOf(args[1]);
+            if (Articles.updateArticleCreationDate(articleId, creationDate)) {
+                System.out.println("Updated Articles Creation Date Successfully");
+            } else {
+                System.out.println("Operation Failed");
+            }
+            return;
+
+        
+        case 23:
+            // Find Article by Topic
+            System.out.println("Enter String Topic");
+            args = sc.next().split("[|]");
+            topics = args[0];
+
+            Articles.selectArticlesByTopic(topics).forEach(System.out::println);
+
+            return;
+
+
+        case 24:
+            // Find Article by author name
+            System.out.println("Enter String Author name");
+            args = sc.next().split("[|]");
+            name = args[0];
+
+            Articles.selectArticlesByAuthor(name).forEach(System.out::println);
+
+            return;
+        
+
+        case 25:
+            // Find Article by CreationDate
+            System.out.println("Enter date (YYYY-MM-DD)");
+            args = sc.next().split("[|]");
+            creationDate = Date.valueOf(args[0]);
+
+            Articles.selectArticlesByDate(creationDate).forEach(System.out::println);
+
+            return;
+        
 
 
         case 26:
@@ -352,6 +443,22 @@ public class PublicationMenu {
             return;
 
 
+        case 29:
+            // Updating a Chapter's Author
+            System.out.println("Enter String publicationId, String staffID");
+            args = sc.next().split("[|]");
+            publicationId = args[0];
+            staffId = args[1];
+
+            if (WritesBook.updateWritesBookChapterAuthor(publicationId, staffId)) {
+                System.out.println(" Updaed Chapter's Author Successfully");
+            } else {
+                System.out.println(" Operation Failed");
+            }
+
+            return;
+
+            
         case 30:
             // Deleting a Chapter 
             System.out.println("Enter String publicationId and String chapterId");
@@ -364,6 +471,34 @@ public class PublicationMenu {
             } else {
                 System.out.println("Delete Operation Failed");
             }
+            return;
+
+
+        case 31:
+            // Add Payment
+            System.out.println("Enter String staffId, Date paymentDate, Integer amount, Date paymentClaimedDate");
+            args = sc.next().split("[|]");
+            staffId = args[0];
+            paymentDate = Date.valueOf(args[1]);
+            amount = Integer.valueOf(args[2]);
+            paymentClaimedDate = Date.valueOf(args[3]);
+
+            if (Payment.addPayment(staffId, paymentDate, amount, paymentClaimedDate)){
+                System.out.println("Addition Successful");
+            }
+            else{
+                System.out.println("Operation Failed");
+            }
+            return;
+
+
+        case 32:
+            // Find when the payments were claimed by staff
+            System.out.println("Enter String staffId");
+            args = sc.next().split("[|]");
+            staffId = args[0];
+
+            Payment.selectPayment(staffId).forEach(System.out::println);
             return;
 
 
