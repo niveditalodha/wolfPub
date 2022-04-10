@@ -85,12 +85,12 @@ public class Book{
         }
     }
     
-    public static ArrayList<BookClass> selectBookByAuthor(String staffId) throws SQLException{
+    public static ArrayList<BookClass> selectBookByAuthor(String name) throws SQLException{
         try {   
             Connection conn = DBConnect.getConnection();
             ArrayList<BookClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
-            ResultSet res = stat.executeQuery("select * from book where publicationId in (select publicationId from writesbook where staffId = "+staffId+")");
+            ResultSet res = stat.executeQuery("select * from book where publicationId in (select publicationId from writesbook where staffId in (select staffId from staff where name = "+name+"))");
             while (res.next()) {
                 BookClass pub = new BookClass(res.getString("publicationId"), res.getString("isbn"), res.getDate("publicationDate"), res.getString("edition"));
                 output.add(pub);

@@ -56,11 +56,11 @@ public class Articles{
         }
     }
 
-    public static ArrayList<ArticlesClass> selectArticlesByAuthor(String staffId) throws SQLException {
+    public static ArrayList<ArticlesClass> selectArticlesByAuthor(String name) throws SQLException {
         Connection conn = DBConnect.getConnection();
         try {
             Statement stat = conn.createStatement();
-            ResultSet res = stat.executeQuery("Select * from articles where articleId in (select articleId from writesarticle where staffId = "+staffId+")");
+            ResultSet res = stat.executeQuery("Select * from articles where articleId in (select articleId from writesarticle where staffId in (select staffId from staff where name = "+name+"))");
             ArrayList<ArticlesClass> output = new ArrayList<>();
             while (res.next()) {
                 ArticlesClass a = new ArticlesClass(res.getString("articleId"), res.getString("publicationId"),res.getString("title"), res.getDate("creationDate"), res.getString("text"));
