@@ -42,7 +42,8 @@ public class WritesArticle{
             stat.setString(1, staffId);
             stat.setString(2, articleId);
             stat.executeUpdate();
-            ResultSet res = stat.executeQuery("Select count(*) as total from writesarticle where articleId='"+articleId+"'");
+            Statement st = conn.createStatement();
+            ResultSet res = st.executeQuery("Select count(*) as total from writesarticle where articleId='"+articleId+"'");
             int count = 0;
             while (res.next()) {
                 count = res.getInt("total");

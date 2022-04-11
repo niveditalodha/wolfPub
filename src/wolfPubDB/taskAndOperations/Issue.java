@@ -75,7 +75,8 @@ public class Issue {
             stat.setString(2, type);
             stat.setString(3, publicationId);
             stat.executeUpdate();
-            ResultSet res = stat.executeQuery("Select count(*) as total from issue where publicationId='"+publicationId+"'");
+            Statement st = conn.createStatement();
+            ResultSet res = st.executeQuery("Select count(*) as total from issue where publicationId='"+publicationId+"'");
             int count = 0;
             while (res.next()) {
                 count = res.getInt("total");

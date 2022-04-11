@@ -162,8 +162,8 @@ public class Publication {
             stat.setString(3, topics);
             stat.setString(4, publicationId);
             stat.executeUpdate();
-
-            ResultSet res = stat.executeQuery("select count(*) as total from publication where publicationId='"+publicationId+"'");
+            Statement st = conn.createStatement();
+            ResultSet res = st.executeQuery("select count(*) as total from publication where publicationId='"+publicationId+"'");
             int count = 0;
             while (res.next()) {
                 count = res.getInt("total");

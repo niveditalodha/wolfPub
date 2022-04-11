@@ -3,6 +3,8 @@ package wolfPubDB.menu;
 import wolfPubDB.taskAndOperations.*;
 import wolfPubDB.classes.*;
 
+import wolfPubDB.classes.ReportClass;
+import wolfPubDB.taskAndOperations.Report;
 import java.util.*;
 import java.io.*;
 import java.sql.SQLException;
@@ -21,7 +23,8 @@ public class PublicationMenu {
         Date publicationDate, issueDate, creationDate,paymentDate, paymentClaimedDate;
         String  staffId, articleId, chapterId,chapterNumber, chapterTitle;
         String publicationId, topics, title, isbn, type, periodicity, text, name;
-
+        
+        ReportClass report;
         String[] args;
 
         while (true) {
@@ -246,7 +249,8 @@ public class PublicationMenu {
             // View Publication based on Editor(Staff ID)
             System.out.println("Enter the Editor's Staff ID:");
             staffId = sc.nextLine();
-            Edits.selectEditorPublication(staffId).forEach(System.out::println);
+            report = Edits.selectEditorPublication(staffId);
+            ReportClass.printReport(report);
             return;
 
 

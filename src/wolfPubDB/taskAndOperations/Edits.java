@@ -9,8 +9,10 @@ import java.util.ArrayList;
 import wolfPubDB.classes.EditsClass;
 import wolfPubDB.classes.PublicationClass;
 import wolfPubDB.connect.*;
-
-
+import wolfPubDB.classes.ReportClass;
+import wolfPubDB.taskAndOperations.getReport;
+import java.util.Arrays;
+import java.util.List;
 
 public class Edits {
     public static ArrayList<EditsClass> selectEdits() {
@@ -55,20 +57,23 @@ public class Edits {
     public static  ArrayList<PublicationClass> selectEditorPublication(String staffId){
         try{
 
-            Connection conn = DBConnect.getConnection();
-            ArrayList<PublicationClass> output = new ArrayList<>();
-            String query = "Select * from publication left outer join book left outer join issue where publication.publicationId IN (Select publicationId from edits where staffId='" + staffId +"')";
-            Statement stat = conn.createStatement();
-            ResultSet res =  stat.executeQuery(query);
+            List<String> resultKeys = new ArrayList<>(Arrays.asList(
+                "publicationId",
+                "title",
+                "periodicity",
+                "topics",
+                "publicationId",
+                "isbn",
+                "publicationDate",
+                "edition",
+                "publicationId",
+                "issueDate",
+                "type"
+        ));
 
-            while(res.next()){
-                PublicationClass row = new PublicationClass(res.getString("publicationId"), res.getString("title"), res.getString("periodicity"), res.getString("topics"));
-                output.add(row);
-            }
-            conn.close();
-            return output;
+        String query = "select * from publication left outer join book on publication.publicationId = book.publicationId left outer join issue on publication.publicationId = issue.publicationId where publication.publicationId in (select publicationId from edits where staffId = '"+staffId+"');";
 
-
+        return getReport(query, resultKeys);
 
         }catch (SQLException ex){
             ex.printStackTrace();
