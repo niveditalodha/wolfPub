@@ -35,7 +35,7 @@ public class Staff {
         try {
             Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
-            ResultSet res = stat.executeQuery("Select * from staff where staffId = " +  staffId);
+            ResultSet res = stat.executeQuery("Select * from staff where staffId = '" +  staffId+"'");
             ArrayList<StaffClass> output = new ArrayList<>();
             while (res.next()) {
                 StaffClass row = new StaffClass(res.getString("staffId"), res.getString("name"), res.getString("type"));

@@ -35,7 +35,7 @@ public class Payment{
             Connection conn = DBConnect.getConnection();
             ArrayList<PaymentClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
-            ResultSet res = stat.executeQuery("select * from payment where staffId="+staffId);
+            ResultSet res = stat.executeQuery("select * from payment where staffId='"+staffId+"'");
             while (res.next()) {
                 PaymentClass chp = new PaymentClass(res.getString("staffId"), res.getDate("paymentDate"), Integer.valueOf(res.getInt("amount")), res.getDate("paymentClaimedDate"));
                 output.add(chp);
@@ -103,7 +103,7 @@ public class Payment{
             stat.setDate(2, paymentDate);
             stat.executeUpdate();
 
-            ResultSet res = stat.executeQuery("select count(*) as total from payment where staffId="+staffId+" and paymentDate="+(paymentDate));
+            ResultSet res = stat.executeQuery("select count(*) as total from payment where staffId='"+staffId+"' and paymentDate='"+(paymentDate)+"'");
             while (res.next()) {
                 count = res.getInt("total");
             }
@@ -124,7 +124,7 @@ public class Payment{
         try {
             Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
-            stat.executeUpdate("DELETE FROM payment WHERE staffId= "+staffId+" and paymentDate="+(paymentDate));
+            stat.executeUpdate("DELETE FROM payment WHERE staffId= '"+staffId+"' and paymentDate='"+(paymentDate)+"'");
             conn.close();
             return true;
         } catch (SQLException ex) {
