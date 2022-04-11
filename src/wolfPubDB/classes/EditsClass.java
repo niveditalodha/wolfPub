@@ -22,5 +22,8 @@ public class EditsClass {
     public void setPublicationId(String publicationId) {  
         this.publicationId =  publicationId;
     }
-
+    @Override
+    public String toString(){
+        return this.staffId + " " +this.publicationId;
+    }
 }

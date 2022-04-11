@@ -36,7 +36,7 @@ public class Book{
             Connection conn = DBConnect.getConnection();
             ArrayList<BookClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
-            ResultSet res = stat.executeQuery("select * from book where publicationId="+publicationId);
+            ResultSet res = stat.executeQuery("select * from book where publicationId='"+publicationId+"'");
             while (res.next()) {
                 BookClass pub = new BookClass(res.getString("publicationId"), res.getString("isbn"), res.getDate("publicationDate"), res.getString("edition"));
                 output.add(pub);
@@ -54,7 +54,8 @@ public class Book{
             Connection conn = DBConnect.getConnection();
             ArrayList<BookClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
-            ResultSet res = stat.executeQuery("select * from book where topics="+topics);
+            String query = "select * from book where publicationId in (select publicationId from publication where topics = '"+topics+"')";
+            ResultSet res = stat.executeQuery(query);
             while (res.next()) {
                 BookClass pub = new BookClass(res.getString("publicationId"), res.getString("isbn"), res.getDate("publicationDate"), res.getString("edition"));
                 output.add(pub);
@@ -67,12 +68,12 @@ public class Book{
         }
     }
 
-    public static ArrayList<BookClass> selectBookByDate(String publicationDate) throws SQLException{
+    public static ArrayList<BookClass> selectBookByDate(Date publicationDate) throws SQLException{
         try {   
             Connection conn = DBConnect.getConnection();
             ArrayList<BookClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
-            ResultSet res = stat.executeQuery("select * from book where publicationDate="+publicationDate);
+            ResultSet res = stat.executeQuery("select * from book where publicationDate='"+publicationDate+"'");
             while (res.next()) {
                 BookClass pub = new BookClass(res.getString("publicationId"), res.getString("isbn"), res.getDate("publicationDate"), res.getString("edition"));
                 output.add(pub);
@@ -85,12 +86,12 @@ public class Book{
         }
     }
     
-    public static ArrayList<BookClass> selectBookByAuthor(String staffId) throws SQLException{
+    public static ArrayList<BookClass> selectBookByAuthor(String name) throws SQLException{
         try {   
             Connection conn = DBConnect.getConnection();
             ArrayList<BookClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
-            ResultSet res = stat.executeQuery("select * from book where publicationId in (select publicationId from writesbook where staffId = "+staffId+")");
+            ResultSet res = stat.executeQuery("select * from book where publicationId in (select publicationId from writesbook where staffId in (select staffId from staff where name = '"+name+"'))");
             while (res.next()) {
                 BookClass pub = new BookClass(res.getString("publicationId"), res.getString("isbn"), res.getDate("publicationDate"), res.getString("edition"));
                 output.add(pub);
@@ -124,13 +125,13 @@ public class Book{
             if (t1){
                 conn.commit();
                 System.out.println("Transaction Successful");
-                conn.close();
+                // conn.close();
                 return true;
             }
             else{
                 conn.rollback();
                 System.out.println("Transaction Failed");
-                conn.close();
+                // conn.close();
                 return false;
             }
         }
@@ -160,7 +161,7 @@ public class Book{
             stat.setString(4,publicationId);
             stat.executeUpdate();
 
-            ResultSet res = stat.executeQuery("select count(*) as total from book where publicationId="+publicationId);
+            ResultSet res = stat.executeQuery("select count(*) as total from book where publicationId='"+publicationId+"'");
             while (res.next()) {
                 count = res.getInt("total");
             }
@@ -181,7 +182,7 @@ public class Book{
         try {
             Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
-            stat.executeUpdate("DELETE FROM book WHERE publicationId= " + publicationId);
+            stat.executeUpdate("DELETE FROM book WHERE publicationId= '" + publicationId+"'");
             conn.close();
             return true;
         } catch (SQLException ex) {

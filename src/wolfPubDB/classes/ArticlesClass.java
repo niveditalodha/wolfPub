@@ -48,4 +48,8 @@ public class ArticlesClass{
     public void setText(){
         this.text = text;
     }
+    @Override
+    public String toString(){
+        return this.articleId + " " +this.publicationId+ " "+this.title + " "+String.valueOf(this.creationDate)+" "+this.text;
+    }
 }

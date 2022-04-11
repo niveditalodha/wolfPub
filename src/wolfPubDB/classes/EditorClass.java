@@ -14,5 +14,8 @@ public class EditorClass{
     public void setStaffId(){
         this.staffId = staffId;
     }
-
+    @Override
+    public String toString(){
+        return this.staffId;
+    }
 }

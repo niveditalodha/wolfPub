@@ -35,7 +35,7 @@ public class Chapters{
             Connection conn = DBConnect.getConnection();
             ArrayList<ChaptersClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
-            ResultSet res = stat.executeQuery("select * from chapters where publicationId="+publicationId+" and chapterNumber="+chapterNumber);
+            ResultSet res = stat.executeQuery("select * from chapters where publicationId='"+publicationId+"' and chapterNumber='"+chapterNumber+"'");
             while (res.next()) {
                 ChaptersClass chp = new ChaptersClass(res.getString("publicationId"), res.getString("chapterNumber"), res.getString("chapterTitle"));
                 output.add(chp);
@@ -101,7 +101,7 @@ public class Chapters{
             stat.setString(2, chapterNumber);
             stat.executeUpdate();
 
-            ResultSet res = stat.executeQuery("select count(*) as total from chapters where publicationId="+publicationId+" and chapterNumber="+chapterNumber);
+            ResultSet res = stat.executeQuery("select count(*) as total from chapters where publicationId='"+publicationId+"' and chapterNumber='"+chapterNumber+"'");
             while (res.next()) {
                 count = res.getInt("total");
             }
@@ -125,7 +125,7 @@ public class Chapters{
         try {
             Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
-            stat.executeUpdate("DELETE FROM chapters WHERE publicationId= "+publicationId+" and chapterNumber="+chapterNumber);
+            stat.executeUpdate("DELETE FROM chapters WHERE publicationId= '"+publicationId+"' and chapterNumber='"+chapterNumber+"'");
             conn.close();
             return true;
         } catch (SQLException ex) {

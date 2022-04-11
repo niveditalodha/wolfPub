@@ -73,5 +73,8 @@ public class OrdersClass {
     public void setDistributorId(String distributorId) {  
         this.distributorId =  distributorId;
     }
-
+    @Override
+    public String toString(){
+        return this.orderId + " " +String.valueOf(this.deadline)+ " "+String.valueOf(this.price) + " "+String.valueOf(this.orderDate)+" "+String.valueOf(this.noOfCopies) + " "+ this.shippingCost + " "+this.publicationId+" "+this.distributorId;
+    }
 }

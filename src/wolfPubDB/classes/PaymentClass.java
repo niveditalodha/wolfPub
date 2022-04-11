@@ -40,5 +40,8 @@ public class PaymentClass {
     public void setPaymentClaimedDate(Date paymentClaimedDate) {  
         this.paymentClaimedDate =  paymentClaimedDate;
     }
-
+    @Override
+    public String toString(){
+        return this.staffId + " " +String.valueOf(this.paymentDate)+" "+ String.valueOf(this.amount)+" "+String.valueOf(this.paymentClaimedDate);
+    }
 }

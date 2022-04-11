@@ -35,7 +35,7 @@ public class Issue {
         try {
             Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
-            ResultSet res = stat.executeQuery("Select * from issue where publicationId = " +  publicationId);
+            ResultSet res = stat.executeQuery("Select * from issue where publicationId = '" +  publicationId+"'");
             ArrayList<IssueClass> output = new ArrayList<>();
             while (res.next()) {
                 IssueClass p = new IssueClass(res.getString("publicationId"), res.getDate("issueDate"), res.getString("type"));
@@ -59,7 +59,6 @@ public class Issue {
             stat.setDate(2, issueDate);
             stat.setString(3, type);
             stat.executeUpdate();
-            conn.close();
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -76,7 +75,7 @@ public class Issue {
             stat.setString(2, type);
             stat.setString(3, publicationId);
             stat.executeUpdate();
-            ResultSet res = stat.executeQuery("Select count(*) as total from issue where publicationId="+publicationId);
+            ResultSet res = stat.executeQuery("Select count(*) as total from issue where publicationId='"+publicationId+"'");
             int count = 0;
             while (res.next()) {
                 count = res.getInt("total");
@@ -98,7 +97,7 @@ public class Issue {
         try {
             Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
-            stat.executeUpdate("DELETE FROM issue WHERE publicationId= " + publicationId);
+            stat.executeUpdate("DELETE FROM issue WHERE publicationId= '" + publicationId+"'");
             conn.close();
             return true;
         } catch (SQLException ex) {

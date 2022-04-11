@@ -40,6 +40,9 @@ public class BookClass{
     public void setEdition(){
         this.edition = edition;
     }
-
+    @Override
+    public String toString(){
+        return this.publicationId+ " "+this.isbn + " "+String.valueOf(this.publicationDate)+" "+this.edition;
+    }
 
 }

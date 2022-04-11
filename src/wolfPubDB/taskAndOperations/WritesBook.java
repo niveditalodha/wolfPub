@@ -65,7 +65,7 @@ public class WritesBook {
             stat.setString(2, publicationId);
             stat.executeUpdate();
 
-            ResultSet res = stat.executeQuery("select count(*) as total from writesbook where publicationId="+publicationId);
+            ResultSet res = stat.executeQuery("select count(*) as total from writesbook where publicationId='"+publicationId+"'");
             while (res.next()) {
                 count = res.getInt("total");
             }

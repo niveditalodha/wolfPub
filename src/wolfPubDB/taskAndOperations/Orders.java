@@ -69,7 +69,7 @@ public class Orders{
             stat.setString(7, distributorId);
             stat.setString(8, orderId);
             stat.executeUpdate();
-            ResultSet res = stat.executeQuery("Select count(*) as orders from issue where orderId="+orderId);
+            ResultSet res = stat.executeQuery("Select count(*) as orders from issue where orderId='"+orderId+"'");
             int count = 0;
             while (res.next()) {
                 count = res.getInt("total");
@@ -92,7 +92,7 @@ public class Orders{
         try {
             Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
-            stat.executeUpdate("DELETE FROM orders WHERE orderId= " + orderId);
+            stat.executeUpdate("DELETE FROM orders WHERE orderId= '" + orderId+"'");
             conn.close();
             return true;
         } catch (SQLException ex) {
@@ -106,14 +106,16 @@ public class Orders{
     public static boolean billDistributorForOrder(String orderId) {
         try {
             Connection conn = DBConnect.getConnection();
-            String query = "update distributors set balance = ? where distributorId = ?";
+            String query = "update distributors set balance = balance + ? where distributorId = ?";
             PreparedStatement st = conn.prepareStatement(query);
-            String query1 = "select noOfCopies, price, shippingCost, distributorId from orders where orderId = "+orderId;
+            String query1 = "select noOfCopies, price, shippingCost, distributorId from orders where orderId = '"+orderId+"'";
+            
+            Statement stat = conn.createStatement();
             float price = 0;
             float shippingCost = 0;
             Integer noOfCopies = 0;
             String distributorId = "";
-            ResultSet rs1 = st.executeQuery(query1);
+            ResultSet rs1 = stat.executeQuery(query1);
             while (rs1.next()) {
                 noOfCopies = rs1.getInt("noOfCopies");
                 price = rs1.getFloat("price");

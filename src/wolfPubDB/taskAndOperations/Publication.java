@@ -37,7 +37,7 @@ public class Publication {
         try {
             Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
-            ResultSet res = stat.executeQuery("select * from publication where publicationId = " +  publicationId);
+            ResultSet res = stat.executeQuery("select * from publication where publicationId = '" +  publicationId+"'");
             ArrayList<PublicationClass> output = new ArrayList<>();
             while (res.next()) {
                 PublicationClass pub = new PublicationClass(res.getString("publicationId"), res.getString("title"), res.getString("periodicity"), res.getString("topics"));
@@ -87,17 +87,14 @@ public class Publication {
             stat.executeUpdate();
 
             t1 = true;
+            conn.commit();
             t2 = Book.addBook(publicationId, isbn, publicationDate, edition);
-
-            if(t1 && t2){
-                conn.commit();
+            
+            if(t2){
                 System.out.println("Transaction successful");
-                conn.close();
                 return true;
             }else{
-                conn.rollback();
                 System.out.println("Transaction Failed");
-                conn.close();
                 return false;
             }
         } catch (SQLException ex) {
@@ -130,17 +127,16 @@ public class Publication {
             stat.executeUpdate();
 
             t1 = true;
+            conn.commit();
             t2 = Issue.addIssue(publicationId, issueDate, type);
 
             if(t1 && t2){
                 conn.commit();
                 System.out.println("Transaction successful");
-                conn.close();
                 return true;
             }else{
                 conn.rollback();
                 System.out.println("Transaction Failed");
-                conn.close();
                 return false;
             }
         } catch (SQLException ex) {
@@ -167,7 +163,7 @@ public class Publication {
             stat.setString(4, publicationId);
             stat.executeUpdate();
 
-            ResultSet res = stat.executeQuery("select count(*) as total from publication where publicationId="+publicationId);
+            ResultSet res = stat.executeQuery("select count(*) as total from publication where publicationId='"+publicationId+"'");
             int count = 0;
             while (res.next()) {
                 count = res.getInt("total");
@@ -190,7 +186,7 @@ public class Publication {
         try {
             Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
-            stat.executeUpdate("DELETE FROM publication WHERE publicationId= " + publicationId);
+            stat.executeUpdate("DELETE FROM publication WHERE publicationId= '" + publicationId+"'");
             conn.close();
             return true;
         } catch (SQLException ex) {

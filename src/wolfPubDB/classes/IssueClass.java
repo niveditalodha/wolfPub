@@ -32,5 +32,8 @@ public class IssueClass{
     public void setType(){
         this.type = type;
     }
-
-}
+    @Override
+    public String toString(){
+        return this.publicationId + " "+String.valueOf(this.issueDate)+" "+this.type;
+    }
+}   
