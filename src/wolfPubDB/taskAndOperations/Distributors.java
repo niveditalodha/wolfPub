@@ -77,7 +77,7 @@ public class Distributors{
             stat.setString(7, contactPerson);
             stat.setString(8, distributorId);
             stat.executeUpdate();
-            ResultSet res = stat.executeQuery("Select count(*) as total from distributors where distributorId="+distributorId);
+            ResultSet res = stat.executeQuery("Select count(*) as total from distributors where distributorId='"+distributorId+"'");
             int count = 0;
             while (res.next()) {
                 count = res.getInt("total");
@@ -105,7 +105,7 @@ public class Distributors{
             stat.setFloat(1, payment);
             stat.setString(2, distributorId);
             stat.executeUpdate();
-            ResultSet res = stat.executeQuery("Select count(*) as total from distributors where distributorId="+distributorId);
+            ResultSet res = stat.executeQuery("Select count(*) as total from distributors where distributorId='"+distributorId+"'");
             int count = 0;
             while (res.next()) {
                 count = res.getInt("total");
@@ -128,7 +128,7 @@ public class Distributors{
         Connection conn = DBConnect.getConnection();
         try {
             Statement stat = conn.createStatement();
-            stat.executeUpdate("DELETE FROM distributors WHERE distributorId= " + distributorId);
+            stat.executeUpdate("DELETE FROM distributors WHERE distributorId= '" + distributorId+"'");
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
