@@ -41,7 +41,7 @@ public class AdminMenu {
                     // PaymentMenu.paymentMenu();
                     break;
                 case 6:
-                    // ReportMenu.reportMenu();
+                    ReportMenu.reportMenu();
                     break;
                 case 7:
                     MainMenu.main(main_args);
