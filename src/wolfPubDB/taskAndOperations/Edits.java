@@ -8,13 +8,37 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import wolfPubDB.classes.EditsClass;
 import wolfPubDB.classes.PublicationClass;
+import wolfPubDB.classes.DistributorsClass;
 import wolfPubDB.connect.*;
 import wolfPubDB.classes.ReportClass;
-import wolfPubDB.taskAndOperations.getReport;
 import java.util.Arrays;
 import java.util.List;
 
 public class Edits {
+    public static ReportClass getReport(String query, List<String> resultKeys) throws SQLException {
+        Connection conn = DBConnect.getConnection();
+
+        try {
+            Statement stat = conn.createStatement();
+            ArrayList<DistributorsClass> output = new ArrayList<>();
+            ResultSet res = stat.executeQuery(query);
+            List<ResultSet> resultList = new ArrayList<>();
+
+            while (res.next()) {
+                resultList.add(res);
+            }
+
+            ReportClass report = new ReportClass(resultKeys, resultList);
+            return report;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            conn.close();
+        }
+
+    }
+
     public static ArrayList<EditsClass> selectEdits() {
         try {
             Connection conn = DBConnect.getConnection();
@@ -54,7 +78,7 @@ public class Edits {
     }
 
 
-    public static  ArrayList<PublicationClass> selectEditorPublication(String staffId){
+    public static ReportClass selectEditorPublication(String staffId){
         try{
 
             List<String> resultKeys = new ArrayList<>(Arrays.asList(

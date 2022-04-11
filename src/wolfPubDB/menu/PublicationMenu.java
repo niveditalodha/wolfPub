@@ -248,7 +248,7 @@ public class PublicationMenu {
         case 13:
             // View Publication based on Editor(Staff ID)
             System.out.println("Enter the Editor's Staff ID:");
-            staffId = sc.nextLine();
+            staffId = sc.next();
             report = Edits.selectEditorPublication(staffId);
             ReportClass.printReport(report);
             return;
