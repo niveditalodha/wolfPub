@@ -63,7 +63,7 @@ public class WritesArticle{
     public static boolean addWritesArticle(String staffId, String articleId) throws SQLException {
         try {
             Connection conn = DBConnect.getConnection();
-            String query = "insert into writesarticle(staffId, articlesId) values (?,?)";
+            String query = "insert into writesarticle(staffId, articleId) values (?,?)";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, staffId);
             stat.setString(2, articleId);

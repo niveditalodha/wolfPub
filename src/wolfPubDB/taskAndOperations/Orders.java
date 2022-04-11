@@ -106,14 +106,16 @@ public class Orders{
     public static boolean billDistributorForOrder(String orderId) {
         try {
             Connection conn = DBConnect.getConnection();
-            String query = "update distributors set balance = ? where distributorId = ?";
+            String query = "update distributors set balance = balance + ? where distributorId = ?";
             PreparedStatement st = conn.prepareStatement(query);
             String query1 = "select noOfCopies, price, shippingCost, distributorId from orders where orderId = '"+orderId+"'";
+            
+            Statement stat = conn.createStatement();
             float price = 0;
             float shippingCost = 0;
             Integer noOfCopies = 0;
             String distributorId = "";
-            ResultSet rs1 = st.executeQuery(query1);
+            ResultSet rs1 = stat.executeQuery(query1);
             while (rs1.next()) {
                 noOfCopies = rs1.getInt("noOfCopies");
                 price = rs1.getFloat("price");

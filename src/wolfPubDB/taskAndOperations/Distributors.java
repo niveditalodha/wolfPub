@@ -97,27 +97,19 @@ public class Distributors{
     }      
 
 
-    public static Boolean updateDistributorBalance(String distributorId, Float payment) throws SQLException{
+    public static Boolean updateDistributorBalance(String orderId, Float payment) throws SQLException{
         Connection conn = DBConnect.getConnection();
         try {
-            String query = "update distributors set balance = balance - ? where distributorId = ?;";
+            String query = "update distributors set balance = balance - ? where distributorId = (select distributorId from orders where orderId='"+orderId+"');";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setFloat(1, payment);
-            stat.setString(2, distributorId);
+            stat.setString(2, orderId);
             stat.executeUpdate();
-            ResultSet res = stat.executeQuery("Select count(*) as total from distributors where distributorId='"+distributorId+"'");
-            int count = 0;
-            while (res.next()) {
-                count = res.getInt("total");
-            }
-            conn.commit();
-            if (count!=0){
-                return  true;
-            }
-            return false;
+            
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
-            return Boolean.valueOf(false);
+            return false;
         }
         finally{
             conn.close();

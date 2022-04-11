@@ -53,38 +53,26 @@ public class Payment{
         boolean t1 = false;
         try{
             conn = DBConnect.getConnection();
-            conn.setAutoCommit(false);
+
             String query = "INSERT INTO payment(staffId, paymentDate, amount, paymentClaimedDate) VALUES(?,?,?,?)";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, staffId);
             stat.setDate(2, paymentDate);
             stat.setInt(3, amount);
-            stat.setDate(2, paymentClaimedDate);
+            stat.setDate(4, paymentClaimedDate);
             stat.executeUpdate();
 
-            t1 = true;
-
-            if (t1){
-                conn.commit();
-                System.out.println("Transaction Successful");
-                conn.close();
-                return true;
-            }
-            else{
-                conn.rollback();
-                System.out.println("Transaction Failed");
-                conn.close();
-                return false;
-            }
+            
+            System.out.println("Transaction Successful");
+            conn.close();
+            return true;
         }
         catch (SQLException ex) {
-            conn.rollback();
             System.out.println("Transaction Failed");
             conn.close();
             return false;
         } finally {
             if(conn != null){
-                conn.setAutoCommit(true);
                 conn.close();
             }
         }

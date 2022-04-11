@@ -124,14 +124,14 @@ public class DistributorMenu {
 
                     case 7:
                         //Update outstanding balance of a Distributor
-                        System.out.println("Enter payment made by distributor(Float) and String distributorId separated by |");
+                        System.out.println("Enter payment made by distributor(Float) and String orderId for which payment is made separated by |");
                         float payment = 0;
                         args = sc.next().split("[|]");
                         System.out.println(Arrays.toString((Object[]) args));
                         payment = Float.valueOf(Float.parseFloat(args[0]));
-                        distributorId = args[1];
-                        if (Distributors.updateDistributorBalance(distributorId, payment)) {
-                            System.out.println("Distributor Billed Successfully");
+                        orderId = args[1];
+                        if (Distributors.updateDistributorBalance(orderId, payment)) {
+                            System.out.println("Distributor balance updated Successfully");
                         } else {
                             System.out.println("Operation Failed");
                         }
