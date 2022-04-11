@@ -12,7 +12,7 @@ import wolfPubDB.connect.*;
 
 
 public class WritesBook {
-    public static ArrayList<WritesBookClass> selectEdits() throws SQLException{
+    public static ArrayList<WritesBookClass> selectWritesBook() throws SQLException{
         Connection conn = DBConnect.getConnection();
         try {
             Statement stat = conn.createStatement();

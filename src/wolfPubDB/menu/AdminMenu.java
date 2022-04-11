@@ -20,7 +20,8 @@ public class AdminMenu {
             System.out.println("4. Distributor Operations");
             System.out.println("5. Payment Operations");
             System.out.println("6. Reports");
-            System.out.println("7. Back to Main Menu");
+            System.out.println("7. Display Table");
+            System.out.println("8. Back to Main Menu");
 
             int input = sc.nextInt();
 
@@ -44,6 +45,8 @@ public class AdminMenu {
                     ReportMenu.reportMenu();
                     break;
                 case 7:
+                    Display.DisplayMenu();
+                case 8:
                     MainMenu.main(main_args);
                 default:
                     System.out.println("Enter a valid choice");
