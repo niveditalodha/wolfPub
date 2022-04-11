@@ -160,8 +160,8 @@ public class Book{
             stat.setString(3, edition);
             stat.setString(4,publicationId);
             stat.executeUpdate();
-
-            ResultSet res = stat.executeQuery("select count(*) as total from book where publicationId='"+publicationId+"'");
+            Statement st = conn.createStatement();
+            ResultSet res = st.executeQuery("select count(*) as total from book where publicationId='"+publicationId+"'");
             while (res.next()) {
                 count = res.getInt("total");
             }

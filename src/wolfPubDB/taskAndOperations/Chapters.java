@@ -66,20 +66,17 @@ public class Chapters{
             if (t1){
                 conn.commit();
                 System.out.println("Transaction Successful");
-                conn.close();
                 return true;
             }
             else{
                 conn.rollback();
                 System.out.println("Transaction Failed");
-                conn.close();
                 return false;
             }
         }
         catch (SQLException ex) {
             conn.rollback();
             System.out.println("Transaction Failed");
-            conn.close();
             return false;
         } finally {
             if(conn != null){
@@ -98,10 +95,10 @@ public class Chapters{
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, chapterTitle);
             stat.setString(2, publicationId);
-            stat.setString(2, chapterNumber);
+            stat.setString(3, chapterNumber);
             stat.executeUpdate();
-
-            ResultSet res = stat.executeQuery("select count(*) as total from chapters where publicationId='"+publicationId+"' and chapterNumber='"+chapterNumber+"'");
+            Statement st = conn.createStatement();
+            ResultSet res = st.executeQuery("select count(*) as total from chapters where publicationId='"+publicationId+"' and chapterNumber='"+chapterNumber+"'");
             while (res.next()) {
                 count = res.getInt("total");
             }

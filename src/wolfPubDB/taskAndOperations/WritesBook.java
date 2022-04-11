@@ -64,8 +64,9 @@ public class WritesBook {
             stat.setString(1, staffId);
             stat.setString(2, publicationId);
             stat.executeUpdate();
-
-            ResultSet res = stat.executeQuery("select count(*) as total from writesbook where publicationId='"+publicationId+"'");
+            
+            Statement st = conn.createStatement();
+            ResultSet res = st.executeQuery("select count(*) as total from writesbook where publicationId='"+publicationId+"'");
             while (res.next()) {
                 count = res.getInt("total");
             }
@@ -77,8 +78,8 @@ public class WritesBook {
             return false;
         }
         catch (SQLException e) {
-            e.printStackTrace();
-            return Boolean.valueOf(false);
+            // e.printStackTrace();
+            return false;
         }
         finally{
             conn.close();

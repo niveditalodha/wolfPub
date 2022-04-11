@@ -3,6 +3,7 @@ package wolfPubDB.taskAndOperations;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.lang.Thread.State;
 import java.sql.*;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -103,7 +104,7 @@ public class Articles{
         Connection conn = DBConnect.getConnection();
         try {
             
-            String query = "insert into issue(articleId, title, creationDate, text, publicationId) values (?,?,?,?,?)";
+            String query = "insert into articles(articleId, title, creationDate, text, publicationId) values (?,?,?,?,?)";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, articleId);
             stat.setString(2, title);
@@ -130,7 +131,8 @@ public class Articles{
             stat.setString(1, title);
             stat.setString(2, articleId);
             stat.executeUpdate();
-            ResultSet res = stat.executeQuery("Select count(*) as total from articles where articleId='"+articleId+"'");
+            Statement st = conn.createStatement();
+            ResultSet res = st.executeQuery("Select count(*) as total from articles where articleId='"+articleId+"'");
             int count = 0;
             while (res.next()) {
                 count = res.getInt("total");
@@ -156,7 +158,8 @@ public class Articles{
             stat.setDate(1, creationDate);
             stat.setString(2, articleId);
             stat.executeUpdate();
-            ResultSet res = stat.executeQuery("Select count(*) as total from articles where articleId='"+articleId+"'");
+            Statement st = conn.createStatement();
+            ResultSet res = st.executeQuery("Select count(*) as total from articles where articleId='"+articleId+"'");
             int count = 0;
             while (res.next()) {
                 count = res.getInt("total");
@@ -182,7 +185,8 @@ public class Articles{
             stat.setString(1, text);
             stat.setString(2, articleId);
             stat.executeUpdate();
-            ResultSet res = stat.executeQuery("Select count(*) as total from articles where articleId='"+articleId+"'");
+            Statement st = conn.createStatement();
+            ResultSet res = st.executeQuery("Select count(*) as total from articles where articleId='"+articleId+"'");
             int count = 0;
             while (res.next()) {
                 count = res.getInt("total");
@@ -208,7 +212,8 @@ public class Articles{
             stat.setString(1, topics);
             stat.setString(2, articleId);
             stat.executeUpdate();
-            ResultSet res = stat.executeQuery("Select count(*) as total from publication where publicationId=(select publicationId from articles where articleId='"+articleId+"')");
+            Statement st = conn.createStatement();
+            ResultSet res = st.executeQuery("Select count(*) as total from publication where publicationId=(select publicationId from articles where articleId='"+articleId+"')");
             int count = 0;
             while (res.next()) {
                 count = res.getInt("total");
