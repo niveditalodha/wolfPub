@@ -27,7 +27,7 @@ public class Display {
             System.out.println("10. View Orders Table");
             System.out.println("11. View Payment Table");
             System.out.println("12. View Staff Table");
-            System.out.println("13. View WrtiesBook Table");
+            System.out.println("13. View WritesBook Table");
             System.out.println("14. View WritesArticle Table");
             System.out.println("15. Back to Main Menu");
             int input = sc.nextInt();

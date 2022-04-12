@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import org.mariadb.jdbc.client.result.ResultSetMetaData;
-
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -37,7 +35,7 @@ public class Distributors{
     }
 
     public static Boolean addDistributor(String distributorId, String name, String type, Float balance, String phone, String city, String street, String contactPerson) throws SQLException{
-        
+
         Connection conn = DBConnect.getConnection();
         try {
             String query = "insert into distributors(distributorId, name, type, balance, phone, city, street, contactPerson) values (?,?,?,?,?,?,?,?)";
@@ -57,13 +55,13 @@ public class Distributors{
             return false;
         }
         finally{
-            
+
             conn.close();
         }
-    }   
+    }
 
     public static Boolean updateDistributors(String distributorId, String name, String type, Float balance, String phone, String city, String street, String contactPerson) throws SQLException{
-        
+
         Connection conn = DBConnect.getConnection();
         try {
             String query = "Update distributors set name = ?, type = ?, balance = ?, phone = ?, city = ?, street = ?, contactPerson = ? where distributorId = ?";
@@ -94,7 +92,7 @@ public class Distributors{
         finally{
             conn.close();
         }
-    }      
+    }
 
 
     public static Boolean updateDistributorBalance(String orderId, Float payment) throws SQLException{
@@ -105,7 +103,7 @@ public class Distributors{
             stat.setFloat(1, payment);
             stat.setString(2, orderId);
             stat.executeUpdate();
-            
+
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -136,7 +134,7 @@ public class Distributors{
     // 4/10 12:45PM
 
     // public static ArrayList<DistributorsClass> selectDistributorsByDistributorId(String distributorId) throws SQLException{
-        
+
     //     Connection conn = DBConnect.getConnection();
     //     try{
     //         Statement stat = conn.createStatement();
@@ -156,9 +154,9 @@ public class Distributors{
     //         conn.close();
     //     }
     // }
-    
+
     // public static ArrayList<DistributorsClass> selectDistributorsByName(String name) throws SQLException{
-        
+
     //     Connection conn = DBConnect.getConnection();
     //     try{
     //         Statement stat = conn.createStatement();
@@ -180,7 +178,7 @@ public class Distributors{
     // }
 
     // public static ArrayList<DistributorsClass> selectDistributorsByType(String type) throws SQLException{
-        
+
     //     Connection conn = DBConnect.getConnection();
     //     try{
     //         Statement stat = conn.createStatement();
@@ -200,9 +198,9 @@ public class Distributors{
     //         conn.close();
     //     }
     // }
-    
+
     // public static ArrayList<DistributorsClass> selectDistributorsByBalance(Float balance) throws SQLException{
-        
+
     //     Connection conn = DBConnect.getConnection();
     //     try{
     //         Statement stat = conn.createStatement();
@@ -224,7 +222,7 @@ public class Distributors{
     // }
 
     // public static ArrayList<DistributorsClass> selectDistributorsByPhone(String phone) throws SQLException{
-        
+
     //     Connection conn = DBConnect.getConnection();
     //     try{
     //         Statement stat = conn.createStatement();
@@ -246,7 +244,7 @@ public class Distributors{
     // }
 
     // public static ArrayList<DistributorsClass> selectDistributorsByCity(String city) throws SQLException{
-        
+
     //     Connection conn = DBConnect.getConnection();
     //     try{
     //         Statement stat = conn.createStatement();
@@ -268,7 +266,7 @@ public class Distributors{
     // }
 
     // public static ArrayList<DistributorsClass> selectDistributorsByStreet(String street) throws SQLException{
-        
+
     //     Connection conn = DBConnect.getConnection();
     //     try{
     //         Statement stat = conn.createStatement();
@@ -288,9 +286,9 @@ public class Distributors{
     //         conn.close();
     //     }
     // }
-    
+
     // public static ArrayList<DistributorsClass> selectDistributorsByContactPerson(String contactPerson) throws SQLException{
-        
+
     //     Connection conn = DBConnect.getConnection();
     //     try{
     //         Statement stat = conn.createStatement();
@@ -310,9 +308,9 @@ public class Distributors{
     //         conn.close();
     //     }
     // }
-    
+
     // public static Boolean updateDistributorName(String distributorId, String name) throws SQLException{
-        
+
     //     Connection conn = DBConnect.getConnection();
     //     try {
     //         String query = "Update distributors set name = ? where distributorId = ?";
@@ -336,13 +334,13 @@ public class Distributors{
     //         return Boolean.valueOf(false);
     //     }
     //     finally{
-            
+
     //         conn.close();
     //     }
     // }    
 
     // public static Boolean updateDistributorType(String distributorId, String type) throws SQLException{
-        
+
     //         Connection conn = DBConnect.getConnection();
     //     try {
     //         String query = "Update distributors set type = ? where distributorId = ?";
@@ -365,13 +363,13 @@ public class Distributors{
     //         return Boolean.valueOf(false);
     //     }
     //     finally{
-            
+
     //         conn.close();
     //     }
     // }    
 
     // public static Boolean updateDistributorPhone(String distributorId, String phone) throws SQLException{
-        
+
     //         Connection conn = DBConnect.getConnection();
     //     try {
     //         String query = "Update distributors set phone = ? where distributorId = ?";
@@ -394,13 +392,13 @@ public class Distributors{
     //         return Boolean.valueOf(false);
     //     }
     //     finally{
-            
+
     //         conn.close();
     //     }
     // }    
 
     // public static Boolean updateDistributorCity(String distributorId, String city) throws SQLException{
-        
+
     //         Connection conn = DBConnect.getConnection();
     //     try {
     //         String query = "Update distributors set city = ? where distributorId = ?";
@@ -423,13 +421,13 @@ public class Distributors{
     //         return Boolean.valueOf(false);
     //     }
     //     finally{
-            
+
     //         conn.close();
     //     }
     // }    
 
     // public static Boolean updateDistributorStreet(String distributorId, String street) throws SQLException{
-        
+
     //         Connection conn = DBConnect.getConnection();
     //     try {
     //         String query = "Update distributors set street = ? where distributorId = ?";
@@ -452,13 +450,13 @@ public class Distributors{
     //         return Boolean.valueOf(false);
     //     }
     //     finally{
-            
+
     //         conn.close();
     //     }
     // }    
 
     // public static Boolean updateDistributorContactPerson(String distributorId, String contactPerson) throws SQLException{
-        
+
     //         Connection conn = DBConnect.getConnection();
     //     try {
     //         String query = "Update distributors set contactPerson = ? where distributorId = ?";
@@ -481,7 +479,7 @@ public class Distributors{
     //         return Boolean.valueOf(false);
     //     }
     //     finally{
-            
+
     //         conn.close();
     //     }
     // }  

@@ -68,7 +68,7 @@ public class ChaptersMenu {
                     staffId = args[1];
         
                     if (WritesBook.updateWritesBookChapterAuthor(publicationId, staffId)) {
-                        System.out.println(" Updaed Chapter's Author Successfully");
+                        System.out.println(" Updated Chapter's Author Successfully");
                     } else {
                         System.out.println(" Operation Failed");
                     }

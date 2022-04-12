@@ -20,7 +20,7 @@ public class PublicationMenu {
         String[] args;
 
         while (true) {
-        System.out.println("Welcome to the PUBLICTION OPERATIONS Menu !!");
+        System.out.println("Welcome to the PUBLICATION OPERATIONS Menu !!");
         System.out.println("1. Enter new Publication");
         System.out.println("2. Update Publication Information");
         System.out.println("3. Book Related");
@@ -47,7 +47,7 @@ public class PublicationMenu {
             topics = args[3];
 
             if(Publication.addPublication(publicationId, title, periodicity, topics)){
-                System.out.println("Opeation Successful");
+                System.out.println("Operation Successful");
             } else {
                 System.out.println("Operation Failed");
             }
@@ -64,7 +64,7 @@ public class PublicationMenu {
             topics = args[3];
 
             if(Publication.updatePublication(publicationId, title, periodicity, topics)){
-                System.out.println("Opeation Successful");
+                System.out.println("Operation Successful");
             } else {
                 System.out.println("Operation Failed");
             }

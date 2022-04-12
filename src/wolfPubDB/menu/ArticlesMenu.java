@@ -166,7 +166,7 @@ public class ArticlesMenu {
                     articleId = args[1];
         
                     if(WritesArticle.addWritesArticle(staffId, articleId)){
-                        System.out.println("Operation Sucessful");
+                        System.out.println("Operation Successful");
                     }else{
                         System.out.println("Operation Failed");
                     }
