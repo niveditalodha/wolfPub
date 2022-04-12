@@ -2,6 +2,7 @@ package wolfPubDB.taskAndOperations;
 
 import wolfPubDB.classes.DistributorsClass;
 import wolfPubDB.classes.ReportClass;
+import wolfPubDB.classes.ResultClass;
 import wolfPubDB.connect.DBConnect;
 
 import java.sql.Connection;
@@ -22,11 +23,13 @@ public class Report {
             ResultSet res = stat.executeQuery(query);
             List<ResultSet> resultList = new ArrayList<>();
 
+            ResultClass results = new ResultClass();
             while (res.next()) {
                 resultList.add(res);
+                results.addRow(res, resultKeys.size());
             }
 
-            ReportClass report = new ReportClass(resultKeys, resultList);
+            ReportClass report = new ReportClass(resultKeys, results);
             return report;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -48,9 +51,9 @@ public class Report {
         ));
 
         String query = "SELECT MONTH(o.orderDate) as Month, " +
-                "YEAR(o.orderDate) as Year, p.title as ”Publication Title”, " +
-                "d.name AS ”Distributor”, SUM(o.noOfCopies) as ”Total Copies”, " +
-                "SUM(o.price*o.noOfCopies) as ”Total Price” " +
+                "YEAR(o.orderDate) as Year, p.title as 'Publication Title', " +
+                "d.name AS 'Distributor', SUM(o.noOfCopies) as 'Total Copies', " +
+                "SUM(o.price*o.noOfCopies) as 'Total Price' " +
                 "FROM orders AS o, publication AS p , distributors AS d " +
                 "WHERE p.publicationId=o.publicationId and " +
                 "d.distributorId=o.distributorId " +
@@ -68,9 +71,7 @@ public class Report {
                 "Revenue"
         ));
 
-        String query = "SELECT MONTH (orderDate) as Month, YEAR " +
-                "(orderDate) as Year, SUM (price * noOfCopies) as ”Revenue” " +
-                "FROM orders";
+        String query = "SELECT MONTH (orderDate) as Month, YEAR (orderDate) as Year, SUM (price * noOfCopies) as Revenue FROM orders";
 
         return getReport(query, resultKeys);
     }
@@ -83,7 +84,7 @@ public class Report {
         ));
 
         String query = "SELECT MONTH(o.orderDate) as Month, YEAR(o.orderDate) as Year, " +
-                "SUM(o.shippingCost*o.noOfCopies) as ”Shipping Cost” " +
+                "SUM(o.shippingCost*o.noOfCopies) as 'Shipping Cost' " +
                 "FROM orders as o " +
                 "GROUP BY MONTH(o.orderDate), YEAR(o.orderDate);";
 
@@ -99,7 +100,7 @@ public class Report {
 
         String query = "SELECT MONTH(p.paymentDate) as Month, " +
                 "YEAR(p.paymentDate) as Year, SUM(p.amount) " +
-                "as ”Salary Cost” " +
+                "as 'Salary Cost' " +
                 "FROM payment as p " +
                 "GROUP BY MONTH(p.paymentDate), " +
                 "YEAR(p.paymentDate);";
@@ -112,7 +113,7 @@ public class Report {
                 "No. of Distributors"
         ));
 
-        String query = "SELECT COUNT(distributorId) AS ”No. of Distributors” FROM distributors;";
+        String query = "SELECT COUNT(distributorId) AS 'No. of Distributors' FROM distributors;";
 
         return getReport(query, resultKeys);
     }
@@ -123,7 +124,7 @@ public class Report {
                 "Total Revenue per City"
         ));
 
-        String query = "SELECT d.city as City, SUM (o.price*o.noOfCopies) AS ”Total Revenue per City”  " +
+        String query = "SELECT d.city as City, SUM (o.price*o.noOfCopies) AS 'Total Revenue per City'  " +
                 "FROM distributors AS d " +
                 "INNER JOIN orders AS o ON o.distributorId=d.distributorId " +
                 "GROUP BY d.city;";
@@ -138,8 +139,8 @@ public class Report {
                 "Total Revenue per Distributor"
         ));
 
-        String query = "SELECT d.distributorId as ”Distributor ID” , d.name as ”Name”, " +
-                "sum(o.price*o.noOfCopies) AS ”Total Revenue per Distributor” " +
+        String query = "SELECT d.distributorId as 'Distributor ID' , d.name as 'Name', " +
+                "sum(o.price*o.noOfCopies) AS 'Total Revenue per Distributor' " +
                 "FROM distributors AS d " +
                 "INNER JOIN orders AS o ON " +
                 "o.distributorId=d.distributorId " +
@@ -155,8 +156,8 @@ public class Report {
                 "Total Revenue per Location"
         ));
 
-        String query = "SELECT d.street as ”Street”, d.city as ”City”, " +
-                "SUM(o.price*o.noOfCopies) AS ”Total Revenue per Location” " +
+        String query = "SELECT d.street as 'Street', d.city as 'City', " +
+                "SUM(o.price*o.noOfCopies) AS 'Total Revenue per Location' " +
                 "FROM distributors AS d " +
                 "INNER JOIN orders AS o ON " +
                 "o.distributorId=d.distributorId " +
@@ -174,7 +175,7 @@ public class Report {
 
         String query = "SELECT MONTH (paymentDate) AS Month, " +
                 "YEAR (paymentDate) AS Year, SUM (amount) " +
-                "AS ”Total Payments per Month” " +
+                "AS 'Total Payments per Month' " +
                 "FROM payment " +
                 "GROUP BY MONTH (paymentDate), YEAR (paymentDate);";
 
@@ -189,7 +190,7 @@ public class Report {
         ));
 
         String query = "SELECT MONTH(p.paymentDate) AS Month, " +
-                "YEAR(p.paymentDate) AS Year, sum(amount) AS ”Monthly Payments to Editors” " +
+                "YEAR(p.paymentDate) AS Year, sum(amount) AS 'Monthly Payments to Editors' " +
                 "FROM payment p " +
                 "natural join editor e " +
                 "GROUP BY MONTH(p.paymentDate), YEAR(p.paymentDate);";
@@ -205,7 +206,7 @@ public class Report {
         ));
 
         String query = "SELECT MONTH(p.paymentDate) AS Month, YEAR(p.paymentDate) AS Year, " +
-                "sum(amount) AS ”Monthly Payments to Book Authors” " +
+                "sum(amount) AS 'Monthly Payments to Book Authors' " +
                 "FROM payment p " +
                 "natural join writesbook " +
                 "GROUP BY MONTH(p.paymentDate), YEAR(p.paymentDate);";
@@ -221,7 +222,7 @@ public class Report {
         ));
 
         String query = "SELECT MONTH(p.paymentDate) AS Month, YEAR(p.paymentDate) AS Year, " +
-                "sum(amount) AS ”Monthly Payments to Article Authors” " +
+                "sum(amount) AS 'Monthly Payments to Article Authors' " +
                 "FROM payment p " +
                 "natural join writesarticle " +
                 "GROUP BY MONTH(p.paymentDate), YEAR(p.paymentDate);";

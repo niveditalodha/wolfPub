@@ -12,22 +12,24 @@ public class ReportMenu {
     public static void reportMenu() throws NumberFormatException, IOException, SQLException {
         Scanner sc = new Scanner(System.in);
         String[] main_args = null;
+
         while (true) {
             System.out.println("------ REPORT MENU ------");
             System.out.println("1. Report for number and total price of copies\n" +
-                                "  of each publication bought per distributor\n" +
-                                "  per month");
+                    "  of each publication bought per distributor\n" +
+                    "  per month");
             System.out.println("2. Total monthly publishing house revenue");
             System.out.println("3. Total monthly publishing house expenses\n" +
-                               "   (shipping cost and salaries)");
+                    "   (shipping cost and salaries)");
             System.out.println("4. Total current number of distributors");
             System.out.println("5. Total revenue per city (since inception)");
             System.out.println("6. Total revenue per distributor (since inception)");
             System.out.println("7. Total revenue per location (since inception)");
             System.out.println("8. Total payments to editors authors per time period");
             System.out.println("9. Total payments to editors authors per work\n" +
-                               "   type (book authorship, article authorship,\n" +
-                               "   editorial work)");
+                    "   type (book authorship, article authorship,\n" +
+                    "   editorial work)");
+            System.out.println("10. Go back to Main menu");
 
             int input = sc.nextInt();
             ReportClass report;
@@ -81,6 +83,9 @@ public class ReportMenu {
 
                     report = Report.getMonthlyArticleAuthorPayments();
                     ReportClass.printReport(report);
+                    break;
+                case 10:
+                    MainMenu.main(main_args);
                     break;
                 default:
                     System.out.println("Enter a valid choice!");

@@ -1,29 +1,28 @@
 package wolfPubDB.classes;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 public class ReportClass {
     public List<String> resultKeys;
-    public List<ResultSet> resultList;
+    public ResultClass results;
 
-    public ReportClass(List<String> rKeys, List<ResultSet> rList) {
+    public ReportClass(List<String> rKeys, ResultClass rList) {
         resultKeys = rKeys;
-        resultList = rList;
+        results = rList;
     }
 
-    public static void printReport(ReportClass monthlyPubReport) throws SQLException {
-        for (String key : monthlyPubReport.resultKeys) {
+    public static void printReport(ReportClass report) {
+        for (String key : report.resultKeys) {
             System.out.print(key + "\t");
         }
 
-        for (ResultSet res : monthlyPubReport.resultList) {
+        for (List<String> row : report.results.rows) {
             System.out.println();
-            for (String key : monthlyPubReport.resultKeys) {
-                System.out.print(res.getString(key) + "\t");
+            for (int i = 0; i < report.resultKeys.size(); i++) {
+                System.out.print(row.get(i) + "\t");
             }
         }
+        System.out.println();
     }
 
 }
