@@ -22,13 +22,14 @@ public class Display {
             System.out.println("5. View Chapters Table ");
             System.out.println("6. View Distributor Table");
             System.out.println("7. View Editor Table");
-            System.out.println("8. View Edits Table");
-            System.out.println("9. View Orders Table");
-            System.out.println("10. View Payment Table");
-            System.out.println("11. View Staff Table");
-            System.out.println("12. View WrtiesBook Table");
-            System.out.println("13. View WritesArticle Table");
-            System.out.println("14. Back to Main Menu");
+            System.out.println("8. View Editor Table");
+            System.out.println("9. View Edits Table");
+            System.out.println("10. View Orders Table");
+            System.out.println("11. View Payment Table");
+            System.out.println("12. View Staff Table");
+            System.out.println("13. View WrtiesBook Table");
+            System.out.println("14. View WritesArticle Table");
+            System.out.println("15. Back to Main Menu");
             int input = sc.nextInt();
 
             switch (input) {
@@ -61,30 +62,34 @@ public class Display {
                     Editor.selectEditor().forEach(System.out::println);
                     break;
                 case 8:
+                // Select Author Table
+                    Author.selectAuthor().forEach(System.out::println);
+                    break;
+                case 9:
                 // Select Edits Table
                     Edits.selectEdits().forEach(System.out::println);
                     break;
-                case 9:
+                case 10:
                 // Select Orders Table
                     Orders.selectOrder().forEach(System.out::println);
                     break;
-                case 10:
+                case 11:
                 // Select Paymetn Table
                     Payment.selectPayment().forEach(System.out::println);
                     break;
-                case 11:
+                case 12:
                 // Select Staff Table
                     Staff.selectStaff().forEach(System.out::println);
                     break;
-                case 12:
+                case 13:
                 // Select Writesbook Table
                     WritesBook.selectWritesBook().forEach(System.out::println);
                     break;
-                case 13:
+                case 14:
                 // Select Writesarticle Table
                     WritesArticle.selectWritesArticle().forEach(System.out::println);
                     break;
-                case 14:
+                case 15:
                     MainMenu.main(main_args);
                 default:
                     System.out.println("Enter a valid choice");

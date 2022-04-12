@@ -1,9 +1,6 @@
 package wolfPubDB.menu;
-import wolfPubDB.connect.DBConnect;
-import wolfPubDB.taskAndOperations.*;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.*;
 import java.sql.*;
 
@@ -26,7 +23,7 @@ public class MainMenu{
                         AdminMenu.adminMenu();
                         break;
                     case 2:
-                        // StaffMenu.staffMenu();
+                        StaffMenu.staffMenu();
                         break;
                     case 3:
                         SalesMenu.salesMenu();

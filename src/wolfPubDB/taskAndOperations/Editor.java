@@ -14,7 +14,7 @@ public class Editor {
         Connection conn = DBConnect.getConnection();
         try {
             Statement stat = conn.createStatement();
-            ResultSet res = stat.executeQuery("Select * from writesbook");
+            ResultSet res = stat.executeQuery("Select * from editor");
             ArrayList<EditorClass> output = new ArrayList<>();
             while (res.next()) {
                 EditorClass row = new EditorClass(res.getString("staffId"));
