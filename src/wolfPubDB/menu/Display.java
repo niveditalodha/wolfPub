@@ -83,6 +83,7 @@ public class Display {
                 case 13:
                 // Select Writesarticle Table
                     WritesArticle.selectWritesArticle().forEach(System.out::println);
+                    break;
                 case 14:
                     MainMenu.main(main_args);
                 default:
