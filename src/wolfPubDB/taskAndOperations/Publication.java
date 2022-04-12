@@ -152,6 +152,84 @@ public class Publication {
         }
     }
 
+    public static boolean addPublicationBook(String publicationId, String isbn, Date publicationDate, String edition, String title, String periodicity, String topics, Date issueDate, String type) throws SQLException {
+        boolean t1 = false;
+        boolean t2 = false;
+        Connection conn = null;
+        try {
+            conn = DBConnect.getConnection();
+            conn.setAutoCommit(false);
+            String query = "insert into publication(publicationId, title, periodicity, topics) values (?,?,?,?)";
+            PreparedStatement stat = conn.prepareStatement(query);
+            stat.setString(1, publicationId);
+            stat.setString(2, title);
+            stat.setString(3, periodicity);
+            stat.setString(4, topics);
+            stat.executeUpdate();
+
+            t1 = true;
+            conn.commit();
+            t2 = Issue.addIssue(publicationId, issueDate, type);
+
+            if(t1 && t2){
+                conn.commit();
+                System.out.println("Transaction successful");
+                return true;
+            }else{
+                conn.rollback();
+                System.out.println("Transaction Failed");
+                return false;
+            }
+        } catch (SQLException ex) {
+            conn.rollback();
+            System.out.println("Transaction Failed");
+            conn.close();
+            return false;
+        } finally {
+            if(conn != null){
+                conn.setAutoCommit(true);
+                conn.close();
+            }
+        try{
+                conn = DBConnect.getConnection();
+                conn.setAutoCommit(false);
+                String query = "INSERT INTO book(publicationId, isbn, publicationDate, edition) VALUES(?,?,?,?)";
+                PreparedStatement stat = conn.prepareStatement(query);
+                stat.setString(1, publicationId);
+                stat.setString(2, isbn);
+                stat.setDate(3, publicationDate);
+                stat.setString(4, edition);
+                stat.executeUpdate();
+    
+                t1 = true;
+    
+                if (t1){
+                    conn.commit();
+                    System.out.println("Transaction Successful");
+                    // conn.close();
+                    return true;
+                }
+                else{
+                    conn.rollback();
+                    System.out.println("Transaction Failed");
+                    // conn.close();
+                    return false;
+                }
+            }
+            catch (SQLException ex) {
+                conn.rollback();
+                System.out.println("Transaction Failed");
+                conn.close();
+                return false;
+            } finally {
+                if(conn != null){
+                    conn.setAutoCommit(true);
+                    conn.close();
+                }
+        }
+        }
+    }
+
     public static Boolean updatePublication(String publicationId, String title, String periodicity, String topics) {
         try {
             Connection conn = DBConnect.getConnection();

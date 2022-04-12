@@ -116,6 +116,45 @@ public class Distributors{
         }
     }
 
+    public static Boolean billDistributorForOrder(String distributorId, String orderId)throws SQLException {
+       //select orders
+        try{
+            conn.setAutoCommit(false);
+            Statement stmt = conn.createStatement();
+            String query = "select sum(price+shippingCost) as totalCost from orders where orderId = ?";
+            PreparedStatement stat = conn.prepareStatement(query);
+            stat.setString(1, orderId);
+            stat.executeUpdate();    
+            return true;
+        } catch(SQLException e){
+            e.printStackTrace();
+            if(!stat.executeUpdate()){
+                System.out.println("Couldn't select order costs")
+                conn.rollback();
+            }
+            return false;
+        }
+
+        //update distributor balance
+        try{
+            conn.setAutoCommit(false);
+            Statement stmt = conn.createStatement();
+            //select orders
+            String query = "update distributors set balance = balance + ? where distributorId = (select distributorId from orders where orderId='"+orderId+"');";
+            PreparedStatement stat = conn.prepareStatement(query);
+            stat.setString(1, totalCost);
+            stat.executeUpdate();    
+            return true;
+           } catch(SQLException e){
+            e.printStackTrace();
+            if(!stat.executeUpdate()){
+                System.out.println("Couldn't add costs to distributor")
+                conn.rollback();
+            }
+            return false;
+           }
+    }
+
     public static Boolean deleteDistributors(String distributorId) throws SQLException {
         Connection conn = DBConnect.getConnection();
         try {
