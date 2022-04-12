@@ -1,8 +1,6 @@
 package wolfPubDB.menu;
 
-import wolfPubDB.taskAndOperations.*;
 import java.util.*;
-import java.io.*;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -30,16 +28,16 @@ public class AdminMenu {
                     PublicationMenu.publicationMenu();
                     break;
                 case 2:
-                    // StaffMenu.staffMenu();
+                    StaffMenu.staffMenu();
                     break;
                 case 3:
-                    // OrderMenu.orderMenu();
+                    OrderMenu.orderMenu();
                     break;
                 case 4:
                     DistributorMenu.distributorMenu();
                     break;
                 case 5:
-                    // PaymentMenu.paymentMenu();
+                    PaymentMenu.paymentMenu();
                     break;
                 case 6:
                     ReportMenu.reportMenu();
