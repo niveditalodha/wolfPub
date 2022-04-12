@@ -9,7 +9,7 @@ public class PaymentClass {
     public Integer amount;
     public Date paymentClaimedDate;
 
-    public PaymentClass(String staffId, Date paymentDate, Integer periodicity, Date paymentClaimedDate) {
+    public PaymentClass(String staffId, Date paymentDate, Integer amount, Date paymentClaimedDate) {
         this.staffId = staffId;
         this.paymentDate = paymentDate;
         this.amount = amount;
