@@ -42,6 +42,6 @@ public class PaymentClass {
     }
     @Override
     public String toString(){
-        return this.staffId + " " +String.valueOf(this.paymentDate)+" "+ String.valueOf(this.amount)+" "+String.valueOf(this.paymentClaimedDate);
+        return this.staffId + "\t\t" +String.valueOf(this.paymentDate)+"\t"+ String.valueOf(this.amount)+"\t\t"+String.valueOf(this.paymentClaimedDate);
     }
 }

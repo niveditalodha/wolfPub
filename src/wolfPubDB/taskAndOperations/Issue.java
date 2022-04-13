@@ -24,6 +24,7 @@ public class Issue {
                 output.add(p);
             }
             conn.close();
+            System.out.println("publicationId\tissueDate\ttype");
             return output;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -42,6 +43,7 @@ public class Issue {
                 output.add(p);
             }
             conn.close();
+            System.out.println("publicationId\tissueDate\ttype");
             return output;
         } catch (SQLException e) {
             e.printStackTrace();

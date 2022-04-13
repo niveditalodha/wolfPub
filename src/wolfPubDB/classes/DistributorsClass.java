@@ -73,7 +73,7 @@ public class DistributorsClass {
 
     @Override
     public String toString(){
-        return this.distributorId + " " +this.type+ " "+String.valueOf(this.balance) + " "+this.phone+" "+this.city +" "+this.street+" "+this.contactPerson;
+        return this.distributorId + "\t" +this.type+ "\t"+String.valueOf(this.balance) + "\t"+this.phone+"\t"+this.city +"\t"+this.street+"\t"+this.contactPerson;
     }
 
 }

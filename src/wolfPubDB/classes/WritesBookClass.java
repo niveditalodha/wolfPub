@@ -24,7 +24,7 @@ public class WritesBookClass {
     }
     @Override
     public String toString(){
-        return this.staffId + " " +this.publicationId;
+        return this.staffId + "\t\t" +this.publicationId;
     }
 
 }

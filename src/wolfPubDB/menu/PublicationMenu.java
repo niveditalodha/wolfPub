@@ -21,23 +21,26 @@ public class PublicationMenu {
 
         while (true) {
         System.out.println("Welcome to the PUBLICATION OPERATIONS Menu !!");
-        System.out.println("1. Enter new Publication");
-        System.out.println("2. Update Publication Information");
-        System.out.println("3. Book Related");
-        System.out.println("4. Chapters Related");
-        System.out.println("5. Issue Related");
-        System.out.println("6. Articles Related");
-        System.out.println("7. Assign Editors to Publication");
-        System.out.println("8. View Publication based on Editor");
-        System.out.println("9. Back to Main");
+        System.out.println("1. View Publications");
+        System.out.println("2. Enter new Publication");
+        System.out.println("3. Update Publication Information");
+        System.out.println("4. Book Related");
+        System.out.println("5. Chapters Related");
+        System.out.println("6. Issue Related");
+        System.out.println("7. Articles Related");
+        System.out.println("8. Assign Editors to Publication");
+        System.out.println("9. View Publication based on Editor");
+        System.out.println("10. Back to Main");
 
 
         
         int input = sc.nextInt();
 
         switch(input){
-
         case 1:
+            Publication.selectPublication().forEach(System.out::println);
+            break;
+        case 2:
             // Adding new publication information
             System.out.println("String publicationId, String title, String periodicity, String topics");
             args = sc.next().split("[|]");
@@ -54,7 +57,7 @@ public class PublicationMenu {
             return;
 
 
-        case 2:
+        case 3:
             // Updating Publication Information
             System.out.println("Enter String publicationId, String title, String periodicity, String topics");
             args = sc.next().split("[|]");
@@ -70,23 +73,23 @@ public class PublicationMenu {
             }
             return;
 
-        case 3:
+        case 4:
             BookMenu.bookMenu();
             break;
         
-        case 4:
+        case 5:
             ChaptersMenu.chaptersMenu();
             break;
         
-        case 5:
+        case 6:
             IssueMenu.issueMenu();
             break;
         
-        case 6:
+        case 7:
             ArticlesMenu.articleMenu();
             break;
 
-        case 7:
+        case 8:
             // Assign Editors to Publication
             System.out.println("Enter String StaffID(EditorID) and String publicationId");
             args = sc.next().split("[|]");
@@ -101,7 +104,7 @@ public class PublicationMenu {
             return;
 
 
-        case 8:
+        case 9:
             // View Publication based on Editor(Staff ID)
             System.out.println("Enter the Editor's Staff ID:");
             staffId = sc.next();
@@ -110,7 +113,7 @@ public class PublicationMenu {
             return;
 
         
-        case 9:
+        case 10:
             // Return to Main Menu
                 MainMenu.main(main_args);
 

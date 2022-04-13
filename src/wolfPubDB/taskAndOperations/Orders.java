@@ -24,6 +24,7 @@ public class Orders{
                 output.add(pub);
             }
             conn.close();
+            System.out.println("orderId\t\tdeadline\tprice\t\torderDate\tnoOfCopies\tshippingCost\tpublicationId\tdistributorId");
             return output;
         } catch (SQLException e) {
             e.printStackTrace();

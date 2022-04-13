@@ -23,6 +23,7 @@ public class Payment{
                 output.add(chp);
             }
             conn.close();
+            System.out.println("staffId\t\tpaymentDate\tamount\t\tpaymentClaimedDate");
             return output;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -41,6 +42,7 @@ public class Payment{
                 output.add(chp);
             }
             conn.close();
+            System.out.println("staffId\t\tpaymentDate\tamount\t\tpaymentClaimedDate");
             return output;
         } catch (SQLException e) {
             e.printStackTrace();

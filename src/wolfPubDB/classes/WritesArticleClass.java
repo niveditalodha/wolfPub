@@ -24,6 +24,6 @@ public class WritesArticleClass {
     }
     @Override
     public String toString(){
-        return this.staffId + " " +this.articleId;
+        return this.staffId + "\t\t" +this.articleId;
     }
 }
