@@ -21,14 +21,13 @@ public class Publication {
             Connection conn = DBConnect.getConnection();
             ArrayList<PublicationClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
-            PublicationClass header = new PublicationClass("publicationId", "title", "periodicity", "topics");
-            output.add(header);   
             ResultSet res = stat.executeQuery("select * from publication");
             while (res.next()) {
                 PublicationClass pub = new PublicationClass(res.getString("publicationId"), res.getString("title"), res.getString("periodicity"), res.getString("topics"));
                 output.add(pub);
             }
             conn.close();
+            System.out.println("publicationId\ttitle\t\t\tperiodicity\ttopics");
             return output;
         } catch (SQLException e) {
             e.printStackTrace();

@@ -23,6 +23,7 @@ public class WritesBook {
                 output.add(row);
             }
             conn.close();
+            System.out.println("staffId\t\tpublicationId");
             return output;
         } catch (SQLException e) {
             e.printStackTrace();

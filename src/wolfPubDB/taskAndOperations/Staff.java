@@ -22,6 +22,7 @@ public class Staff {
                 StaffClass row = new StaffClass(res.getString("staffId"), res.getString("name"), res.getString("type"));
                 output.add(row);
             }
+            System.out.println("staffId\t\tname\t\ttype");
             conn.close();
             return output;
         } catch (SQLException e) {

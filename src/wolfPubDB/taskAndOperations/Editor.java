@@ -20,6 +20,7 @@ public class Editor {
                 output.add(row);
             }
             conn.close();
+            System.out.println("staffId");
             return output;
         } catch (SQLException e) {
             e.printStackTrace();

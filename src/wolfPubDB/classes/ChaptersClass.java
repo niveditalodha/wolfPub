@@ -32,7 +32,7 @@ public class ChaptersClass{
     }
     @Override
     public String toString(){
-        return this.publicationId + " " +this.chapterNumber+ " "+this.chapterTitle;
+        return this.publicationId + "\t\t" +this.chapterNumber+ "\t\t"+this.chapterTitle;
     }
 
 }

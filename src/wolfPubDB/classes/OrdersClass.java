@@ -75,6 +75,6 @@ public class OrdersClass {
     }
     @Override
     public String toString(){
-        return this.orderId + " " +String.valueOf(this.deadline)+ " "+String.valueOf(this.price) + " "+String.valueOf(this.orderDate)+" "+String.valueOf(this.noOfCopies) + " "+ this.shippingCost + " "+this.publicationId+" "+this.distributorId;
+        return this.orderId + "\t\t" +String.valueOf(this.deadline)+ "\t"+String.valueOf(this.price) + "\t\t"+String.valueOf(this.orderDate)+"\t"+String.valueOf(this.noOfCopies) + "\t\t"+ this.shippingCost + "\t\t"+this.publicationId+"\t\t"+this.distributorId;
     }
 }

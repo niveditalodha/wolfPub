@@ -40,6 +40,6 @@ public class PublicationClass {
     }
     @Override
     public String toString(){
-        return this.publicationId + "\t\t\t" +this.title+ "\t\t"+this.periodicity + "\t\t\t"+this.topics;
+        return this.publicationId + "\t\t" +this.title+ "\t\t"+this.periodicity + "\t\t"+this.topics;
     }
 }

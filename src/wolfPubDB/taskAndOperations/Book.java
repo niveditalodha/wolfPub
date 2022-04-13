@@ -24,6 +24,7 @@ public class Book{
                 output.add(pub);
             }
             conn.close();
+            System.out.println("publicationId\tisbn\tpublicationDate\tedition");
             return output;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -42,6 +43,7 @@ public class Book{
                 output.add(pub);
             }
             conn.close();
+            System.out.println("publicationId\tisbn\tpublicationDate\tedition");
             return output;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -61,6 +63,7 @@ public class Book{
                 output.add(pub);
             }
             conn.close();
+            System.out.println("publicationId\tisbn\tpublicationDate\tedition");
             return output;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -79,6 +82,7 @@ public class Book{
                 output.add(pub);
             }
             conn.close();
+            System.out.println("publicationId\tisbn\tpublicationDate\tedition");
             return output;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -97,6 +101,7 @@ public class Book{
                 output.add(pub);
             }
             conn.close();
+            System.out.println("publicationId\tisbn\tpublicationDate\tedition");
             return output;
         } catch (SQLException e) {
             e.printStackTrace();

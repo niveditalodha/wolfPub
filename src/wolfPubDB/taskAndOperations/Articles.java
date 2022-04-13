@@ -25,6 +25,7 @@ public class Articles{
                 output.add(a);
             }
             conn.close();
+            System.out.println("article Id\tpublicationId\ttitle\t\t\tcreationDate\t\ttext");
             return output;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -47,6 +48,7 @@ public class Articles{
                 output.add(a);
             }
             conn.close();
+            System.out.println("article Id\tpublicationId\ttitle\t\t\tcreationDate\t\ttext");
             return output;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -68,6 +70,7 @@ public class Articles{
                 output.add(a);
             }
             conn.close();
+            System.out.println("article Id\tpublicationId\ttitle\t\t\tcreationDate\t\ttext");
             return output;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -90,6 +93,7 @@ public class Articles{
                 output.add(a);
             }
             conn.close();
+            System.out.println("article Id\tpublicationId\ttitle\t\t\tcreationDate\t\ttext");
             return output;
         } catch (SQLException e) {
             e.printStackTrace();

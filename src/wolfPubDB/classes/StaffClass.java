@@ -32,6 +32,6 @@ public class StaffClass{
     }
     @Override
     public String toString(){
-        return this.staffId + " " +this.name+ " "+this.type;
+        return this.staffId + "\t\t" +this.name+ "\t\t"+this.type;
     }
 }
