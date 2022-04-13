@@ -8,7 +8,7 @@ public class SalesMenu{
         Scanner sc = new Scanner(System.in);
         String[] args = null;
         while (true) {
-            System.out.println("Welcome to Sales!!");
+            System.out.println("Welcome to SALES Menu!!");
             System.out.println("Please select from the following!!");
             System.out.println("1. Distributor Operations");
             System.out.println("2. Order Operations");

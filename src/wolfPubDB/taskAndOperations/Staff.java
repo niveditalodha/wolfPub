@@ -22,6 +22,7 @@ public class Staff {
                 StaffClass row = new StaffClass(res.getString("staffId"), res.getString("name"), res.getString("type"));
                 output.add(row);
             }
+            System.out.println("staffId\t\tname\t\ttype");
             conn.close();
             return output;
         } catch (SQLException e) {
@@ -51,45 +52,86 @@ public class Staff {
 
 
 
-    public static boolean addAuthor(String staffId, String name, String type) {
+    public static boolean addAuthor(String staffId, String name, String type) throws SQLException{
+        //Transaction
+        Connection conn = DBConnect.getConnection();
+        conn.setAutoCommit(false);
+        boolean t1 = false;
+        boolean t2 = false;
         try {
-            Connection conn = DBConnect.getConnection();
             String query = "insert into staff(staffId, name, type) values (?,?,?)";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, staffId);
             stat.setString(2, name);
             stat.setString(3, type);
             stat.executeUpdate();
-            String query2 = "insert into author values(?)";
+            t1 = true;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        try{
+            String query2 = "insert into author values (?)";
             PreparedStatement stat2 = conn.prepareStatement(query2);
             stat2.setString(1, staffId);
             stat2.executeUpdate();
-            conn.close();
-            return true;
-
+            t2 = true;
         } catch (SQLException ex) {
             ex.printStackTrace();
+        }
+        if (t1 && t2){
+            conn.commit();
+            System.out.println("Transaction Successful");
+            conn.setAutoCommit(true);
+            conn.close();
+            return true;
+        }
+        else{
+            conn.rollback();
+            System.out.println("Transaction Failed");
+            conn.setAutoCommit(true);
+            conn.close();
             return false;
         }
     }
 
-    public static boolean addEditor(String staffId, String name, String type) {
+    public static boolean addEditor(String staffId, String name, String type) throws SQLException {
+        //Transaction
+        Connection conn = DBConnect.getConnection();
+        conn.setAutoCommit(false);
+        boolean t1 = false;
+        boolean t2 = false;
         try {
-            Connection conn = DBConnect.getConnection();
-            String query = "insert into staff(staffId, name, type) values (?,?,?,?,?)";
+            String query = "insert into staff(staffId, name, type) values (?,?,?)";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, staffId);
             stat.setString(2, name);
             stat.setString(3, type);
             stat.executeUpdate();
+            t1 = true;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        try{
             String query2 = "insert into editor values (?)";
             PreparedStatement stat2 = conn.prepareStatement(query2);
             stat2.setString(1, staffId);
             stat2.executeUpdate();
-            conn.close();
-            return true;
+            t2 = true;
         } catch (SQLException ex) {
             ex.printStackTrace();
+        }
+        if (t1 && t2){
+            conn.commit();
+            System.out.println("Transaction Successful");
+            conn.setAutoCommit(true);
+            conn.close();
+            return true;
+        }
+        else{
+            conn.rollback();
+            System.out.println("Transaction Failed");
+            conn.setAutoCommit(true);
+            conn.close();
             return false;
         }
     }

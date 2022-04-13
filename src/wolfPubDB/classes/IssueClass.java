@@ -34,6 +34,6 @@ public class IssueClass{
     }
     @Override
     public String toString(){
-        return this.publicationId + " "+String.valueOf(this.issueDate)+" "+this.type;
+        return this.publicationId + "\t\t"+String.valueOf(this.issueDate)+"\t"+this.type;
     }
 }   

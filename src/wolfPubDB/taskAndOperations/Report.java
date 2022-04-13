@@ -226,7 +226,7 @@ public class Report {
      */
     public static ReportClass getRevenuePerLocation() throws SQLException {
         List<String> resultKeys = new ArrayList<>(Arrays.asList(
-                "Street",
+                "Street\t\t",
                 "City",
                 "Total Revenue per Location"
         ));

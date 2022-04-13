@@ -35,11 +35,11 @@ public class PublicationClass {
     public void setPeriodicity(String periodicity) {  
         this.periodicity = periodicity; 
     }
-    public void setTopics(String topic) {  
+    public void setTopics(String topics) {  
         this.topics =  topics;
     }
     @Override
     public String toString(){
-        return this.publicationId + " " +this.title+ " "+this.periodicity + " "+this.topics;
+        return this.publicationId + "\t\t" +this.title+ "\t\t"+this.periodicity + "\t\t"+this.topics;
     }
 }

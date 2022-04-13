@@ -23,6 +23,7 @@ public class Chapters{
                 output.add(chp);
             }
             conn.close();
+            System.out.println("publicationId\tchapterNumber\tchapterTitle");
             return output;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -41,6 +42,7 @@ public class Chapters{
                 output.add(chp);
             }
             conn.close();
+            System.out.println("publicationId\tchapterNumber\tchapterTitle");
             return output;
         } catch (SQLException e) {
             e.printStackTrace();

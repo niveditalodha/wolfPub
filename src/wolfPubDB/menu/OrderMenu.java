@@ -16,7 +16,7 @@ public class OrderMenu {
         Float price;
 
         while (true) {
-            System.out.println("Welcome to the STAFF MENU !!");
+            System.out.println("Welcome to the ORDERS MENU !!");
             System.out.println("Please select your option:");
             System.out.println("1. Display Orders");
             System.out.println("2. Add Orders");

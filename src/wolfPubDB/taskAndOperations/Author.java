@@ -3,7 +3,6 @@ package wolfPubDB.taskAndOperations;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -23,6 +22,8 @@ public class Author{
                 output.add(row);
             }
             conn.close();
+            System.out.println("staffId");
+                    
             return output;
         } catch (SQLException e) {
             e.printStackTrace();

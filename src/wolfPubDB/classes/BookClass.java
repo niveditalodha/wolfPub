@@ -42,7 +42,7 @@ public class BookClass{
     }
     @Override
     public String toString(){
-        return this.publicationId+ " "+this.isbn + " "+String.valueOf(this.publicationDate)+" "+this.edition;
+        return this.publicationId+ "\t\t"+this.isbn + "\t"+String.valueOf(this.publicationDate)+"\t"+this.edition;
     }
 
 }

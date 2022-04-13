@@ -8,8 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import wolfPubDB.classes.EditsClass;
-import wolfPubDB.classes.PublicationClass;
-import wolfPubDB.classes.DistributorsClass;
 import wolfPubDB.connect.*;
 import wolfPubDB.classes.ReportClass;
 
@@ -31,6 +29,7 @@ public class Edits {
                 output.add(row);
             }
             conn.close();
+            System.out.println("staffId\t\tpublicationId");
             return output;
         } catch (SQLException e) {
             e.printStackTrace();
