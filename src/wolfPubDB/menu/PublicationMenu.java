@@ -120,8 +120,6 @@ public class PublicationMenu {
 
     }
 
-    System.out.println("Enter a valid choice");
-
     }
 }
 }

@@ -50,9 +50,8 @@ public class Issue {
     }
 
 
-    public static Boolean addIssue(String publicationId, Date issueDate, String type) {
+    public static Boolean addIssue(Connection conn, String publicationId, Date issueDate, String type) {
         try {
-            Connection conn = DBConnect.getConnection();
             String query = "insert into issue(publicationId, issueDate, type) values (?,?,?)";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, publicationId);
@@ -75,19 +74,8 @@ public class Issue {
             stat.setString(2, type);
             stat.setString(3, publicationId);
             stat.executeUpdate();
-            Statement st = conn.createStatement();
-            ResultSet res = st.executeQuery("Select count(*) as total from issue where publicationId='"+publicationId+"'");
-            int count = 0;
-            while (res.next()) {
-                count = res.getInt("total");
-            }
-            conn.commit();
-            if (count!=0){
-                conn.close();
-                return  true;
-            }
             conn.close();
-            return false;
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
             return Boolean.valueOf(false);

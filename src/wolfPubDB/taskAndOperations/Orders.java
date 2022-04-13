@@ -69,21 +69,12 @@ public class Orders{
             stat.setString(7, distributorId);
             stat.setString(8, orderId);
             stat.executeUpdate();
-            ResultSet res = stat.executeQuery("Select count(*) as orders from issue where orderId='"+orderId+"'");
-            int count = 0;
-            while (res.next()) {
-                count = res.getInt("total");
-            }
-            conn.commit();
-            if (count!=0){
-                conn.close();
-                return  true;
-            }
+            
             conn.close();
-            return false;
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
-            return Boolean.valueOf(false);
+            return false;
         }
         }
 

@@ -22,6 +22,8 @@ public class DistributorMenu {
         String[] main_args = null;
         while(exit_val) {
             try{
+                System.out.println("Welcome to the DISTRIBUTORS MENU !!");
+                System.out.println("Please select your option:");
                 System.out.println("1. Show all distributors");
                 System.out.println("2. Add Distributors");
                 System.out.println("3. Update Distributor Details");
