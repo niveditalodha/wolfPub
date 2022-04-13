@@ -3,7 +3,6 @@ package wolfPubDB.taskAndOperations;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.lang.Thread.State;
 import java.sql.*;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -19,7 +18,8 @@ public class Articles{
         try {
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("Select * from articles");
-            ArrayList<ArticlesClass> output = new ArrayList<>();
+
+            ArrayList<ArticlesClass> output = new ArrayList<>();  
             while (res.next()) {
                 ArticlesClass a = new ArticlesClass(res.getString("articleId"), res.getString("publicationId"), res.getString("title"), res.getDate("creationDate"), res.getString("text"));
                 output.add(a);

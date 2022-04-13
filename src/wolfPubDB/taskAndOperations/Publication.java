@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -19,6 +21,8 @@ public class Publication {
             Connection conn = DBConnect.getConnection();
             ArrayList<PublicationClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
+            PublicationClass header = new PublicationClass("publicationId", "title", "periodicity", "topics");
+            output.add(header);   
             ResultSet res = stat.executeQuery("select * from publication");
             while (res.next()) {
                 PublicationClass pub = new PublicationClass(res.getString("publicationId"), res.getString("title"), res.getString("periodicity"), res.getString("topics"));
@@ -72,6 +76,7 @@ public class Publication {
     }
 
     public static boolean addPublication(String publicationId, String title, String periodicity, String topics, String isbn, Date publicationDate, String edition) throws SQLException {
+        //Transaction
         boolean t1 = false;
         boolean t2 = false;
         Connection conn = null;
@@ -87,20 +92,21 @@ public class Publication {
             stat.executeUpdate();
 
             t1 = true;
-            conn.commit();
-            t2 = Book.addBook(publicationId, isbn, publicationDate, edition);
+
+            t2 = Book.addBook(conn, publicationId, isbn, publicationDate, edition);
             
-            if(t2){
+            if(t1 && t2){
+                conn.commit();
                 System.out.println("Transaction successful");
                 return true;
             }else{
+                conn.rollback();
                 System.out.println("Transaction Failed");
                 return false;
             }
         } catch (SQLException ex) {
             conn.rollback();
             System.out.println("Transaction Failed");
-            conn.close();
             return false;
         } finally {
             if(conn != null){
@@ -112,6 +118,7 @@ public class Publication {
     
 
     public static boolean addPublication(String publicationId, String title, String periodicity, String topics, Date issueDate, String type) throws SQLException {
+        //Transaction
         boolean t1 = false;
         boolean t2 = false;
         Connection conn = null;
@@ -127,8 +134,7 @@ public class Publication {
             stat.executeUpdate();
 
             t1 = true;
-            conn.commit();
-            t2 = Issue.addIssue(publicationId, issueDate, type);
+            t2 = Issue.addIssue(conn, publicationId, issueDate, type);
 
             if(t1 && t2){
                 conn.commit();
@@ -142,7 +148,6 @@ public class Publication {
         } catch (SQLException ex) {
             conn.rollback();
             System.out.println("Transaction Failed");
-            conn.close();
             return false;
         } finally {
             if(conn != null){

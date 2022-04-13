@@ -8,8 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import wolfPubDB.classes.EditsClass;
-import wolfPubDB.classes.PublicationClass;
-import wolfPubDB.classes.DistributorsClass;
 import wolfPubDB.connect.*;
 import wolfPubDB.classes.ReportClass;
 

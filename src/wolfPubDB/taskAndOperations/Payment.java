@@ -50,7 +50,6 @@ public class Payment{
 
     public static boolean addPayment(String staffId, Date paymentDate, Integer amount, Date paymentClaimedDate) throws SQLException{
         Connection conn = null;
-        boolean t1 = false;
         try{
             conn = DBConnect.getConnection();
 

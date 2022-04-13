@@ -106,12 +106,8 @@ public class Book{
     
 
 
-    public static boolean addBook(String publicationId, String isbn, Date publicationDate, String edition) throws SQLException{
-        Connection conn = null;
-        boolean t1 = false;
+    public static boolean addBook(Connection conn, String publicationId, String isbn, Date publicationDate, String edition) throws SQLException{
         try{
-            conn = DBConnect.getConnection();
-            conn.setAutoCommit(false);
             String query = "INSERT INTO book(publicationId, isbn, publicationDate, edition) VALUES(?,?,?,?)";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, publicationId);
@@ -119,33 +115,12 @@ public class Book{
             stat.setDate(3, publicationDate);
             stat.setString(4, edition);
             stat.executeUpdate();
-
-            t1 = true;
-
-            if (t1){
-                conn.commit();
-                System.out.println("Transaction Successful");
-                // conn.close();
-                return true;
-            }
-            else{
-                conn.rollback();
-                System.out.println("Transaction Failed");
-                // conn.close();
-                return false;
-            }
+            return true;
         }
         catch (SQLException ex) {
-            conn.rollback();
             System.out.println("Transaction Failed");
-            conn.close();
             return false;
-        } finally {
-            if(conn != null){
-                conn.setAutoCommit(true);
-                conn.close();
-            }
-    }
+        }
 }
 
 

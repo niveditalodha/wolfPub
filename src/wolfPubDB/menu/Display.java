@@ -13,7 +13,7 @@ public class Display {
         Scanner sc = new Scanner(System.in);
         String[] main_args = null;
         while (true) {
-            System.out.println("Welcome to the ADMIN MENU !!");
+            System.out.println("Welcome to the DISPLAY MENU !!");
             System.out.println("Please select your option:");
             System.out.println("1. View Publication Table");
             System.out.println("2. View Book Table");

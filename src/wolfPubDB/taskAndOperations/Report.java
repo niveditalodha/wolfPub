@@ -1,6 +1,5 @@
 package wolfPubDB.taskAndOperations;
 
-import wolfPubDB.classes.DistributorsClass;
 import wolfPubDB.classes.ReportClass;
 import wolfPubDB.classes.ResultClass;
 import wolfPubDB.connect.DBConnect;
@@ -19,7 +18,6 @@ public class Report {
 
         try {
             Statement stat = conn.createStatement();
-            ArrayList<DistributorsClass> output = new ArrayList<>();
             ResultSet res = stat.executeQuery(query);
             List<ResultSet> resultList = new ArrayList<>();
 
@@ -151,7 +149,7 @@ public class Report {
 
     public static ReportClass getRevenuePerLocation() throws SQLException {
         List<String> resultKeys = new ArrayList<>(Arrays.asList(
-                "Street",
+                "Street\t\t",
                 "City",
                 "Total Revenue per Location"
         ));

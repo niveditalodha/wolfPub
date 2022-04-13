@@ -50,6 +50,6 @@ public class ArticlesClass{
     }
     @Override
     public String toString(){
-        return this.articleId + " " +this.publicationId+ " "+this.title + " "+String.valueOf(this.creationDate)+" "+this.text;
+        return this.articleId + "\t\t" +this.publicationId+ "\t\t"+this.title + "\t\t\t"+String.valueOf(this.creationDate)+"\t\t"+this.text;
     }
 }
