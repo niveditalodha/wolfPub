@@ -6,16 +6,30 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.*;
 import java.sql.Statement;
 
 import wolfPubDB.connect.*;
 import wolfPubDB.classes.IssueClass;
 
+/**
+ * Class that contains all the APIs for generating the tasks and operations
+ * related to the Issue.
+ */
+
 public class Issue {
 
-    public static ArrayList<IssueClass> selectIssue() {
+    /**
+     * Method for viewing data in the Issue table.
+     * Connects to the DB, Creates an SQL query string and returns the results an Arraylist.
+     *
+     * @return Returns an ArrayList output
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
+
+    public static ArrayList<IssueClass> selectIssue() throws SQLException {
+        Connection conn = DBConnect.getConnection();
         try {
-            Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("Select * from issue");
             ArrayList<IssueClass> output = new ArrayList<>();
@@ -26,12 +40,28 @@ public class Issue {
             conn.close();
             System.out.println("publicationId\tissueDate\ttype");
             return output;
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
             return null;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }finally{
+                conn.close();
         }
     }
 
+    /**
+     * Method for viewing data in the Issue table based on publicationId.
+     * Connects to the DB, Creates an SQL query string and returns the results an Arraylist.
+     *
+     * @return Returns an ArrayList output
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
     public static ArrayList<IssueClass> selectIssue(String publicationId) {
         try {
             Connection conn = DBConnect.getConnection();
@@ -52,6 +82,13 @@ public class Issue {
     }
 
 
+    /**
+     * Method for inserting data in the Issue table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
     public static Boolean addIssue(Connection conn, String publicationId, Date issueDate, String type) {
         try {
             String query = "insert into issue(publicationId, issueDate, type) values (?,?,?)";
@@ -67,9 +104,16 @@ public class Issue {
         }
     }
 
-    public static Boolean updateIssue(String publicationId, Date issueDate, String type) {
+    /**
+     * Method for updating data in the Issue table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
+    public static Boolean updateIssue(String publicationId, Date issueDate, String type) throws SQLException{
+        Connection conn = DBConnect.getConnection();
         try {
-            Connection conn = DBConnect.getConnection();
             String query = "Update issue set issueDate = ?, type = ? where publicationId =?";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setDate(1, issueDate);
@@ -78,22 +122,47 @@ public class Issue {
             stat.executeUpdate();
             conn.close();
             return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return Boolean.valueOf(false);
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
+            return null;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }finally{
+                conn.close();
         }
     }
 
-    public static Boolean deleteIssue(String publicationId) {
+    /**
+     * Method for deleting data in the Issue table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
+    public static Boolean deleteIssue(String publicationId) throws SQLException{
+        Connection conn = DBConnect.getConnection();
         try {
-            Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             stat.executeUpdate("DELETE FROM issue WHERE publicationId= '" + publicationId+"'");
             conn.close();
             return true;
-        } catch (SQLException ex) {
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
+            return null;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
             ex.printStackTrace();
-            return false;
+            return null;
+        }finally{
+                conn.close();
         }
     }
 

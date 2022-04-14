@@ -6,13 +6,27 @@ import java.util.ArrayList;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.*;
 import java.sql.Statement;
 
 import wolfPubDB.connect.*;
 import wolfPubDB.classes.DistributorsClass;
 
+
+/**
+ * Plain Old Java Object (POJO) class for storing and passing results from
+ * SQL query.
+ */
 public class Distributors{
 
+
+    /**
+     * Method for viewing the distributor table from the database.
+     * Connects to the DB, Creates an SQL query string and returns the results as an ArrayList.
+     *
+     * @return Returns the ArrayList output of select distributor table contents
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static ArrayList<DistributorsClass> selectDistributors() throws SQLException{
         Connection conn = DBConnect.getConnection();
         try{
@@ -25,16 +39,29 @@ public class Distributors{
             }
             System.out.println("distributorId\tname\ttype\tbalance\tphone\t\tcity\tstreet\t\t\tcontactPerson");
             return output;
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
+        }catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
             return null;
-        }
-        finally{
-            conn.close();
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }finally{
+                conn.close();
         }
     }
 
+
+    /**
+     * Method for adding the distributors row in the distributors table from the database.
+     * Connects to the DB, Creates an SQL query string and returns the success or failure.
+     *
+     * @return Returns the boolean true is success else boolean false
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static Boolean addDistributor(String distributorId, String name, String type, Float balance, String phone, String city, String street, String contactPerson) throws SQLException{
 
         Connection conn = DBConnect.getConnection();
@@ -51,16 +78,29 @@ public class Distributors{
             stat.setString(8, contactPerson);
             stat.executeUpdate();
             return true;
-        } catch (SQLException ex) {
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
+            return null;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
             ex.printStackTrace();
-            return false;
-        }
-        finally{
-
-            conn.close();
+            return null;
+        }finally{
+                conn.close();
         }
     }
 
+
+    /**
+     * Method for updating the distributors row in the distributors table from the database.
+     * Connects to the DB, Creates an SQL query string and returns the success or failure.
+     *
+     * @return Returns the boolean true is success else boolean false
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static Boolean updateDistributors(String distributorId, String name, String type, Float balance, String phone, String city, String street, String contactPerson) throws SQLException{
 
         Connection conn = DBConnect.getConnection();
@@ -86,16 +126,31 @@ public class Distributors{
                 return  true;
             }
             return false;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return Boolean.valueOf(false);
-        }
-        finally{
-            conn.close();
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
+            return null;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }finally{
+                conn.close();
         }
     }
 
 
+
+    /**
+     * Method for updating the distributors row's balance in the distributors
+     *                               table from the database.
+     * Connects to the DB, Creates an SQL query string and returns the success or failure.
+     *
+     * @return Returns the boolean true is success else boolean false
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static Boolean updateDistributorBalance(String orderId, Float payment) throws SQLException{
         Connection conn = DBConnect.getConnection();
         try {
@@ -106,12 +161,18 @@ public class Distributors{
             stat.executeUpdate();
 
             return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-        finally{
-            conn.close();
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
+            return null;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }finally{
+                conn.close();
         }
     }
 
@@ -121,12 +182,18 @@ public class Distributors{
             Statement stat = conn.createStatement();
             stat.executeUpdate("DELETE FROM distributors WHERE distributorId= '" + distributorId+"'");
             return true;
-        } catch (SQLException ex) {
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
+            return null;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
             ex.printStackTrace();
-            return false;
-        }
-        finally{
-            conn.close();
+            return null;
+        }finally{
+                conn.close();
         }
     }
 

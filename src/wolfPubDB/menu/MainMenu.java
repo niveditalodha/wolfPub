@@ -4,8 +4,21 @@ import java.io.IOException;
 import java.util.*;
 import java.sql.*;
 
-public class MainMenu{
+/**
+ * Class responsible for showing landing menu options for the application.
+ */
 
+public class MainMenu {
+
+    /**
+     * Method that prints and handles the Main menu operations.
+     * It provides a menu for all the users of the database
+     * 
+     * This method acts as the View handler.
+     * 
+     * It is the main function of the app where it initiates
+     * It redirects to different user views
+     */
     public static void main (String args[]){
         Scanner sc = new Scanner(System.in);
 

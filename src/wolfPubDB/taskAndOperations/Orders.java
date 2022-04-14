@@ -6,11 +6,24 @@ import java.util.ArrayList;
 import wolfPubDB.connect.*;
 import wolfPubDB.classes.OrdersClass;
 
+/**
+ * Class that contains all the APIs for generating the tasks and operations
+ * related to the Orders.
+ */
+
 public class Orders {
 
-    public static ArrayList<OrdersClass> selectOrder() {
+    /**
+     * Method for viewing data in the orders table.
+     * Connects to the DB, Creates an SQL query string and returns the results an Arraylist.
+     *
+     * @return Returns an ArrayList output
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
+
+    public static ArrayList<OrdersClass> selectOrder() throws SQLException{
+        Connection conn = DBConnect.getConnection();
         try {
-            Connection conn = DBConnect.getConnection();
             ArrayList<OrdersClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("select * from orders");
@@ -21,16 +34,31 @@ public class Orders {
             conn.close();
             System.out.println("orderId\t\tdeadline\tprice\t\torderDate\tnoOfCopies\tshippingCost\tpublicationId\tdistributorId");
             return output;
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
             return null;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }finally{
+                conn.close();
         }
     }
 
-
-    public static Boolean addOrders(String orderId, Date deadline, Float price, Date orderDate, Integer noOfCopies, Float shippingCost, String publicationId, String distributorId) {
+    /**
+     * Method for inserting data in the orders table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
+    public static Boolean addOrders(String orderId, Date deadline, Float price, Date orderDate, Integer noOfCopies, Float shippingCost, String publicationId, String distributorId) throws SQLException{
+        Connection conn = DBConnect.getConnection();
         try {
-            Connection conn = DBConnect.getConnection();
             String query = "insert into orders(orderId, deadline, price, orderDate, noOfCopies, shippingCost, publicationId, distributorId) values (?,?,?,?,?,?,?,?)";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, orderId);
@@ -44,15 +72,28 @@ public class Orders {
             stat.executeUpdate();
             conn.close();
             return true;
-        } catch (SQLIntegrityConstraintViolationException ex) {
+        } catch(SQLIntegrityConstraintViolationException ex){
             System.out.println("Foreign key constrain violated!!!");
-            return false;
-        } catch (SQLException ex) {
+            
+            return null;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
             ex.printStackTrace();
-            return false;
+            return null;
+        }finally{
+                conn.close();
         }
     }
 
+    /**
+     * Method for updating data in the orders table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
     public static Boolean updateOrder(String orderId, Date deadline, Float price, Date orderDate, Integer noOfCopies, Float shippingCost, String publicationId, String distributorId) {
         try {
             Connection conn = DBConnect.getConnection();
@@ -76,6 +117,13 @@ public class Orders {
         }
     }
 
+    /**
+     * Method for deleting data in the orders table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
     public static Boolean deleteOrders(String orderId) {
 
         try {
@@ -91,9 +139,17 @@ public class Orders {
     }
 
 
-    public static boolean billDistributorForOrder(String orderId) {
+    /**
+     * Method for generating bill for distributorbased on order.
+     * Connects to the DB, Creates an SQL query string, updates balance for distributor and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
+
+    public static boolean billDistributorForOrder(String orderId) throws SQLException{
+        Connection conn = DBConnect.getConnection();
         try {
-            Connection conn = DBConnect.getConnection();
             String query = "update distributors set balance = balance + ? where distributorId = ?";
             PreparedStatement st = conn.prepareStatement(query);
             String query1 = "select noOfCopies, price, shippingCost, distributorId from orders where orderId = '" + orderId + "'";
@@ -117,9 +173,18 @@ public class Orders {
             st.executeUpdate();
 
             return true;
-        } catch (SQLException ex) {
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
+            return false;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return false;
+        }catch (SQLException ex) {
             ex.printStackTrace();
             return false;
+        }finally{
+                conn.close();
         }
     }
 

@@ -4,21 +4,31 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.*;
 import java.sql.Statement;
 
 import wolfPubDB.classes.PublicationClass;
 import wolfPubDB.connect.*;
 
+/**
+ * Class that contains all the APIs for generating the tasks and operations
+ * related to the Publication.
+ */
 
 public class Publication {
 
-    public static ArrayList<PublicationClass> selectPublication() {
+    /**
+     * Method for viewing data in the payment table.
+     * Connects to the DB, Creates an SQL query string and returns the results an Arraylist.
+     *
+     * @return Returns an ArrayList output
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
+    public static ArrayList<PublicationClass> selectPublication() throws SQLException{
+        Connection conn = DBConnect.getConnection();
         try {
-            Connection conn = DBConnect.getConnection();
             ArrayList<PublicationClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("select * from publication");
@@ -29,13 +39,28 @@ public class Publication {
             conn.close();
             System.out.println("publicationId\ttitle\t\t\tperiodicity\ttopics");
             return output;
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
             return null;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }finally{
+                conn.close();
         }
     }
 
-
+    /**
+     * Method for viewing data in the payment table based on PublicationId.
+     * Connects to the DB, Creates an SQL query string and returns the results an Arraylist.
+     *
+     * @return Returns an ArrayList output
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
     public static ArrayList<PublicationClass> selectPublication(String publicationId) {
         try {
             Connection conn = DBConnect.getConnection();
@@ -54,7 +79,13 @@ public class Publication {
         }
     }
 
-
+    /**
+     * Method for inserting data in the publication table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
     public static Boolean addPublication(String publicationId, String title, String periodicity, String topics) throws SQLException {
         try {
             Connection conn = DBConnect.getConnection();
@@ -74,6 +105,13 @@ public class Publication {
         }
     }
 
+    /**
+     * Method for inserting data in the publication and books table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
     public static boolean addPublication(String publicationId, String title, String periodicity, String topics, String isbn, Date publicationDate, String edition) throws SQLException {
         //Transaction
         boolean t1 = false;
@@ -103,19 +141,37 @@ public class Publication {
                 System.out.println("Transaction Failed");
                 return false;
             }
-        } catch (SQLException ex) {
+        }catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
             conn.rollback();
             System.out.println("Transaction Failed");
             return false;
-        } finally {
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            conn.rollback();
+            System.out.println("Transaction Failed");
+            return false;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            conn.rollback();
+            System.out.println("Transaction Failed");
+            return false;
+        }finally{
             if(conn != null){
                 conn.setAutoCommit(true);
                 conn.close();
             }
-        }
+        } 
     }
     
-
+    /**
+     * Method for inserting data in the publication and issue table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
     public static boolean addPublication(String publicationId, String title, String periodicity, String topics, Date issueDate, String type) throws SQLException {
         //Transaction
         boolean t1 = false;
@@ -144,18 +200,37 @@ public class Publication {
                 System.out.println("Transaction Failed");
                 return false;
             }
-        } catch (SQLException ex) {
-            conn.rollback();
-            System.out.println("Transaction Failed");
-            return false;
-        } finally {
-            if(conn != null){
-                conn.setAutoCommit(true);
-                conn.close();
-            }
+        }catch(SQLIntegrityConstraintViolationException ex){
+                System.out.println("Foreign key constrain violated!!!");
+                
+                conn.rollback();
+                System.out.println("Transaction Failed");
+                return false;
+            } catch(SQLSyntaxErrorException ex){
+                System.out.println("Invalid SQL syntax!!!");
+                conn.rollback();
+                System.out.println("Transaction Failed");
+                return false;
+            }catch (SQLException ex) {
+                ex.printStackTrace();
+                conn.rollback();
+                System.out.println("Transaction Failed!!");
+                return false;
+            }finally{
+                if(conn != null){
+                    conn.setAutoCommit(true);
+                    conn.close();
+                }
         }
     }
 
+    /**
+     * Method for updating data in the publication table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
     public static Boolean updatePublication(String publicationId, String title, String periodicity, String topics) {
         try {
             Connection conn = DBConnect.getConnection();
@@ -186,6 +261,13 @@ public class Publication {
         }
     }
 
+    /**
+     * Method for deleting data in the publication table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
     public static Boolean deletePublication(String publicationId) {
         try {
             Connection conn = DBConnect.getConnection();

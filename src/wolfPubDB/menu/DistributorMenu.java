@@ -3,13 +3,31 @@ package wolfPubDB.menu;
 import java.io.IOException;
 import java.util.*;
 import java.sql.Date;
-import java.io.*;
 import wolfPubDB.taskAndOperations.*;
 
 
+/**
+ * Class responsible for showing menu options for Distributors.
+ */
+
 public class DistributorMenu {
 
-    public static void distributorMenu() throws NumberFormatException, IOException {
+    /**
+     * Method that prints and handles the Distributor Menu operations.
+     * It depends on {@link Distributors and @link Orders} class that have all 
+     * the required APIs for generating the results of distributors. 
+     * 
+     * This method acts as the View handler.
+     * 
+     * @throws NumberFormatException It handles and error if attempt is made to 
+     *                  convert a string with an incorrect format to a numeric value.
+     * @throws IOException It handles any Input/Output related errors in case they occur
+     * @throws SQLException It handles Database related errors in case they occur
+     * @throws IllegalArgumentException It handles errors thrown in order to indicate that 
+     *                  a method has been passed an illegal argument. Like 2020-0-0 to a date
+     */
+
+    public static void distributorMenu() throws NumberFormatException, IOException, IllegalArgumentException {
         Float balance;
         String distributorId, name, type, phone,contactPerson,street,city, orderId,publicationId;
         Date orderDate, deadline;
@@ -41,16 +59,23 @@ public class DistributorMenu {
                         return;
                     case 2:
                         System.out.println("Enter String distributorId, String name, String type, Float balance, String phone, String contactPerson, String street, String City separated by |");
-                        args = sc.next().split("[|]");
-                        System.out.println(Arrays.toString((Object[]) args));
-                        distributorId = args[0];
-                        name = args[1];
-                        type = args[2];
-                        balance = Float.valueOf(Float.parseFloat(args[3]));
-                        phone = args[4];
-                        contactPerson = args[5];
-                        street = args[6];
-                        city = args[7];
+                        System.out.print("-> " + sc.nextLine());
+                        try{
+                            args = sc.nextLine().split("[|]");
+                            System.out.println(Arrays.toString((Object[]) args));
+                            distributorId = args[0].trim();
+                            name = args[1].trim();
+                            type = args[2].trim();
+                            balance = Float.valueOf(Float.parseFloat(args[3].trim()));
+                            phone = args[4].trim();
+                            contactPerson = args[5].trim();
+                            street = args[6].trim();
+                            city = args[7].trim();
+                        }catch(IllegalArgumentException ex){
+                            System.out.println("Wrong input format!!! Try again!\n");
+                            continue;
+
+                        }
 
 
                         if(Distributors.addDistributor(distributorId, name, type, balance, phone, street, city, contactPerson))
@@ -65,17 +90,23 @@ public class DistributorMenu {
                     case 3:
 
                         System.out.println("Enter String distributorId, String name, String type, Float balance, String phone, String contactPerson, String street, String City separated by |");
-                        args = sc.next().split("[|]");
-                        System.out.println(Arrays.toString((Object[]) args));
-                        distributorId = args[0];
-                        name = args[1];
-                        type = args[2];
-                        balance = Float.valueOf(Float.parseFloat(args[3]));
-                        phone = args[4];
-                        contactPerson = args[5];
-                        street = args[6];
-                        city = args[7];
+                        System.out.print("-> " + sc.nextLine());
+                        try{
+                            args = sc.nextLine().split("[|]");
+                            System.out.println(Arrays.toString((Object[]) args));
+                            distributorId = args[0].trim();
+                            name = args[1].trim();
+                            type = args[2].trim();
+                            balance = Float.valueOf(Float.parseFloat(args[3].trim()));
+                            phone = args[4].trim();
+                            contactPerson = args[5].trim();
+                            street = args[6].trim();
+                            city = args[7].trim();
+                        }catch(IllegalArgumentException ex){
+                            System.out.println("Wrong input format!!! Try again!\n");
+                            continue;
 
+                        }
                         if (Distributors.updateDistributors(distributorId, name, type, balance, phone, street, city, contactPerson).booleanValue()) {
                             System.out.println("Records Updated!!");
                         } else {
@@ -85,25 +116,43 @@ public class DistributorMenu {
                     case 4:
 
                         System.out.println("Enter distributorId");
-                        String did = sc.nextLine();
-                        if(Distributors.deleteDistributors(did)){
+                        System.out.print("-> " + sc.nextLine());
+                        try{
+                            args = sc.nextLine().split("[|]");
+                            System.out.println(Arrays.toString((Object[]) args));
+                            distributorId = args[0].trim();
+                        }catch(IllegalArgumentException ex){
+                            System.out.println("Wrong input format!!! Try again!\n");
+                            continue;
+
+                        }
+
+                        if(Distributors.deleteDistributors(distributorId)){
                             System.out.println("Records Updated!!");
                         } else {
                             System.out.println("Updation Failed!!");
                         }
                         return;
                     case 5:
-                        System.out.println("Enter String orderId, Date deadline, Float price, Date orderDate, Integer number of copies, Float shipping cost, String publicationId, String distributorId separated by |");
-                        args = sc.next().split("[|]");
-                        System.out.println(Arrays.toString((Object[]) args));
-                        orderId = args[0];
-                        deadline = Date.valueOf(args[1]);
-                        price = Float.valueOf(Float.parseFloat(args[2]));
-                        orderDate = Date.valueOf(args[3]);
-                        noOfCopies = Integer.valueOf(Integer.parseInt(args[4]));
-                        shippingCost = Float.valueOf(Float.parseFloat(args[5]));
-                        publicationId = args[6];
-                        distributorId = args[7];
+                        System.out.println("Enter String orderId, Date deadline, Float price, Date orderDate (YYYY-MM-DD), Integer number of copies, Float shipping cost, String publicationId, String distributorId separated by |");
+                        System.out.print("-> " + sc.nextLine());
+                        try{
+                            args = sc.nextLine().split("[|]");
+                            System.out.println(Arrays.toString((Object[]) args));
+                            
+                            orderId = args[0].trim();
+                            deadline = Date.valueOf(args[1].trim());
+                            price = Float.valueOf(Float.parseFloat(args[2].trim()));
+                            orderDate = Date.valueOf(args[3].trim());
+                            noOfCopies = Integer.valueOf(Integer.parseInt(args[4].trim()));
+                            shippingCost = Float.valueOf(Float.parseFloat(args[5].trim()));
+                            publicationId = args[6].trim();
+                            distributorId = args[7].trim();
+                        }catch(IllegalArgumentException ex){
+                            System.out.println("Wrong input format!!! Try again!\n");
+                            continue;
+
+                        }
 
                         if (Orders.addOrders(orderId, deadline, price, orderDate, noOfCopies, shippingCost, publicationId, distributorId).booleanValue()) {
                             System.out.println("Records Updated!!");
@@ -114,8 +163,17 @@ public class DistributorMenu {
 
                     case 6:
                         System.out.println("Enter String orderId");
-                        input = sc.next();
-                        orderId = input;
+                        System.out.print("-> " + sc.nextLine());
+                        try{
+                            args = sc.nextLine().split("[|]");
+                            System.out.println(Arrays.toString((Object[]) args));
+                            
+                            orderId = args[0].trim();
+                        }catch(IllegalArgumentException ex){
+                            System.out.println("Wrong input format!!! Try again!\n");
+                            continue;
+
+                        }
             
                         if (Orders.billDistributorForOrder(orderId)) {
                             System.out.println("Distributor Billed Successfully");
@@ -128,10 +186,19 @@ public class DistributorMenu {
                         //Update outstanding balance of a Distributor
                         System.out.println("Enter payment made by distributor(Float) and String orderId for which payment is made separated by |");
                         float payment = 0;
-                        args = sc.next().split("[|]");
-                        System.out.println(Arrays.toString((Object[]) args));
-                        payment = Float.valueOf(Float.parseFloat(args[0]));
-                        orderId = args[1];
+                        System.out.print("-> " + sc.nextLine());
+                        try{
+                            args = sc.nextLine().split("[|]");
+                            System.out.println(Arrays.toString((Object[]) args));
+                            
+                            
+                            payment = Float.valueOf(Float.parseFloat(args[0].trim()));
+                            orderId = args[1].trim();
+                        }catch(IllegalArgumentException ex){
+                            System.out.println("Wrong input format!!! Try again!\n");
+                            continue;
+
+                        }
                         if (Distributors.updateDistributorBalance(orderId, payment)) {
                             System.out.println("Distributor balance updated Successfully");
                         } else {
