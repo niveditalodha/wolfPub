@@ -3,22 +3,22 @@ package wolfPubDB.menu;
 import wolfPubDB.classes.ReportClass;
 import wolfPubDB.taskAndOperations.Report;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+/**
+ * Class responsible for showing report generating menu options.
+ */
 public class ReportMenu {
 
     /**
-     * a function that connects to the DB Report menu. Scanner takes in user input and and selects a case based off the input recieved. The case will then perform an action such as selecting another menu or table and then prompting the user for more input
-     * 
-     * @return reportMenu lists all the menu options for admin to choose and links to those individual menus
-     * @return caseResults for selected case from the menu each case will return a prompt or results of the query
-     * @throws NumberFormatException occurs when inpromper format is given via string or numeric value
-     * @throws IOException occurs when IO operations fail in the try catch blocks
-     * @throws SQLException occurs when database error and provides information on the error
+     * Method that prints and handles the Report Menu operations.
+     * It depends on {@link Report} class that have all the required APIs for
+     * generating the report. This method acts as the View handler.
+     *
+     * @throws SQLException It handles Database related errors in case they occur
      */
-    public static void reportMenu() throws NumberFormatException, IOException, SQLException {
+    public static void reportMenu() throws SQLException {
         Scanner sc = new Scanner(System.in);
         String[] main_args = null;
 
@@ -34,8 +34,8 @@ public class ReportMenu {
             System.out.println("5. Total revenue per city (since inception)");
             System.out.println("6. Total revenue per distributor (since inception)");
             System.out.println("7. Total revenue per location (since inception)");
-            System.out.println("8. Total payments to editors authors per time period");
-            System.out.println("9. Total payments to editors authors per work\n" +
+            System.out.println("8. Total payments to editors and authors per time period");
+            System.out.println("9. Total payments to editors and authors per work\n" +
                     "   type (book authorship, article authorship,\n" +
                     "   editorial work)");
             System.out.println("10. Go back to Main menu");

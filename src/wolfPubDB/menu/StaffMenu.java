@@ -19,7 +19,7 @@ public class StaffMenu {
     public static void staffMenu() throws NumberFormatException, IOException, SQLException {
         Scanner sc = new Scanner(System.in);
         String[] args = null;
-        String  staffId, name, type;
+        String  staffId,name, type;
         ReportClass report;
 
         while (true) {
