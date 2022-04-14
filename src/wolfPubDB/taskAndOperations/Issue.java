@@ -77,9 +77,9 @@ public class Issue {
         }
     }
 
-    public static Boolean updateIssue(String publicationId, Date issueDate, String type) {
+    public static Boolean updateIssue(String publicationId, Date issueDate, String type) throws SQLException{
+        Connection conn = DBConnect.getConnection();
         try {
-            Connection conn = DBConnect.getConnection();
             String query = "Update issue set issueDate = ?, type = ? where publicationId =?";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setDate(1, issueDate);
@@ -88,22 +88,40 @@ public class Issue {
             stat.executeUpdate();
             conn.close();
             return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return Boolean.valueOf(false);
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
+            return null;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }finally{
+                conn.close();
         }
     }
 
-    public static Boolean deleteIssue(String publicationId) {
+    public static Boolean deleteIssue(String publicationId) throws SQLException{
+        Connection conn = DBConnect.getConnection();
         try {
-            Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             stat.executeUpdate("DELETE FROM issue WHERE publicationId= '" + publicationId+"'");
             conn.close();
             return true;
-        } catch (SQLException ex) {
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
+            return null;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
             ex.printStackTrace();
-            return false;
+            return null;
+        }finally{
+                conn.close();
         }
     }
 

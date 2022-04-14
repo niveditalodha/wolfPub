@@ -177,6 +177,8 @@ public class Publication {
                 return false;
             }catch (SQLException ex) {
                 ex.printStackTrace();
+                conn.rollback();
+                System.out.println("Transaction Failed!!");
                 return false;
             }finally{
                 if(conn != null){
