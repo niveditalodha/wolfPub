@@ -9,7 +9,7 @@ import java.util.List;
 public class ReportClass {
     public List<String> resultKeys;
     public ResultClass results;
-
+    List<Integer> maxColWidth;
     /**
      * Constructor for ReportClass
      * @param rKeys List of column headers that are displayed while printing
