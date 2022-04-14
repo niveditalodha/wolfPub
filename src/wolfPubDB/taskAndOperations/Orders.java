@@ -37,9 +37,9 @@ public class Orders {
     }
 
 
-    public static Boolean addOrders(String orderId, Date deadline, Float price, Date orderDate, Integer noOfCopies, Float shippingCost, String publicationId, String distributorId) {
+    public static Boolean addOrders(String orderId, Date deadline, Float price, Date orderDate, Integer noOfCopies, Float shippingCost, String publicationId, String distributorId) throws SQLException{
+        Connection conn = DBConnect.getConnection();
         try {
-            Connection conn = DBConnect.getConnection();
             String query = "insert into orders(orderId, deadline, price, orderDate, noOfCopies, shippingCost, publicationId, distributorId) values (?,?,?,?,?,?,?,?)";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, orderId);
@@ -53,12 +53,18 @@ public class Orders {
             stat.executeUpdate();
             conn.close();
             return true;
-        } catch (SQLIntegrityConstraintViolationException ex) {
+        } catch(SQLIntegrityConstraintViolationException ex){
             System.out.println("Foreign key constrain violated!!!");
-            return false;
-        } catch (SQLException ex) {
+            
+            return null;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
             ex.printStackTrace();
-            return false;
+            return null;
+        }finally{
+                conn.close();
         }
     }
 
@@ -100,9 +106,9 @@ public class Orders {
     }
 
 
-    public static boolean billDistributorForOrder(String orderId) {
+    public static boolean billDistributorForOrder(String orderId) throws SQLException{
+        Connection conn = DBConnect.getConnection();
         try {
-            Connection conn = DBConnect.getConnection();
             String query = "update distributors set balance = balance + ? where distributorId = ?";
             PreparedStatement st = conn.prepareStatement(query);
             String query1 = "select noOfCopies, price, shippingCost, distributorId from orders where orderId = '" + orderId + "'";
@@ -126,9 +132,18 @@ public class Orders {
             st.executeUpdate();
 
             return true;
-        } catch (SQLException ex) {
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
+            return false;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return false;
+        }catch (SQLException ex) {
             ex.printStackTrace();
             return false;
+        }finally{
+                conn.close();
         }
     }
 

@@ -57,13 +57,18 @@ public class Distributors{
             stat.setString(8, contactPerson);
             stat.executeUpdate();
             return true;
-        } catch (SQLException ex) {
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
+            return null;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
             ex.printStackTrace();
-            return false;
-        }
-        finally{
-
-            conn.close();
+            return null;
+        }finally{
+                conn.close();
         }
     }
 
@@ -92,12 +97,18 @@ public class Distributors{
                 return  true;
             }
             return false;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return Boolean.valueOf(false);
-        }
-        finally{
-            conn.close();
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
+            return null;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }finally{
+                conn.close();
         }
     }
 
@@ -112,12 +123,18 @@ public class Distributors{
             stat.executeUpdate();
 
             return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-        finally{
-            conn.close();
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
+            return null;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }finally{
+                conn.close();
         }
     }
 
@@ -127,12 +144,18 @@ public class Distributors{
             Statement stat = conn.createStatement();
             stat.executeUpdate("DELETE FROM distributors WHERE distributorId= '" + distributorId+"'");
             return true;
-        } catch (SQLException ex) {
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
+            return null;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
             ex.printStackTrace();
-            return false;
-        }
-        finally{
-            conn.close();
+            return null;
+        }finally{
+                conn.close();
         }
     }
 
