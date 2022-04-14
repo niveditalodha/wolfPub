@@ -11,8 +11,20 @@ import java.sql.Statement;
 import wolfPubDB.classes.ChaptersClass;
 import wolfPubDB.connect.*;
 
+
+/**
+ * Plain Old Java Object (POJO) class for storing and passing results from
+ * SQL query.
+ */
 public class Chapters{
 
+    /**
+     * Method for viewing the Chapter table from the database.
+     * Connects to the DB, Creates an SQL query string and returns the results as an ArrayList.
+     *
+     * @return Returns the ArrayList output of select chapter table contents
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static ArrayList<ChaptersClass> selectChapter() throws SQLException{
         Connection conn = DBConnect.getConnection();
         try {   
@@ -41,6 +53,14 @@ public class Chapters{
         }
     }
 
+
+    /**
+     * Method for viewing the Chapter table from the database.
+     * Connects to the DB, Creates an SQL query string and returns the results as an ArrayList.
+     *
+     * @return Returns the ArrayList output of select chapter table contents
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static ArrayList<ChaptersClass> selectChapter(String publicationId, String chapterNumber) throws SQLException{
         try {   
             Connection conn = DBConnect.getConnection();
@@ -59,6 +79,15 @@ public class Chapters{
             return null;
         }
     }
+
+
+    /**
+     * Method for adding the chapters row in the chapters table from the database.
+     * Connects to the DB, Creates an SQL query string and returns the success or failure.
+     *
+     * @return Returns the boolean true is success else boolean false
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
 
     public static boolean addChapter(String publicationId, String chapterNumber, String chapterTitle) throws SQLException{
         Connection conn = null;
@@ -111,6 +140,14 @@ public class Chapters{
 }
 
 
+    /**
+     * Method for updating the chapters row in the chapters table from the database.
+     * Connects to the DB, Creates an SQL query string and returns the success or failure.
+     *
+     * @return Returns the boolean true is success else boolean false
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
+
     public static Boolean updateChaptersTitle(String publicationId, String chapterNumber, String chapterTitle) throws SQLException{
         Connection conn = DBConnect.getConnection();
         try{
@@ -139,7 +176,13 @@ public class Chapters{
     }
 
     
-
+    /**
+     * Method for deleting the chapters row from the chapters table from the database.
+     * Connects to the DB, Creates an SQL query string and returns the success or failure.
+     *
+     * @return Returns the boolean true is success else boolean false
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
 
     public static Boolean deleteChapter(String publicationId, String chapterNumber) throws SQLException {
         Connection conn = DBConnect.getConnection();

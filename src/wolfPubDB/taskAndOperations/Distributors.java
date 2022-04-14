@@ -12,8 +12,21 @@ import java.sql.Statement;
 import wolfPubDB.connect.*;
 import wolfPubDB.classes.DistributorsClass;
 
+
+/**
+ * Plain Old Java Object (POJO) class for storing and passing results from
+ * SQL query.
+ */
 public class Distributors{
 
+
+    /**
+     * Method for viewing the distributor table from the database.
+     * Connects to the DB, Creates an SQL query string and returns the results as an ArrayList.
+     *
+     * @return Returns the ArrayList output of select distributor table contents
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static ArrayList<DistributorsClass> selectDistributors() throws SQLException{
         Connection conn = DBConnect.getConnection();
         try{
@@ -41,6 +54,14 @@ public class Distributors{
         }
     }
 
+
+    /**
+     * Method for adding the distributors row in the distributors table from the database.
+     * Connects to the DB, Creates an SQL query string and returns the success or failure.
+     *
+     * @return Returns the boolean true is success else boolean false
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static Boolean addDistributor(String distributorId, String name, String type, Float balance, String phone, String city, String street, String contactPerson) throws SQLException{
 
         Connection conn = DBConnect.getConnection();
@@ -72,6 +93,14 @@ public class Distributors{
         }
     }
 
+
+    /**
+     * Method for updating the distributors row in the distributors table from the database.
+     * Connects to the DB, Creates an SQL query string and returns the success or failure.
+     *
+     * @return Returns the boolean true is success else boolean false
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static Boolean updateDistributors(String distributorId, String name, String type, Float balance, String phone, String city, String street, String contactPerson) throws SQLException{
 
         Connection conn = DBConnect.getConnection();
@@ -113,6 +142,15 @@ public class Distributors{
     }
 
 
+
+    /**
+     * Method for updating the distributors row's balance in the distributors
+     *                               table from the database.
+     * Connects to the DB, Creates an SQL query string and returns the success or failure.
+     *
+     * @return Returns the boolean true is success else boolean false
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static Boolean updateDistributorBalance(String orderId, Float payment) throws SQLException{
         Connection conn = DBConnect.getConnection();
         try {

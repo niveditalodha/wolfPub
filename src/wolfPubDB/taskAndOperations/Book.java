@@ -12,8 +12,20 @@ import java.sql.Statement;
 import wolfPubDB.classes.BookClass;
 import wolfPubDB.connect.*;
 
+/**
+ * Plain Old Java Object (POJO) class for storing and passing results from
+ * SQL query.
+ */
+
 public class Book{
 
+    /**
+     * Method for viewing the Book table from the database.
+     * Connects to the DB, Creates an SQL query string and returns the results as an ArrayList.
+     *
+     * @return Returns the ArrayList output of select book table contents
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static ArrayList<BookClass> selectBook() throws SQLException{
         Connection conn = DBConnect.getConnection();
         try {   
@@ -41,6 +53,14 @@ public class Book{
         }
     }
 
+
+    /**
+     * Method for viewing the books by publicationId table from the database.
+     * Connects to the DB, Creates an SQL query string and returns the results as an ArrayList.
+     *
+     * @return Returns the ArrayList output of select books by publicationId table contents
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static ArrayList<BookClass> selectBook(String publicationId) throws SQLException{
         try {   
             Connection conn = DBConnect.getConnection();
@@ -60,6 +80,14 @@ public class Book{
         }
     }
 
+
+    /**
+     * Method for viewing the books by topic table from the database.
+     * Connects to the DB, Creates an SQL query string and returns the results as an ArrayList.
+     *
+     * @return Returns the ArrayList output of select books by topic table contents
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static ArrayList<BookClass> selectBookByTopic(String topics) throws SQLException{
         Connection conn = DBConnect.getConnection();
         try {   
@@ -89,6 +117,14 @@ public class Book{
     
     }
 
+
+    /**
+     * Method for viewing the book by date table from the database.
+     * Connects to the DB, Creates an SQL query string and returns the results as an ArrayList.
+     *
+     * @return Returns the ArrayList output of select book by date table contents
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static ArrayList<BookClass> selectBookByDate(Date publicationDate) throws SQLException{
         Connection conn = DBConnect.getConnection();
         try {   
@@ -116,6 +152,15 @@ public class Book{
             
         }
     }
+
+
+    /**
+     * Method for viewing the books by author name table from the database.
+     * Connects to the DB, Creates an SQL query string and returns the results as an ArrayList.
+     *
+     * @return Returns the ArrayList output of select books by author name table contents
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     
     public static ArrayList<BookClass> selectBookByAuthor(String name) throws SQLException{
         Connection conn = DBConnect.getConnection();
@@ -145,6 +190,13 @@ public class Book{
     }
     
 
+    /**
+     * Method for adding the Book row in the book table from the database.
+     * Connects to the DB, Creates an SQL query string and returns the success or failure.
+     *
+     * @return Returns the boolean true is success else boolean false
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
 
     public static boolean addBook(Connection conn, String publicationId, String isbn, Date publicationDate, String edition) throws SQLException{
         try{
@@ -163,7 +215,13 @@ public class Book{
         }
 }
 
-
+    /**
+     * Method for updating the book row in the books table from the database.
+     * Connects to the DB, Creates an SQL query string and returns the success or failure.
+     *
+     * @return Returns the boolean true is success else boolean false
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static Boolean updateBook(String publicationId, String isbn, Date publicationDate, String edition) throws SQLException{
         int count = 0;
         Connection conn = DBConnect.getConnection();
@@ -201,7 +259,13 @@ public class Book{
             
         }
 }
-
+    /**
+     * Method for deleting the book row in the books table from the database.
+     * Connects to the DB, Creates an SQL query string and returns the success or failure.
+     *
+     * @return Returns the boolean true is success else boolean false
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static Boolean deleteBook(String publicationId) throws SQLException {
         Connection conn = DBConnect.getConnection();
         try {

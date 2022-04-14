@@ -10,7 +10,20 @@ import java.sql.Statement;
 import wolfPubDB.connect.*;
 import wolfPubDB.classes.AuthorClass;
 
+/**
+ * Plain Old Java Object (POJO) class for storing and passing results from
+ * SQL query.
+ */
 public class Author{
+
+
+    /**
+     * Method for viewing the Author table from the database.
+     * Connects to the DB, Creates an SQL query string and returns the results as an ArrayList.
+     *
+     * @return Returns the ArrayList output of select author table contents
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
 
     public static ArrayList<AuthorClass> selectAuthor() throws SQLException{
         Connection conn = DBConnect.getConnection();

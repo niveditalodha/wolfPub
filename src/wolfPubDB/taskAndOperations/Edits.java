@@ -17,8 +17,20 @@ import java.util.List;
 
 import static wolfPubDB.taskAndOperations.Report.getReport;
 
+/**
+ * Plain Old Java Object (POJO) class for storing and passing results from
+ * SQL query.
+ */
+
 public class Edits {
 
+    /**
+     * Method for viewing the edits table from the database.
+     * Connects to the DB, Creates an SQL query string and returns the results as an ArrayList.
+     *
+     * @return Returns the ArrayList output of select edits table contents
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static ArrayList<EditsClass> selectEdits() throws SQLException{
         Connection conn = DBConnect.getConnection();
         try {
@@ -48,6 +60,13 @@ public class Edits {
     }
 
 
+    /**
+     * Method for adding the edits row in the edits table from the database.
+     * Connects to the DB, Creates an SQL query string and returns the success or failure.
+     *
+     * @return Returns the boolean true is success else boolean false
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static boolean addEdits(String staffId, String publicationId) {
 
         try {
@@ -66,7 +85,14 @@ public class Edits {
         }
     }
 
-
+    
+    /**
+     * Method for viewing the publications of a particular editor from the database.
+     * Connects to the DB, Creates an SQL query string and returns the results as an ArrayList.
+     *
+     * @return Returns the ArrayList output of publications+book+issue table contents
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static ReportClass selectEditorPublication(String staffId) {
         try {
 
