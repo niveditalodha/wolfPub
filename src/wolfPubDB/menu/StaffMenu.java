@@ -5,9 +5,28 @@ import java.io.IOException;
 import java.sql.SQLException;
 import wolfPubDB.taskAndOperations.*;
 
+/**
+ * Class responsible for showing menu options for Staff.
+ */
+
 public class StaffMenu {
 
-    public static void staffMenu() throws NumberFormatException, IOException, SQLException {
+    /**
+     * Method that prints and handles the Staff Menu operations.
+     * It depends on {@link Staff , @Editor , @link Edits , @link Author , @link Book and @link Articles} class that have 
+     * all the required APIs for generating the results of Staff. 
+     * 
+     * This method acts as the View handler.
+     * 
+     * @throws NumberFormatException It handles and error if attempt is made to 
+     *                  convert a string with an incorrect format to a numeric value.
+     * @throws IOException It handles any Input/Output related errors in case they occur
+     * @throws SQLException It handles Database related errors in case they occur
+     * @throws IllegalArgumentException It handles errors thrown in order to indicate that 
+     *                  a method has been passed an illegal argument. Like 2020-0-0 to a date
+     */
+
+    public static void staffMenu() throws NumberFormatException, IOException, SQLException, IllegalArgumentException {
         Scanner sc = new Scanner(System.in);
         String[] args = null;
         String  staffId,name, type;
@@ -45,34 +64,66 @@ public class StaffMenu {
                 case 4:
                     //Add Editor
                     System.out.println("Enter String StaffId, String Staff Name and String Staff type separated by |");
-                    args = sc.next().split("[|]");
-                    staffId = args[0];
-                    name = args[1];
-                    type = args[2];
+                    System.out.print("-> " + sc.nextLine());
+                    try{
+                        args = sc.nextLine().split("[|]");
+                        staffId = args[0].trim();
+                        name = args[1].trim();
+                        type = args[2].trim();
+                    }
+                    catch(IllegalArgumentException ex){
+                        System.out.println("Wrong input format!!! Try again!\n");
+                        continue;
+                    }
                     Staff.addEditor(staffId, name, type);
                     break;
 
                 case 5:
                     //Add Author
                     System.out.println("Enter String StaffId, String Staff Name and String Staff type separated by |");
-                    args = sc.next().split("[|]");
-                    staffId = args[0];
-                    name = args[1];
-                    type = args[2];
+                    System.out.print("-> " + sc.nextLine());
+                    try{
+                        args = sc.nextLine().split("[|]");
+                        staffId = args[0].trim();
+                        name = args[1].trim();
+                        type = args[2].trim();
+                    }
+                    catch(IllegalArgumentException ex){
+                        System.out.println("Wrong input format!!! Try again!\n");
+                        continue;
+                    }
                     Staff.addAuthor(staffId, name, type);
                     break;
+
+
                 case 6:
                     // View Publication based on Editor(Staff ID)
                     System.out.println("Enter the Editor's Staff ID:");
-                    staffId = sc.next();
+                    System.out.print("-> " + sc.nextLine());
+                    try{
+                        args = sc.nextLine().split("[|]");
+                        staffId = args[0].trim();
+                    }
+                    catch(IllegalArgumentException ex){
+                        System.out.println("Wrong input format!!! Try again!\n");
+                        continue;
+                    }
                     report = Edits.selectEditorPublication(staffId);
                     ReportClass.printReport(report);
                     return;
+
                 case 7:
                     // Find book by author name
                     System.out.println("Enter String Author Name");
-                    args = sc.next().split("[|]");
-                    name = args[0];
+                    System.out.print("-> " + sc.nextLine());
+                    try{
+                        args = sc.nextLine().split("[|]");
+                        name = args[0].trim();
+                    }
+                    catch(IllegalArgumentException ex){
+                        System.out.println("Wrong input format!!! Try again!\n");
+                        continue;
+                    }
 
                     Book.selectBookByAuthor(name).forEach(System.out::println);
 
@@ -80,14 +131,22 @@ public class StaffMenu {
                 case 8:
                     // Find Article by author name
                     System.out.println("Enter String Author name");
-                    args = sc.next().split("[|]");
-                    name = args[0];
-
+                    System.out.print("-> " + sc.nextLine());
+                    try{
+                        args = sc.nextLine().split("[|]");
+                        name = args[0].trim();
+                    }   
+                    catch(IllegalArgumentException ex){
+                        System.out.println("Wrong input format!!! Try again!\n");
+                        continue;
+                    }
                     Articles.selectArticlesByAuthor(name).forEach(System.out::println);
 
                     return;
+
                 case 9:
                     MainMenu.main(args);
+
                 default:
                     System.out.println("Enter a valid choice");
             }

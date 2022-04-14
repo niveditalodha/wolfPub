@@ -7,10 +7,28 @@ import java.util.*;
 import java.io.*;
 import java.sql.SQLException;
 
+/**
+ * Class responsible for showing menu options for Publication, Book, Chapter, Issue, Articles.
+ */
 
 public class PublicationMenu {
 
-    public static void publicationMenu() throws NumberFormatException, IOException, SQLException {
+    /**
+     * Method that prints and handles the Publication Menu operations.
+     * It depends on {@link Publication and @Edits} class that have all 
+     * the required APIs for generating the results of Publication. 
+     * 
+     * This method acts as the View handler.
+     * 
+     * @throws NumberFormatException It handles and error if attempt is made to 
+     *                  convert a string with an incorrect format to a numeric value.
+     * @throws IOException It handles any Input/Output related errors in case they occur
+     * @throws SQLException It handles Database related errors in case they occur
+     * @throws IllegalArgumentException It handles errors thrown in order to indicate that 
+     *                  a method has been passed an illegal argument. Like 2020-0-0 to a date
+     */
+
+    public static void publicationMenu() throws NumberFormatException, IOException, SQLException, IllegalArgumentException {
         Scanner sc = new Scanner(System.in);
         String[] main_args = null;
 
@@ -43,11 +61,18 @@ public class PublicationMenu {
         case 2:
             // Adding new publication information
             System.out.println("String publicationId, String title, String periodicity, String topics");
-            args = sc.next().split("[|]");
-            publicationId = args[0];
-            title = args[1];
-            periodicity = args[2];
-            topics = args[3];
+            System.out.print("-> " + sc.nextLine());
+            try{
+                args = sc.nextLine().split("[|]");
+                publicationId = args[0].trim();
+                title = args[1].trim();
+                periodicity = args[2].trim();
+                topics = args[3].trim();
+            }
+            catch (IllegalArgumentException ex){
+                System.out.println("Wrong input format!!! Try again!\n");
+                continue;
+            }
 
             if(Publication.addPublication(publicationId, title, periodicity, topics)){
                 System.out.println("Operation Successful");
@@ -60,11 +85,18 @@ public class PublicationMenu {
         case 3:
             // Updating Publication Information
             System.out.println("Enter String publicationId, String title, String periodicity, String topics");
-            args = sc.next().split("[|]");
-            publicationId = args[0];
-            title = args[1];
-            periodicity = args[2];
-            topics = args[3];
+            System.out.print("-> " + sc.nextLine());
+            try{
+                args = sc.nextLine().split("[|]");
+                publicationId = args[0].trim();
+                title = args[1].trim();
+                periodicity = args[2].trim();
+                topics = args[3].trim();
+            }
+            catch (IllegalArgumentException ex){
+                System.out.println("Wrong input format!!! Try again!\n");
+                continue;
+            }
 
             if(Publication.updatePublication(publicationId, title, periodicity, topics)){
                 System.out.println("Operation Successful");
@@ -92,10 +124,16 @@ public class PublicationMenu {
         case 8:
             // Assign Editors to Publication
             System.out.println("Enter String StaffID(EditorID) and String publicationId");
-            args = sc.next().split("[|]");
-            staffId = args[0];
-            publicationId = args[1];
-
+            System.out.print("-> " + sc.nextLine());
+            try{
+                args = sc.nextLine().split("[|]");
+                staffId = args[0].trim();
+                publicationId = args[1].trim();
+            }
+            catch(IllegalArgumentException ex){
+                System.out.println("Wrong input format!!! Try again!\n");
+                continue;
+            }
             if (Edits.addEdits(staffId, publicationId)) {
                 System.out.println("Operation Successful");
             } else {
@@ -107,7 +145,16 @@ public class PublicationMenu {
         case 9:
             // View Publication based on Editor(Staff ID)
             System.out.println("Enter the Editor's Staff ID:");
-            staffId = sc.next();
+            System.out.print("-> " + sc.nextLine());
+            try{
+                args = sc.nextLine().split("[|]");
+                staffId = args[0].trim();
+            }
+            catch(IllegalArgumentException ex){
+                System.out.println("Wrong input format!!! Try again!\n");
+                continue;
+            }
+
             report = Edits.selectEditorPublication(staffId);
             ReportClass.printReport(report);
             return;
