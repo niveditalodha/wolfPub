@@ -2,10 +2,26 @@ package wolfPubDB.menu;
 import java.util.*;
 import java.io.IOException;
 import java.sql.SQLException;
-import wolfPubDB.taskAndOperations.*;
-public class ChaptersMenu {
+import wolfPubDB.taskAndOperations.*;/**
+* Class responsible for showing menu options for Chapters.
+*/
 
-    public static void chaptersMenu() throws NumberFormatException, IOException, SQLException {
+public class ChaptersMenu {
+   /**
+    * Method that prints and handles the Chapters Menu operations.
+    * It depends on {@link Chapters and @link Book} class that have all 
+    * the required APIs for generating the results of chapters. 
+    * 
+    * This method acts as the View handler.
+    * 
+    * @throws NumberFormatException It handles and error if attempt is made to 
+    *                  convert a string with an incorrect format to a numeric value.
+    * @throws IOException It handles any Input/Output related errors in case they occur
+    * @throws SQLException It handles Database related errors in case they occur
+    * @throws IllegalArgumentException It handles errors thrown in order to indicate that 
+    *                  a method has been passed an illegal argument. Like 2020-0-0 to a date
+    */
+    public static void chaptersMenu() throws NumberFormatException, IOException, SQLException, IllegalArgumentException {
         Scanner sc = new Scanner(System.in);
         String[] args = null;
         
@@ -31,11 +47,16 @@ public class ChaptersMenu {
                 case 2:
                     // Adding a Chapter
                     System.out.println("Enter String publicationId, String chapterNumber, String chapterTitle separated by |");
-                    args = sc.next().split("[|]");
-                    publicationId = args[0];
-                    chapterNumber = args[1];
-                    chapterTitle = args[2];
-        
+                    System.out.print("-> " + sc.nextLine());
+                    try{
+                        args = sc.nextLine().split("[|]");
+                        publicationId = args[0].trim();
+                        chapterNumber = args[1].trim();
+                        chapterTitle = args[2].trim();
+                    }catch(IllegalArgumentException ex){
+                        System.out.println("Wrong input format!!! Try again!\n");
+                        continue;
+                    }
                     if (Chapters.addChapter(publicationId, chapterNumber, chapterTitle)) {
                         System.out.println(" Operation Successful");
                     } else {
@@ -47,10 +68,16 @@ public class ChaptersMenu {
                 case 3:
                     // Updating a Chapter's Title
                     System.out.println("Enter String publicationId, String chapterNumber, String chapterTitle separated by |");
-                    args = sc.next().split("[|]");
-                    publicationId = args[0];
-                    chapterNumber = args[1];
-                    chapterTitle = args[2];
+                    System.out.print("-> " + sc.nextLine());
+                    try{
+                        args = sc.nextLine().split("[|]");
+                        publicationId = args[0].trim();
+                        chapterNumber = args[1].trim();
+                        chapterTitle = args[2].trim();
+                    }catch(IllegalArgumentException ex)   {
+                        System.out.println("Wrong input format!!! Try again!\n");
+                        continue;
+                    }
                     if (Chapters.updateChaptersTitle(publicationId, chapterNumber, chapterTitle)) {
                         System.out.println(" Operation Successful");
                     } else {
@@ -63,10 +90,15 @@ public class ChaptersMenu {
                 case 4:
                     // Updating a Chapter's Author
                     System.out.println("Enter String publicationId, String staffID separated by |");
-                    args = sc.next().split("[|]");
-                    publicationId = args[0];
-                    staffId = args[1];
-        
+                    System.out.print("-> " + sc.nextLine());
+                    try{
+                        args = sc.nextLine().split("[|]");
+                        publicationId = args[0].trim();
+                        staffId = args[1].trim();
+                    }catch(IllegalArgumentException ex)   {
+                        System.out.println("Wrong input format!!! Try again!\n");
+                        continue;
+                    }
                     if (WritesBook.updateWritesBookChapterAuthor(publicationId, staffId)) {
                         System.out.println(" Updated Chapter's Author Successfully");
                     } else {
@@ -79,10 +111,15 @@ public class ChaptersMenu {
                 case 5:
                     // Deleting a Chapter 
                     System.out.println("Enter String publicationId and String chapterId separated by |");
-                    args = sc.next().split("[|]");
-                    publicationId = args[0];
-                    chapterId = args[1];
-        
+                    System.out.print("-> " + sc.nextLine());
+                    try{
+                        args = sc.nextLine().split("[|]");
+                        publicationId = args[0].trim();
+                        chapterId = args[1].trim();
+                    }catch(IllegalArgumentException ex)   {
+                        System.out.println("Wrong input format!!! Try again!\n");
+                        continue;
+                    }
                     if (Chapters.deleteChapter(publicationId, chapterId)) {
                         System.out.println("Delete Operation Successful");
                     } else {

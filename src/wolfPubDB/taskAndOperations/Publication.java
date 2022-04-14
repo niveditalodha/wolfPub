@@ -4,10 +4,9 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.*;
 import java.sql.Statement;
 
 import wolfPubDB.classes.PublicationClass;
@@ -103,16 +102,28 @@ public class Publication {
                 System.out.println("Transaction Failed");
                 return false;
             }
-        } catch (SQLException ex) {
+        }catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
             conn.rollback();
             System.out.println("Transaction Failed");
             return false;
-        } finally {
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            conn.rollback();
+            System.out.println("Transaction Failed");
+            return false;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            conn.rollback();
+            System.out.println("Transaction Failed");
+            return false;
+        }finally{
             if(conn != null){
                 conn.setAutoCommit(true);
                 conn.close();
             }
-        }
+        } 
     }
     
 
@@ -144,15 +155,25 @@ public class Publication {
                 System.out.println("Transaction Failed");
                 return false;
             }
-        } catch (SQLException ex) {
-            conn.rollback();
-            System.out.println("Transaction Failed");
-            return false;
-        } finally {
-            if(conn != null){
-                conn.setAutoCommit(true);
-                conn.close();
-            }
+        }catch(SQLIntegrityConstraintViolationException ex){
+                System.out.println("Foreign key constrain violated!!!");
+                
+                conn.rollback();
+                System.out.println("Transaction Failed");
+                return false;
+            } catch(SQLSyntaxErrorException ex){
+                System.out.println("Invalid SQL syntax!!!");
+                conn.rollback();
+                System.out.println("Transaction Failed");
+                return false;
+            }catch (SQLException ex) {
+                ex.printStackTrace();
+                return false;
+            }finally{
+                if(conn != null){
+                    conn.setAutoCommit(true);
+                    conn.close();
+                }
         }
     }
 

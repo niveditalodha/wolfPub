@@ -4,9 +4,28 @@ import java.io.IOException;
 import java.sql.SQLException;
 import wolfPubDB.taskAndOperations.*;
 import java.sql.Date;
+
+/**
+ * Class responsible for showing menu options for Articles.
+ */
+
 public class ArticlesMenu {
 
-    public static void articleMenu() throws NumberFormatException, IOException, SQLException {
+    /**
+     * Method that prints and handles the Articles Menu operations.
+     * It depends on {@link Articles and @link WritesArticle} class that have all 
+     * the required APIs for generating the results of articles. 
+     * 
+     * This method acts as the View handler.
+     * 
+     * @throws NumberFormatException It handles and error if attempt is made to 
+     *                  convert a string with an incorrect format to a numeric value.
+     * @throws IOException It handles any Input/Output related errors in case they occur
+     * @throws SQLException It handles Database related errors in case they occur
+     * @throws IllegalArgumentException It handles errors thrown in order to indicate that 
+     *                  a method has been passed an illegal argument. Like 2020-0-0 to a date
+     */
+    public static void articleMenu() throws NumberFormatException, IOException, SQLException, IllegalArgumentException {
         Scanner sc = new Scanner(System.in);
         String[] args = null;
         
@@ -41,13 +60,20 @@ public class ArticlesMenu {
         
                 case 2:
                     // Adding an Article
-                    System.out.println("Enter String articleId, String title ,Date creationDate, String text, String publicationId separated by |");
-                    args = sc.next().split("[|]");
-                    articleId = args[0];
-                    title = args[1];
-                    creationDate = Date.valueOf(args[2]);
-                    text = args[3];
-                    publicationId = args[4];
+                    System.out.println("Enter String articleId, String title ,Date creationDate, String text, String publicationId separated by |");                    
+                    System.out.print("-> " + sc.nextLine());
+                    try{
+                        args = sc.nextLine().split("[|]");
+                        articleId = args[0].trim();
+                        title = args[1].trim();
+                        creationDate = Date.valueOf(args[2].trim());
+                        text = args[3].trim();
+                        publicationId = args[4].trim();
+                    }
+                    catch(IllegalArgumentException ex){
+                        System.out.println("Wrong input format!!! Try again!\n");
+                        continue;
+                    }
                     if (Articles.addArticle(articleId, title, creationDate, text, publicationId)) {
                         System.out.println("Operation Successful");
                     } else {
@@ -58,9 +84,15 @@ public class ArticlesMenu {
                 case 3:
                     // Updating Article's Text
                     System.out.println("Enter String articleId and String text separated by |");
-                    args = sc.next().split("[|]");
-                    articleId = args[0];
-                    text = args[1];
+                    System.out.print("-> " + sc.nextLine());
+                    try{
+                        args = sc.nextLine().split("[|]");
+                        articleId = args[0].trim();
+                        text = args[1].trim();
+                    }catch(IllegalArgumentException ex){
+                        System.out.println("Wrong input format!!! Try again!\n");
+                        continue;
+                    }
                     if (Articles.updateArticleText(articleId, text)) {
                         System.out.println("Operation Successful");
                     } else {
@@ -72,9 +104,15 @@ public class ArticlesMenu {
                 case 4:
                     // Updating Article's Author name
                     System.out.println("Enter String articleId and String staffId separated by |");
-                    args = sc.next().split("[|]");
-                    articleId = args[0];
-                    staffId = args[1];
+                    System.out.print("-> " + sc.nextLine());
+                    try{
+                        args = sc.nextLine().split("[|]");
+                        articleId = args[0].trim();
+                        staffId = args[1].trim();
+                    }catch(IllegalArgumentException ex){
+                        System.out.println("Wrong input format!!! Try again!\n");
+                        continue;
+                    }
                     if (WritesArticle.updateWritesArticleAuthor(articleId, staffId)) {
                         System.out.println("Updated Articles Author name Successfully");
                     } else {
@@ -86,9 +124,15 @@ public class ArticlesMenu {
                 case 5:
                     // Updating Article's Title
                     System.out.println("Enter String articleId and String Title separated by |");
-                    args = sc.next().split("[|]");
-                    articleId = args[0];
-                    title = args[1];
+                    System.out.print("-> " + sc.nextLine());
+                    try{
+                        args = sc.nextLine().split("[|]");
+                        articleId = args[0].trim();
+                        title = args[1].trim();
+                    }catch(IllegalArgumentException ex){
+                        System.out.println("Wrong input format!!! Try again!\n");
+                        continue;
+                    }
                     if (Articles.updateArticleTitle(articleId, title)) {
                         System.out.println("Updated Articles Title Successfully");
                     } else {
@@ -100,9 +144,15 @@ public class ArticlesMenu {
                 case 6:
                     // Updating Article's Topic
                     System.out.println("Enter String articleId and String Topic separated by |");
-                    args = sc.next().split("[|]");
-                    articleId = args[0];
-                    topics = args[1];
+                    System.out.print("-> " + sc.nextLine());
+                    try{
+                        args = sc.nextLine().split("[|]");
+                        articleId = args[0].trim();
+                        topics = args[1].trim();
+                    }catch(IllegalArgumentException ex){
+                        System.out.println("Wrong input format!!! Try again!\n");
+                        continue;
+                    }
                     if (Articles.updateArticlesTopic(articleId, topics)) {
                         System.out.println("Updated Articles Topic Successfully");
                     } else {
@@ -114,9 +164,15 @@ public class ArticlesMenu {
                 case 7:
                     // Updating Article's CreationDate
                     System.out.println("Enter String articleId and String CreationDate separated by |");
-                    args = sc.next().split("[|]");
-                    articleId = args[0];
-                    creationDate = Date.valueOf(args[1]);
+                    System.out.print("-> " + sc.nextLine());
+                    try{
+                        args = sc.nextLine().split("[|]");
+                        articleId = args[0].trim();
+                        creationDate = Date.valueOf(args[1].trim());
+                    }catch(IllegalArgumentException ex){
+                        System.out.println("Wrong input format!!! Try again!\n");
+                        continue;
+                    }
                     if (Articles.updateArticleCreationDate(articleId, creationDate)) {
                         System.out.println("Updated Articles Creation Date Successfully");
                     } else {
@@ -128,9 +184,14 @@ public class ArticlesMenu {
                 case 8:
                     // Find Article by Topic
                     System.out.println("Enter String Topic");
-                    args = sc.next().split("[|]");
-                    topics = args[0];
-        
+                    System.out.print("-> " + sc.nextLine());
+                    try{
+                        args = sc.nextLine().split("[|]");
+                        topics = args[0].trim();
+                    }catch(IllegalArgumentException ex){
+                        System.out.println("Wrong input format!!! Try again!\n");
+                        continue;
+                    }
                     Articles.selectArticlesByTopic(topics).forEach(System.out::println);
         
                     return;
@@ -139,8 +200,14 @@ public class ArticlesMenu {
                 case 9:
                     // Find Article by author name
                     System.out.println("Enter String Author name");
-                    args = sc.next().split("[|]");
-                    name = args[0];
+                    System.out.print("-> " + sc.nextLine());
+                    try{
+                        args = sc.nextLine().split("[|]");
+                        name = args[0].trim();
+                    }catch(IllegalArgumentException ex){
+                        System.out.println("Wrong input format!!! Try again!\n");
+                        continue;
+                    }
         
                     Articles.selectArticlesByAuthor(name).forEach(System.out::println);
         
@@ -150,8 +217,14 @@ public class ArticlesMenu {
                 case 10:
                     // Find Article by CreationDate
                     System.out.println("Enter date (YYYY-MM-DD)");
-                    args = sc.next().split("[|]");
-                    creationDate = Date.valueOf(args[0]);
+                    System.out.print("-> " + sc.nextLine());
+                    try{
+                        args = sc.nextLine().split("[|]");
+                        creationDate = Date.valueOf(args[0].trim());
+                    }catch(IllegalArgumentException ex){
+                        System.out.println("Wrong input format!!! Try again!\n");
+                        continue;
+                    }
         
                     Articles.selectArticlesByDate(creationDate).forEach(System.out::println);
         
@@ -160,11 +233,15 @@ public class ArticlesMenu {
                 
                 case 11:
                     // Assign Author to an Article
-                    System.out.println("Enter String StaffID and String articleId");
-                    args = sc.next().split("[|]");
-                    staffId = args[0];
-                    articleId = args[1];
-        
+                    System.out.println("Enter String StaffID and String articleId separated by |");
+                    try{
+                        args = sc.nextLine().split("[|]");
+                        staffId = args[0].trim();
+                        articleId = args[1].trim();
+                    }catch(IllegalArgumentException ex){
+                        System.out.println("Wrong input format!!! Try again!\n");
+                        continue;
+                    }
                     if(WritesArticle.addWritesArticle(staffId, articleId)){
                         System.out.println("Operation Successful");
                     }else{
@@ -175,9 +252,13 @@ public class ArticlesMenu {
                 case 12:
                     // Deleting an Article
                     System.out.println("Enter String articleId");
-                    args = sc.next().split("[|]");
-                    articleId = args[0];
-                    
+                    try{
+                        args = sc.nextLine().split("[|]");
+                        articleId = args[0].trim();
+                    }catch(IllegalArgumentException ex){
+                        System.out.println("Wrong input format!!! Try again!\n");
+                        continue;
+                    }
                     if (Articles.deleteArticle(articleId)) {
                         System.out.println("Delete Operation Successful");
                     } else {

@@ -5,7 +5,8 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 
 import wolfPubDB.classes.BookClass;
@@ -14,8 +15,8 @@ import wolfPubDB.connect.*;
 public class Book{
 
     public static ArrayList<BookClass> selectBook() throws SQLException{
+        Connection conn = DBConnect.getConnection();
         try {   
-            Connection conn = DBConnect.getConnection();
             ArrayList<BookClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("select * from book");
@@ -26,9 +27,17 @@ public class Book{
             conn.close();
             System.out.println("publicationId\tisbn\tpublicationDate\tedition");
             return output;
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
             return null;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }finally{
+            conn.close();
         }
     }
 
@@ -52,8 +61,8 @@ public class Book{
     }
 
     public static ArrayList<BookClass> selectBookByTopic(String topics) throws SQLException{
+        Connection conn = DBConnect.getConnection();
         try {   
-            Connection conn = DBConnect.getConnection();
             ArrayList<BookClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
             String query = "select * from book where publicationId in (select publicationId from publication where topics = '"+topics+"')";
@@ -65,15 +74,24 @@ public class Book{
             conn.close();
             System.out.println("publicationId\tisbn\tpublicationDate\tedition");
             return output;
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
             return null;
-        }
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }finally{
+                conn.close();
+            }
+    
     }
 
     public static ArrayList<BookClass> selectBookByDate(Date publicationDate) throws SQLException{
+        Connection conn = DBConnect.getConnection();
         try {   
-            Connection conn = DBConnect.getConnection();
             ArrayList<BookClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("select * from book where publicationDate='"+publicationDate+"'");
@@ -84,15 +102,24 @@ public class Book{
             conn.close();
             System.out.println("publicationId\tisbn\tpublicationDate\tedition");
             return output;
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
             return null;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }finally{
+                conn.close();
+            
         }
     }
     
     public static ArrayList<BookClass> selectBookByAuthor(String name) throws SQLException{
+        Connection conn = DBConnect.getConnection();
         try {   
-            Connection conn = DBConnect.getConnection();
             ArrayList<BookClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("select * from book where publicationId in (select publicationId from writesbook where staffId in (select staffId from staff where name = '"+name+"'))");
@@ -103,10 +130,18 @@ public class Book{
             conn.close();
             System.out.println("publicationId\tisbn\tpublicationDate\tedition");
             return output;
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
             return null;
-        }
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }finally{
+                conn.close();
+            }
     }
     
 
@@ -131,8 +166,8 @@ public class Book{
 
     public static Boolean updateBook(String publicationId, String isbn, Date publicationDate, String edition) throws SQLException{
         int count = 0;
+        Connection conn = DBConnect.getConnection();
         try{
-            Connection conn = DBConnect.getConnection();
             String query = "Update book set isbn=?, publicationDate=?, edition=? where publicationId =?";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, isbn);
@@ -151,23 +186,42 @@ public class Book{
             }
             conn.close();
             return false;
+        }catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
+            return false;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return false;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }finally{
+                conn.close();
+            
         }
-        catch (SQLException e) {
-            e.printStackTrace();
-            return Boolean.valueOf(false);
-        }
-    }
+}
 
     public static Boolean deleteBook(String publicationId) throws SQLException {
+        Connection conn = DBConnect.getConnection();
         try {
-            Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             stat.executeUpdate("DELETE FROM book WHERE publicationId= '" + publicationId+"'");
             conn.close();
             return true;
-        } catch (SQLException ex) {
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
+            return false;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return false;
+        }catch (SQLException ex) {
             ex.printStackTrace();
             return false;
+        }finally{
+                conn.close();
+            
         }
     }
 }

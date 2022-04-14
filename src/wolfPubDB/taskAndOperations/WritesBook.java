@@ -3,7 +3,7 @@ package wolfPubDB.taskAndOperations;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.sql.Statement;
 import java.util.ArrayList;
 import wolfPubDB.classes.WritesBookClass;
@@ -47,12 +47,18 @@ public class WritesBook {
             conn.close();
             return true;
 
-        } catch (SQLException ex) {
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
+            return false;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return false;
+        }catch (SQLException ex) {
             ex.printStackTrace();
             return false;
-        }
-        finally{
-            conn.close();
+        }finally{
+                conn.close();
         }
     }
 
@@ -77,13 +83,18 @@ public class WritesBook {
             }
             conn.close();
             return false;
-        }
-        catch (SQLException e) {
-            // e.printStackTrace();
+        }catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
             return false;
-        }
-        finally{
-            conn.close();
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return false;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }finally{
+                conn.close();
         }
     }
 

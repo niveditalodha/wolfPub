@@ -27,11 +27,16 @@ public class Articles{
             conn.close();
             System.out.println("article Id\tpublicationId\ttitle\t\t\tcreationDate\t\ttext");
             return output;
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
             return null;
-        }
-        finally{
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }finally{
             conn.close();
         }
     }
@@ -50,11 +55,16 @@ public class Articles{
             conn.close();
             System.out.println("article Id\tpublicationId\ttitle\t\t\tcreationDate\t\ttext");
             return output;
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
             return null;
-        }
-        finally{
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }finally{
             conn.close();
         }
     }
@@ -72,11 +82,16 @@ public class Articles{
             conn.close();
             System.out.println("article Id\tpublicationId\ttitle\t\t\tcreationDate\t\ttext");
             return output;
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
             return null;
-        }
-        finally{
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }finally{
             conn.close();
         }
     }
@@ -95,11 +110,16 @@ public class Articles{
             conn.close();
             System.out.println("article Id\tpublicationId\ttitle\t\t\tcreationDate\t\ttext");
             return output;
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
             return null;
-        }
-        finally{
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }finally{
             conn.close();
         }
     }
@@ -118,18 +138,23 @@ public class Articles{
             stat.executeUpdate();
             conn.close();
             return true;
-        } catch (SQLException ex) {
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            return false;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return false;
+        }catch (SQLException ex) {
             ex.printStackTrace();
             return false;
-        }
-        finally{
+        }finally{
             conn.close();
         }
     }
 
-    public static Boolean updateArticleTitle(String articleId, String title) {
+    public static Boolean updateArticleTitle(String articleId, String title) throws SQLException{
+        Connection conn = DBConnect.getConnection();
         try {
-            Connection conn = DBConnect.getConnection();
             String query = "Update articles set title = ? where articleId = ?";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, title);
@@ -148,15 +173,23 @@ public class Articles{
             }
             conn.close();
             return false;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return Boolean.valueOf(false);
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            return false;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return false;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }finally{
+            conn.close();
         }
     }
 
-    public static Boolean updateArticleCreationDate(String articleId, Date creationDate) {
+    public static Boolean updateArticleCreationDate(String articleId, Date creationDate) throws SQLException {
+        Connection conn = DBConnect.getConnection();
         try {
-            Connection conn = DBConnect.getConnection();
             String query = "Update articles set creationDate = ? where articleId = ?";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setDate(1, creationDate);
@@ -175,15 +208,23 @@ public class Articles{
             }
             conn.close();
             return false;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return Boolean.valueOf(false);
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            return false;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return false;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }finally{
+            conn.close();
         }
     }
 
-    public static Boolean updateArticleText(String articleId, String text) {
+    public static Boolean updateArticleText(String articleId, String text) throws SQLException {
+        Connection conn = DBConnect.getConnection();
         try {
-            Connection conn = DBConnect.getConnection();
             String query = "Update articles set text = ? where articleId = ?";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, text);
@@ -202,15 +243,23 @@ public class Articles{
             }
             conn.close();
             return false;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return Boolean.valueOf(false);
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            return false;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return false;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }finally{
+            conn.close();
         }
     }
 
-    public static Boolean updateArticlesTopic(String articleId, String topics) {
+    public static Boolean updateArticlesTopic(String articleId, String topics) throws SQLException{
+        Connection conn = DBConnect.getConnection();
         try {
-            Connection conn = DBConnect.getConnection();
             String query = "Update publication set topics = ? where publicationId = (select publicationId from articles where articleId=?)";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, topics);
@@ -229,22 +278,38 @@ public class Articles{
             }
             conn.close();
             return false;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return Boolean.valueOf(false);
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            return false;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return false;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }finally{
+            conn.close();
         }
     }
 
-    public static Boolean deleteArticle(String articleId) {
+    public static Boolean deleteArticle(String articleId) throws SQLException {
+        Connection conn = DBConnect.getConnection();
         try {
-            Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             stat.executeUpdate("DELETE FROM articles WHERE articleId= '" + articleId+"'");
             conn.close();
             return true;
-        } catch (SQLException ex) {
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            return false;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return false;
+        }catch (SQLException ex) {
             ex.printStackTrace();
             return false;
+        }finally{
+            conn.close();
         }
     }
 

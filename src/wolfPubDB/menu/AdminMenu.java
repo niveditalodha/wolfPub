@@ -4,8 +4,20 @@ import java.util.*;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Class responsible for showing menu options for ADMIN.
+ */
 public class AdminMenu {
-
+    /**
+     * Method that prints and handles the Admin Menu operations.
+     * It depends on {@link Admin} class that have all the required APIs for
+     * generating the results for admin. This method acts as the View handler.
+     *
+     * @throws NumberFormatException It handles and error if attempt is made to 
+     *                  convert a string with an incorrect format to a numeric value.
+     * @throws IOException It handles any Input/Output related errors in case they occur
+     * @throws SQLException It handles Database related errors in case they occur
+     */
     public static void adminMenu() throws NumberFormatException, IOException, SQLException {
         Scanner sc = new Scanner(System.in);
         String[] main_args = null;

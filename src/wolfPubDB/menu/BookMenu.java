@@ -4,9 +4,27 @@ import java.io.IOException;
 import java.sql.SQLException;
 import wolfPubDB.taskAndOperations.*;
 import java.sql.Date;
-public class BookMenu {
 
-    public static void bookMenu() throws NumberFormatException, IOException, SQLException {
+/**
+ * Class responsible for showing menu options for Books.
+ */
+
+public class BookMenu {
+    /**
+     * Method that prints and handles the Books Menu operations.
+     * It depends on {@link Book and @link WritesBook} class that have all 
+     * the required APIs for generating the results of books. 
+     * 
+     * This method acts as the View handler.
+     * 
+     * @throws NumberFormatException It handles and error if attempt is made to 
+     *                  convert a string with an incorrect format to a numeric value.
+     * @throws IOException It handles any Input/Output related errors in case they occur
+     * @throws SQLException It handles Database related errors in case they occur
+     * @throws IllegalArgumentException It handles errors thrown in order to indicate that 
+     *                  a method has been passed an illegal argument. Like 2020-0-0 to a date
+     */
+    public static void bookMenu() throws NumberFormatException, IOException, SQLException, IllegalArgumentException {
         Scanner sc = new Scanner(System.in);
         String[] args = null;
         String edition;
@@ -36,15 +54,20 @@ public class BookMenu {
                 case 2:
                     // Adding Book information
                     System.out.println("Enter String publicationId, String title, String periodicity, String topics, String isbn, Date publicationDate, String edition separated by |");
-                    args = sc.next().split("[|]");
-                    publicationId = args[0];
-                    title = args[1];
-                    periodicity = args[2];
-                    topics = args[3];
-                    isbn = args[4];
-                    publicationDate = Date.valueOf(args[5]);
-                    edition = args[6];
-        
+                    System.out.print("-> " + sc.nextLine());
+                    try{
+                        args = sc.nextLine().split("[|]");
+                        publicationId = args[0].trim();
+                        title = args[1].trim();
+                        periodicity = args[2].trim();
+                        topics = args[3].trim();
+                        isbn = args[4].trim();
+                        publicationDate = Date.valueOf(args[5].trim());
+                        edition = args[6].trim();
+                    }catch(IllegalArgumentException ex){
+                        System.out.println("Wrong input format!!! Try again!\n");
+                        continue;
+                    }
                     if (Publication.addPublication(publicationId, title, periodicity, topics, isbn, publicationDate, edition)) {
                         System.out.println("Operation Successful");
                     } else {
@@ -56,12 +79,17 @@ public class BookMenu {
                 case 3:
                     // Update Book information
                     System.out.println("Enter String publicationId, String isbn, Date publicationDate YYYY-MM-DD, String edition separated by |");
-                    args = sc.next().split("[|]");
-                    publicationId = args[0];
-                    isbn = args[1];
-                    publicationDate = Date.valueOf(args[2]);
-                    edition = args[3];
-        
+                    System.out.print("-> " + sc.nextLine());
+                    try{
+                        args = sc.nextLine().split("[|]");
+                        publicationId = args[0].trim();
+                        isbn = args[1].trim();
+                        publicationDate = Date.valueOf(args[2].trim());
+                        edition = args[3].trim();
+                    }catch(IllegalArgumentException ex){
+                        System.out.println("Wrong input format!!! Try again!\n");
+                        continue;
+                    }
                     if(Book.updateBook(publicationId, isbn, publicationDate, edition)){
                         System.out.println("Book Operation Sucessful");
                     }else{
@@ -73,9 +101,14 @@ public class BookMenu {
                 case 4:
                     // Find book by topic
                     System.out.println("Enter String topic");
-                    args = sc.next().split("[|]");
-                    topics = args[0];
-        
+                    System.out.print("-> " + sc.nextLine());
+                    try{
+                        args = sc.nextLine().split("[|]");
+                        topics = args[0].trim();
+                    }catch(IllegalArgumentException ex){
+                        System.out.println("Wrong input format!!! Try again!\n");
+                        continue;
+                    }
                     Book.selectBookByTopic(topics).forEach(System.out::println);
         
                     return;
@@ -83,9 +116,14 @@ public class BookMenu {
                 case 5:
                     // Find book by author name
                     System.out.println("Enter String Author Name");
-                    args = sc.next().split("[|]");
-                    name = args[0];
-        
+                    System.out.print("-> " + sc.nextLine());
+                    try{
+                        args = sc.nextLine().split("[|]");
+                        name = args[0].trim();
+                    }catch(IllegalArgumentException ex){
+                        System.out.println("Wrong input format!!! Try again!\n");
+                        continue;
+                    }
                     Book.selectBookByAuthor(name).forEach(System.out::println);
         
                     return;
@@ -93,20 +131,30 @@ public class BookMenu {
                 case 6:
                     // Find book by date
                     System.out.println("Enter date (YYYY-MM-DD)");
-                    args = sc.next().split("[|]");
-                    creationDate = Date.valueOf(args[0]);
-        
+                    System.out.print("-> " + sc.nextLine());
+                    try{
+                        args = sc.nextLine().split("[|]");
+                        creationDate = Date.valueOf(args[0].trim());
+                    }catch(IllegalArgumentException ex){
+                        System.out.println("Wrong input format!!! Try again!\n");
+                        continue;
+                    }
                     Book.selectBookByDate(creationDate).forEach(System.out::println);
         
                     return;
                 
-                case 15:
+                case 7:
                     // Assign Author to a Book
-                    System.out.println("Enter String StaffID and String publicationId");
-                    args = sc.next().split("[|]");
-                    staffId = args[0];
-                    publicationId = args[1];
-        
+                    System.out.println("Enter String StaffID and String publicationId separated by |");
+                    System.out.print("-> " + sc.nextLine());
+                    try{
+                        args = sc.nextLine().split("[|]");
+                        staffId = args[0].trim();
+                        publicationId = args[1].trim();
+                    }catch(IllegalArgumentException ex){
+                        System.out.println("Wrong input format!!! Try again!\n");
+                        continue;
+                    }
                     if(WritesBook.addWritesBook(staffId, publicationId)){
                         System.out.println("Operation Sucessful");
                     }else{
@@ -117,9 +165,15 @@ public class BookMenu {
                 case 8:
                     // Delete Book Edition
                     System.out.println("Enter String publicationId");
-                    args = sc.next().split("[|]");
-                    publicationId = args[0];
-        
+                    System.out.print("-> " + sc.nextLine());
+                    try{
+                        args = sc.next().split("[|]");
+                        publicationId = args[0].trim();
+                    }catch(IllegalArgumentException ex){
+                        System.out.println("Wrong input format!!! Try again!\n");
+                        continue;
+                    }
+                    
                     if (Book.deleteBook(publicationId)) {
                         System.out.println("Operation Successful");
                     } else {
