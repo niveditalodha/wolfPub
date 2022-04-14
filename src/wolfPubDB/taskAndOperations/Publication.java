@@ -15,9 +15,9 @@ import wolfPubDB.connect.*;
 
 public class Publication {
 
-    public static ArrayList<PublicationClass> selectPublication() {
+    public static ArrayList<PublicationClass> selectPublication() throws SQLException{
+        Connection conn = DBConnect.getConnection();
         try {
-            Connection conn = DBConnect.getConnection();
             ArrayList<PublicationClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("select * from publication");
@@ -28,9 +28,18 @@ public class Publication {
             conn.close();
             System.out.println("publicationId\ttitle\t\t\tperiodicity\ttopics");
             return output;
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
             return null;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }finally{
+                conn.close();
         }
     }
 

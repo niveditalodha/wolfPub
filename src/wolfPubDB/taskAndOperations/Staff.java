@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.*;
 import java.sql.Statement;
 import java.util.ArrayList;
 import wolfPubDB.classes.StaffClass;
@@ -12,9 +13,9 @@ import wolfPubDB.connect.*;
 
 
 public class Staff {
-    public static ArrayList<StaffClass> selectStaff() {
+    public static ArrayList<StaffClass> selectStaff() throws SQLException{
+        Connection conn = DBConnect.getConnection();
         try {
-            Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("Select * from staff");
             ArrayList<StaffClass> output = new ArrayList<>();
@@ -25,9 +26,18 @@ public class Staff {
             System.out.println("staffId\t\tname\t\ttype");
             conn.close();
             return output;
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
             return null;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }finally{
+                conn.close();
         }
     }
 

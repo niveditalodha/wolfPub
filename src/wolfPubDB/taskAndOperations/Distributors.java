@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.*;
 import java.sql.Statement;
 
 import wolfPubDB.connect.*;
@@ -25,13 +26,18 @@ public class Distributors{
             }
             System.out.println("distributorId\tname\ttype\tbalance\tphone\t\tcity\tstreet\t\t\tcontactPerson");
             return output;
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
+        }catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
             return null;
-        }
-        finally{
-            conn.close();
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }finally{
+                conn.close();
         }
     }
 

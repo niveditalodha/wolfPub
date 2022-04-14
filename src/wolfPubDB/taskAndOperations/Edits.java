@@ -3,6 +3,7 @@ package wolfPubDB.taskAndOperations;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.*;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -18,9 +19,9 @@ import static wolfPubDB.taskAndOperations.Report.getReport;
 
 public class Edits {
 
-    public static ArrayList<EditsClass> selectEdits() {
+    public static ArrayList<EditsClass> selectEdits() throws SQLException{
+        Connection conn = DBConnect.getConnection();
         try {
-            Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("Select * from edits");
             ArrayList<EditsClass> output = new ArrayList<>();
@@ -31,9 +32,18 @@ public class Edits {
             conn.close();
             System.out.println("staffId\t\tpublicationId");
             return output;
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
             return null;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }finally{
+                conn.close();
         }
     }
 

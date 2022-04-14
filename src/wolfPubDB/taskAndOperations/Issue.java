@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.*;
 import java.sql.Statement;
 
 import wolfPubDB.connect.*;
@@ -13,9 +14,9 @@ import wolfPubDB.classes.IssueClass;
 
 public class Issue {
 
-    public static ArrayList<IssueClass> selectIssue() {
+    public static ArrayList<IssueClass> selectIssue() throws SQLException {
+        Connection conn = DBConnect.getConnection();
         try {
-            Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("Select * from issue");
             ArrayList<IssueClass> output = new ArrayList<>();
@@ -26,9 +27,18 @@ public class Issue {
             conn.close();
             System.out.println("publicationId\tissueDate\ttype");
             return output;
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
             return null;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }finally{
+                conn.close();
         }
     }
 

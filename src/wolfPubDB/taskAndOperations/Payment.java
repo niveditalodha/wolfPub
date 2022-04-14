@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.*;
 import java.sql.Statement;
 
 import wolfPubDB.classes.PaymentClass;
@@ -13,8 +14,8 @@ import wolfPubDB.connect.*;
 public class Payment{
 
     public static ArrayList<PaymentClass> selectPayment() throws SQLException{
+        Connection conn = DBConnect.getConnection();
         try {   
-            Connection conn = DBConnect.getConnection();
             ArrayList<PaymentClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("select * from payment");
@@ -25,9 +26,18 @@ public class Payment{
             conn.close();
             System.out.println("staffId\t\tpaymentDate\tamount\t\tpaymentClaimedDate");
             return output;
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
             return null;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }finally{
+                conn.close();
         }
     }
 

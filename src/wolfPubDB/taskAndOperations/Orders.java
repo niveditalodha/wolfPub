@@ -8,9 +8,9 @@ import wolfPubDB.classes.OrdersClass;
 
 public class Orders {
 
-    public static ArrayList<OrdersClass> selectOrder() {
+    public static ArrayList<OrdersClass> selectOrder() throws SQLException{
+        Connection conn = DBConnect.getConnection();
         try {
-            Connection conn = DBConnect.getConnection();
             ArrayList<OrdersClass> output = new ArrayList<>();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery("select * from orders");
@@ -21,9 +21,18 @@ public class Orders {
             conn.close();
             System.out.println("orderId\t\tdeadline\tprice\t\torderDate\tnoOfCopies\tshippingCost\tpublicationId\tdistributorId");
             return output;
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
             return null;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }finally{
+                conn.close();
         }
     }
 

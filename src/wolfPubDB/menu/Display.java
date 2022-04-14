@@ -5,10 +5,26 @@ import java.util.*;
 import java.sql.SQLException;
 
 import wolfPubDB.taskAndOperations.*;
-
+/**
+* Class responsible for showing menu options for displaying all tables.
+*/
 
 public class Display {
-    public static void DisplayMenu() throws NumberFormatException, IOException, SQLException{
+   /**
+    * Method that prints and handles the display tables Menu operations.
+    * It depends on all taskAndOperations/* classes that have all 
+    * the required APIs for generating the results of displaying tables. 
+    * 
+    * This method acts as the View handler.
+    * 
+    * @throws NumberFormatException It handles and error if attempt is made to 
+    *                  convert a string with an incorrect format to a numeric value.
+    * @throws IOException It handles any Input/Output related errors in case they occur
+    * @throws SQLException It handles Database related errors in case they occur
+    * @throws IllegalArgumentException It handles errors thrown in order to indicate that 
+    *                  a method has been passed an illegal argument. Like 2020-0-0 to a date
+    */
+    public static void DisplayMenu() throws NumberFormatException, IOException, SQLException, IllegalArgumentException{
 
         Scanner sc = new Scanner(System.in);
         String[] main_args = null;
