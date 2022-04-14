@@ -12,9 +12,20 @@ import java.sql.Statement;
 import wolfPubDB.classes.PublicationClass;
 import wolfPubDB.connect.*;
 
+/**
+ * Class that contains all the APIs for generating the tasks and operations
+ * related to the Publication.
+ */
 
 public class Publication {
 
+    /**
+     * Method for viewing data in the payment table.
+     * Connects to the DB, Creates an SQL query string and returns the results an Arraylist.
+     *
+     * @return Returns an ArrayList output
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
     public static ArrayList<PublicationClass> selectPublication() throws SQLException{
         Connection conn = DBConnect.getConnection();
         try {
@@ -43,7 +54,13 @@ public class Publication {
         }
     }
 
-
+    /**
+     * Method for viewing data in the payment table based on PublicationId.
+     * Connects to the DB, Creates an SQL query string and returns the results an Arraylist.
+     *
+     * @return Returns an ArrayList output
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
     public static ArrayList<PublicationClass> selectPublication(String publicationId) {
         try {
             Connection conn = DBConnect.getConnection();
@@ -62,7 +79,13 @@ public class Publication {
         }
     }
 
-
+    /**
+     * Method for inserting data in the publication table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
     public static Boolean addPublication(String publicationId, String title, String periodicity, String topics) throws SQLException {
         try {
             Connection conn = DBConnect.getConnection();
@@ -82,6 +105,13 @@ public class Publication {
         }
     }
 
+    /**
+     * Method for inserting data in the publication and books table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
     public static boolean addPublication(String publicationId, String title, String periodicity, String topics, String isbn, Date publicationDate, String edition) throws SQLException {
         //Transaction
         boolean t1 = false;
@@ -135,7 +165,13 @@ public class Publication {
         } 
     }
     
-
+    /**
+     * Method for inserting data in the publication and issue table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
     public static boolean addPublication(String publicationId, String title, String periodicity, String topics, Date issueDate, String type) throws SQLException {
         //Transaction
         boolean t1 = false;
@@ -188,6 +224,13 @@ public class Publication {
         }
     }
 
+    /**
+     * Method for updating data in the publication table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
     public static Boolean updatePublication(String publicationId, String title, String periodicity, String topics) {
         try {
             Connection conn = DBConnect.getConnection();
@@ -218,6 +261,13 @@ public class Publication {
         }
     }
 
+    /**
+     * Method for deleting data in the publication table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
     public static Boolean deletePublication(String publicationId) {
         try {
             Connection conn = DBConnect.getConnection();

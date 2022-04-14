@@ -9,9 +9,20 @@ import java.util.ArrayList;
 import wolfPubDB.classes.WritesBookClass;
 import wolfPubDB.connect.*;
 
-
+/**
+ * Class that contains all the APIs for generating the tasks and operations
+ * related to the books author.
+ */
 
 public class WritesBook {
+
+    /**
+     * Method for viewing the WritesBook table from the database.
+     * Connects to the DB, Creates an SQL query string and returns the results as an ArrayList.
+     *
+     * @return Returns the ArrayList output
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static ArrayList<WritesBookClass> selectWritesBook() throws SQLException{
         Connection conn = DBConnect.getConnection();
         try {
@@ -41,6 +52,13 @@ public class WritesBook {
     }
 
 
+    /**
+     * Method for inserting data(Author, publication) into the WritesBook table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
 
     public static boolean addWritesBook(String staffId, String publicationId) throws SQLException{
         Connection conn = DBConnect.getConnection();
@@ -67,6 +85,14 @@ public class WritesBook {
                 conn.close();
         }
     }
+
+    /**
+     * Method for updating data(Author, publication) into the WritesBook table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
 
     public static Boolean updateWritesBookChapterAuthor(String publicationId, String staffId) throws SQLException{
         int count = 0;

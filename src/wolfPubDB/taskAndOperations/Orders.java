@@ -6,7 +6,20 @@ import java.util.ArrayList;
 import wolfPubDB.connect.*;
 import wolfPubDB.classes.OrdersClass;
 
+/**
+ * Class that contains all the APIs for generating the tasks and operations
+ * related to the Orders.
+ */
+
 public class Orders {
+
+    /**
+     * Method for viewing data in the orders table.
+     * Connects to the DB, Creates an SQL query string and returns the results an Arraylist.
+     *
+     * @return Returns an ArrayList output
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
 
     public static ArrayList<OrdersClass> selectOrder() throws SQLException{
         Connection conn = DBConnect.getConnection();
@@ -36,7 +49,13 @@ public class Orders {
         }
     }
 
-
+    /**
+     * Method for inserting data in the orders table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
     public static Boolean addOrders(String orderId, Date deadline, Float price, Date orderDate, Integer noOfCopies, Float shippingCost, String publicationId, String distributorId) throws SQLException{
         Connection conn = DBConnect.getConnection();
         try {
@@ -68,6 +87,13 @@ public class Orders {
         }
     }
 
+    /**
+     * Method for updating data in the orders table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
     public static Boolean updateOrder(String orderId, Date deadline, Float price, Date orderDate, Integer noOfCopies, Float shippingCost, String publicationId, String distributorId) {
         try {
             Connection conn = DBConnect.getConnection();
@@ -91,6 +117,13 @@ public class Orders {
         }
     }
 
+    /**
+     * Method for deleting data in the orders table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
     public static Boolean deleteOrders(String orderId) {
 
         try {
@@ -105,6 +138,14 @@ public class Orders {
         }
     }
 
+
+    /**
+     * Method for generating bill for distributorbased on order.
+     * Connects to the DB, Creates an SQL query string, updates balance for distributor and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
 
     public static boolean billDistributorForOrder(String orderId) throws SQLException{
         Connection conn = DBConnect.getConnection();

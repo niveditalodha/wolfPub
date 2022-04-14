@@ -11,7 +11,20 @@ import java.sql.Statement;
 import wolfPubDB.connect.*;
 import wolfPubDB.classes.WritesArticleClass;
 
+/**
+ * Class that contains all the APIs for generating the tasks and operations
+ * related to the articles author.
+ */
+
 public class WritesArticle{
+
+    /**
+     * Method for viewing the WritesArticle table.
+     * Connects to the DB, Creates an SQL query string and returns the results an Arraylist.
+     *
+     * @return Returns ArrayList output
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
 
     public static ArrayList<WritesArticleClass> selectWritesArticle() throws SQLException {
         Connection conn = DBConnect.getConnection();
@@ -41,6 +54,13 @@ public class WritesArticle{
         }
     }
 
+    /**
+     * Method for updating data(Author, article) into the WritesArticle table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
 
     public static boolean updateWritesArticleAuthor(String articleId, String staffId) throws SQLException{
         
@@ -77,6 +97,14 @@ public class WritesArticle{
             conn.close();
         }
     }
+
+    /**
+     * Method for inserting data(Author, article) into the WritesArticle table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
 
     public static boolean addWritesArticle(String staffId, String articleId) throws SQLException {
         Connection conn = DBConnect.getConnection();

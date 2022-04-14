@@ -12,7 +12,20 @@ import java.sql.Statement;
 import wolfPubDB.connect.*;
 import wolfPubDB.classes.IssueClass;
 
+/**
+ * Class that contains all the APIs for generating the tasks and operations
+ * related to the Issue.
+ */
+
 public class Issue {
+
+    /**
+     * Method for viewing data in the Issue table.
+     * Connects to the DB, Creates an SQL query string and returns the results an Arraylist.
+     *
+     * @return Returns an ArrayList output
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
 
     public static ArrayList<IssueClass> selectIssue() throws SQLException {
         Connection conn = DBConnect.getConnection();
@@ -42,6 +55,13 @@ public class Issue {
         }
     }
 
+    /**
+     * Method for viewing data in the Issue table based on publicationId.
+     * Connects to the DB, Creates an SQL query string and returns the results an Arraylist.
+     *
+     * @return Returns an ArrayList output
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
     public static ArrayList<IssueClass> selectIssue(String publicationId) {
         try {
             Connection conn = DBConnect.getConnection();
@@ -62,6 +82,13 @@ public class Issue {
     }
 
 
+    /**
+     * Method for inserting data in the Issue table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
     public static Boolean addIssue(Connection conn, String publicationId, Date issueDate, String type) {
         try {
             String query = "insert into issue(publicationId, issueDate, type) values (?,?,?)";
@@ -77,6 +104,13 @@ public class Issue {
         }
     }
 
+    /**
+     * Method for updating data in the Issue table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
     public static Boolean updateIssue(String publicationId, Date issueDate, String type) throws SQLException{
         Connection conn = DBConnect.getConnection();
         try {
@@ -103,6 +137,13 @@ public class Issue {
         }
     }
 
+    /**
+     * Method for deleting data in the Issue table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
     public static Boolean deleteIssue(String publicationId) throws SQLException{
         Connection conn = DBConnect.getConnection();
         try {

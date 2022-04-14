@@ -10,9 +10,21 @@ import java.util.ArrayList;
 import wolfPubDB.classes.StaffClass;
 import wolfPubDB.connect.*;
 
-
+/**
+ * Class that contains all the APIs for generating the tasks and operations
+ * related to the Staff.
+ */
 
 public class Staff {
+
+    /**
+     * Method for viewing the Staff table.
+     * Connects to the DB, Creates an SQL query string and returns the results an Arraylist.
+     *
+     * @return Returns ArrayList output
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
+
     public static ArrayList<StaffClass> selectStaff() throws SQLException{
         Connection conn = DBConnect.getConnection();
         try {
@@ -41,7 +53,13 @@ public class Staff {
         }
     }
 
-
+    /**
+     * Method for viewing the Staff table based on staffId.
+     * Connects to the DB, Creates an SQL query string and returns the results an Arraylist.
+     *
+     * @return Returns ArrayList output
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
     public static ArrayList<StaffClass> selectStaff(Integer staffId) {
         try {
             Connection conn = DBConnect.getConnection();
@@ -61,7 +79,13 @@ public class Staff {
     }
 
 
-
+    /**
+     * Method for inserting data into the Staff and Author table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
     public static boolean addAuthor(String staffId, String name, String type) throws SQLException{
         //Transaction
         Connection conn = DBConnect.getConnection();
@@ -104,6 +128,13 @@ public class Staff {
         }
     }
 
+    /**
+     * Method for inserting data into the Staff and Editor table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
     public static boolean addEditor(String staffId, String name, String type) throws SQLException {
         //Transaction
         Connection conn = DBConnect.getConnection();
@@ -147,6 +178,13 @@ public class Staff {
     }
 
 
+    /**
+     * Method for updating data in the Staff table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
 
     public static Boolean updateStaff(String staffId, String name, String type) {
         try {
@@ -165,7 +203,14 @@ public class Staff {
             return false;
         }
     }
-
+    /**
+     * Method for deleting data in the Staff table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
+    
     public static Boolean deleteStaff(String staffId) {
         try {
             Connection conn = DBConnect.getConnection();
