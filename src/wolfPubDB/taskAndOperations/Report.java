@@ -12,7 +12,23 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Class that contains all the APIs for generating the tasks and operations
+ * related to Report Menu.
+ */
 public class Report {
+
+    /**
+     * A reusable method that takes the query, connects to the DB and returns
+     * the results as an object.
+     *
+     * @param query SQL Query string
+     * @param resultKeys List of column headers that are displayed while printing
+     *                   the result table. The name and order of each key should
+     *                   exactly match what we expect SQL queries to return.
+     * @return @ReportClass object that contains @resultKeys and result rows.
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static ReportClass getReport(String query, List<String> resultKeys) throws SQLException {
         Connection conn = DBConnect.getConnection();
 
@@ -38,6 +54,14 @@ public class Report {
 
     }
 
+    /**
+     * Method for generating report for number and total price of copies of each
+     * publication bought per distributor per month.
+     * Creates an SQL query string and calls @getReport to run that.
+     *
+     * @return Returns the result object received from @getReport
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static ReportClass getMonthlyPublicationReport() throws SQLException {
         List<String> resultKeys = new ArrayList<>(Arrays.asList(
                 "Month",
@@ -62,6 +86,13 @@ public class Report {
         return getReport(query, resultKeys);
     }
 
+    /**
+     * Method for generating report for Total monthly publishing house revenue
+     * Creates an SQL query string and calls @getReport to run that.
+     *
+     * @return Returns the result object received from @getReport
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static ReportClass getMonthlyPublishingRevenue() throws SQLException {
         List<String> resultKeys = new ArrayList<>(Arrays.asList(
                 "Month",
@@ -74,6 +105,14 @@ public class Report {
         return getReport(query, resultKeys);
     }
 
+    /**
+     * Method for generating report for Total monthly publishing house shipping
+     * cost expenses.
+     * Creates an SQL query string and calls @getReport to run that.
+     *
+     * @return Returns the result object received from @getReport
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static ReportClass getMonthlyShippingCost() throws SQLException {
         List<String> resultKeys = new ArrayList<>(Arrays.asList(
                 "Month",
@@ -89,6 +128,14 @@ public class Report {
         return getReport(query, resultKeys);
     }
 
+    /**
+     * Method for generating report for Total monthly publishing house salary
+     * expenses.
+     * Creates an SQL query string and calls @getReport to run that.
+     *
+     * @return Returns the result object received from @getReport
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static ReportClass getMonthlySalaryCost() throws SQLException {
         List<String> resultKeys = new ArrayList<>(Arrays.asList(
                 "Month",
@@ -106,6 +153,13 @@ public class Report {
         return getReport(query, resultKeys);
     }
 
+    /**
+     * Method for generating report for Total current number of distributors.
+     * Creates an SQL query string and calls @getReport to run that.
+     *
+     * @return Returns the result object received from @getReport
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static ReportClass getDistributorCount() throws SQLException {
         List<String> resultKeys = new ArrayList<>(Arrays.asList(
                 "No. of Distributors"
@@ -116,6 +170,13 @@ public class Report {
         return getReport(query, resultKeys);
     }
 
+    /**
+     * Method for generating report for Total revenue per city (since inception).
+     * Creates an SQL query string and calls @getReport to run that.
+     *
+     * @return Returns the result object received from @getReport
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static ReportClass getRevenuePerCity() throws SQLException {
         List<String> resultKeys = new ArrayList<>(Arrays.asList(
                 "City",
@@ -130,6 +191,14 @@ public class Report {
         return getReport(query, resultKeys);
     }
 
+    /**
+     * Method for generating report for Total revenue per distributor (since
+     * inception).
+     * Creates an SQL query string and calls @getReport to run that.
+     *
+     * @return Returns the result object received from @getReport
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static ReportClass getRevenuePerDistributor() throws SQLException {
         List<String> resultKeys = new ArrayList<>(Arrays.asList(
                 "Distributor ID",
@@ -147,6 +216,14 @@ public class Report {
         return getReport(query, resultKeys);
     }
 
+    /**
+     * Method for generating report for Total revenue per location (since
+     * inception).
+     * Creates an SQL query string and calls @getReport to run that.
+     *
+     * @return Returns the result object received from @getReport
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static ReportClass getRevenuePerLocation() throws SQLException {
         List<String> resultKeys = new ArrayList<>(Arrays.asList(
                 "Street\t\t",
@@ -164,6 +241,14 @@ public class Report {
         return getReport(query, resultKeys);
     }
 
+    /**
+     * Method for generating report for Total payments to editors and authors
+     * per time period.
+     * Creates an SQL query string and calls @getReport to run that.
+     *
+     * @return Returns the result object received from @getReport
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static ReportClass getMonthlyPayments() throws SQLException {
         List<String> resultKeys = new ArrayList<>(Arrays.asList(
                 "Month",
@@ -180,6 +265,13 @@ public class Report {
         return getReport(query, resultKeys);
     }
 
+    /**
+     * Method for generating report for Total payments to book editors.
+     * Creates an SQL query string and calls @getReport to run that.
+     *
+     * @return Returns the result object received from @getReport
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static ReportClass getMonthlyEditorPayments() throws SQLException {
         List<String> resultKeys = new ArrayList<>(Arrays.asList(
                 "Month",
@@ -196,6 +288,13 @@ public class Report {
         return getReport(query, resultKeys);
     }
 
+    /**
+     * Method for generating report for Total payments to book authors.
+     * Creates an SQL query string and calls @getReport to run that.
+     *
+     * @return Returns the result object received from @getReport
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static ReportClass getMonthlyBookAuthorPayments() throws SQLException {
         List<String> resultKeys = new ArrayList<>(Arrays.asList(
                 "Month",
@@ -212,6 +311,13 @@ public class Report {
         return getReport(query, resultKeys);
     }
 
+    /**
+     * Method for generating report for Total payments to article authors.
+     * Creates an SQL query string and calls @getReport to run that.
+     *
+     * @return Returns the result object received from @getReport
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */
     public static ReportClass getMonthlyArticleAuthorPayments() throws SQLException {
         List<String> resultKeys = new ArrayList<>(Arrays.asList(
                 "Month",

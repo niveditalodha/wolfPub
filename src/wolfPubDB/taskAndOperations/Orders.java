@@ -1,17 +1,12 @@
 package wolfPubDB.taskAndOperations;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 import wolfPubDB.connect.*;
 import wolfPubDB.classes.OrdersClass;
 
-public class Orders{
+public class Orders {
 
     public static ArrayList<OrdersClass> selectOrder() {
         try {
@@ -32,7 +27,6 @@ public class Orders{
         }
     }
 
-    
 
     public static Boolean addOrders(String orderId, Date deadline, Float price, Date orderDate, Integer noOfCopies, Float shippingCost, String publicationId, String distributorId) {
         try {
@@ -50,6 +44,9 @@ public class Orders{
             stat.executeUpdate();
             conn.close();
             return true;
+        } catch (SQLIntegrityConstraintViolationException ex) {
+            System.out.println("Foreign key constrain violated!!!");
+            return false;
         } catch (SQLException ex) {
             ex.printStackTrace();
             return false;
@@ -70,21 +67,21 @@ public class Orders{
             stat.setString(7, distributorId);
             stat.setString(8, orderId);
             stat.executeUpdate();
-            
+
             conn.close();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
-        }
+    }
 
     public static Boolean deleteOrders(String orderId) {
 
         try {
             Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
-            stat.executeUpdate("DELETE FROM orders WHERE orderId= '" + orderId+"'");
+            stat.executeUpdate("DELETE FROM orders WHERE orderId= '" + orderId + "'");
             conn.close();
             return true;
         } catch (SQLException ex) {
@@ -94,14 +91,13 @@ public class Orders{
     }
 
 
-
     public static boolean billDistributorForOrder(String orderId) {
         try {
             Connection conn = DBConnect.getConnection();
             String query = "update distributors set balance = balance + ? where distributorId = ?";
             PreparedStatement st = conn.prepareStatement(query);
-            String query1 = "select noOfCopies, price, shippingCost, distributorId from orders where orderId = '"+orderId+"'";
-            
+            String query1 = "select noOfCopies, price, shippingCost, distributorId from orders where orderId = '" + orderId + "'";
+
             Statement stat = conn.createStatement();
             float price = 0;
             float shippingCost = 0;
