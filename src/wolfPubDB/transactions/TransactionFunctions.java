@@ -9,6 +9,19 @@ import wolfPubDB.connect.DBConnect;
 import wolfPubDB.taskAndOperations.*;
 
 public class TransactionFunctions {
+
+    /**
+     * Method for inserting data in the publication and books table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * t1 is transaction 1 to insert data in publication
+     * t2 is transaction 2 to insert data in book
+     * 
+     * only if t1 and t2 are performed successfully, changes are committed to 
+     *                  database else they are rolled back
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
     public static boolean addPublication(String publicationId, String title, String periodicity, String topics, String isbn, Date publicationDate, String edition) throws SQLException {
         //Transaction
         boolean t1 = false;
@@ -49,6 +62,20 @@ public class TransactionFunctions {
             }
         }
     }
+
+    
+    /**
+     * Method for inserting data in the publication and issue table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * t1 is transaction 1 to insert data in publication
+     * t2 is transaction 2 to insert data in issue
+     * 
+     * only if t1 and t2 are performed successfully, changes are committed to 
+     *                  database else they are rolled back
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
     public static boolean addPublication(String publicationId, String title, String periodicity, String topics, Date issueDate, String type) throws SQLException {
         //Transaction
         boolean t1 = false;
@@ -88,6 +115,21 @@ public class TransactionFunctions {
             }
         }
     }
+
+
+    
+    /**
+     * Method for inserting data in the staff and author table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * t1 is transaction 1 to insert data in staff
+     * t2 is transaction 2 to insert data in author
+     * 
+     * only if t1 and t2 are performed successfully, changes are committed to 
+     *                  database else they are rolled back
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
     public static boolean addAuthor(String staffId, String name, String type) throws SQLException{
         //Transaction
         Connection conn = DBConnect.getConnection();
@@ -129,6 +171,21 @@ public class TransactionFunctions {
             return false;
         }
     }
+
+
+    
+    /**
+     * Method for inserting data in the staff and editor table.
+     * Connects to the DB, Creates an SQL query string and returns boolean value.
+     *
+     * t1 is transaction 1 to insert data in staff
+     * t2 is transaction 2 to insert data in editor
+     * 
+     * only if t1 and t2 are performed successfully, changes are committed to 
+     *                  database else they are rolled back
+     * @return Returns boolean
+     * @throws SQLException For handling any DB related runtime exceptions.
+     */ 
 
     public static boolean addEditor(String staffId, String name, String type) throws SQLException {
         //Transaction
