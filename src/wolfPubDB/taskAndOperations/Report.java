@@ -95,63 +95,58 @@ public class Report {
      */
     public static ReportClass getMonthlyPublishingRevenue() throws SQLException {
         List<String> resultKeys = new ArrayList<>(Arrays.asList(
-                "Month",
-                "Year",
-                "Revenue"
+                "Total Revenue"
         ));
 
-        String query = "SELECT MONTH (orderDate) as Month, YEAR (orderDate) as Year, SUM (price * noOfCopies) as Revenue FROM orders";
+        String query = "select sum(revenue) as TotalRevenue from "+
+                        "(select sum(noOfCopies*price)-balance as revenue from orders o "+
+                        "join distributors d on o.distributorId=d.distributorId group by o.distributorId) as TotalRevenue";
 
         return getReport(query, resultKeys);
     }
 
     /**
-     * Method for generating report for Total monthly publishing house shipping
-     * cost expenses.
+     * Method for generating report for Total monthly publishing house expenses.
      * Creates an SQL query string and calls @getReport to run that.
      *
      * @return Returns the result object received from @getReport
      * @throws SQLException For handling any DB related runtime exceptions.
      */
-    public static ReportClass getMonthlyShippingCost() throws SQLException {
+    public static ReportClass getTotalExpenses() throws SQLException {
         List<String> resultKeys = new ArrayList<>(Arrays.asList(
-                "Month",
-                "Year",
-                "Shipping Cost"
+                "TotalExpense"
         ));
 
-        String query = "SELECT MONTH(o.orderDate) as Month, YEAR(o.orderDate) as Year, " +
-                "SUM(o.shippingCost*o.noOfCopies) as 'Shipping Cost' " +
-                "FROM orders as o " +
-                "GROUP BY MONTH(o.orderDate), YEAR(o.orderDate);";
+        String query = "select (select sum(amount) from payment)+ (select sum(shippingCost) from orders) as "+
+                        "TotalExpense";
+
 
         return getReport(query, resultKeys);
     }
+//     /**
+//      * Method for generating report for Total monthly publishing house salary
+//      * expenses.
+//      * Creates an SQL query string and calls @getReport to run that.
+//      *
+//      * @return Returns the result object received from @getReport
+//      * @throws SQLException For handling any DB related runtime exceptions.
+//      */
+//     public static ReportClass getMonthlySalaryCost() throws SQLException {
+//         List<String> resultKeys = new ArrayList<>(Arrays.asList(
+//                 "Month",
+//                 "Year",
+//                 "Salary Cost"
+//         ));
 
-    /**
-     * Method for generating report for Total monthly publishing house salary
-     * expenses.
-     * Creates an SQL query string and calls @getReport to run that.
-     *
-     * @return Returns the result object received from @getReport
-     * @throws SQLException For handling any DB related runtime exceptions.
-     */
-    public static ReportClass getMonthlySalaryCost() throws SQLException {
-        List<String> resultKeys = new ArrayList<>(Arrays.asList(
-                "Month",
-                "Year",
-                "Salary Cost"
-        ));
+//         String query = "SELECT MONTH(p.paymentDate) as Month, " +
+//                 "YEAR(p.paymentDate) as Year, SUM(p.amount) " +
+//                 "as 'Salary Cost' " +
+//                 "FROM payment as p " +
+//                 "GROUP BY MONTH(p.paymentDate), " +
+//                 "YEAR(p.paymentDate);";
 
-        String query = "SELECT MONTH(p.paymentDate) as Month, " +
-                "YEAR(p.paymentDate) as Year, SUM(p.amount) " +
-                "as 'Salary Cost' " +
-                "FROM payment as p " +
-                "GROUP BY MONTH(p.paymentDate), " +
-                "YEAR(p.paymentDate);";
-
-        return getReport(query, resultKeys);
-    }
+//         return getReport(query, resultKeys);
+//     }
 
     /**
      * Method for generating report for Total current number of distributors.
@@ -279,11 +274,10 @@ public class Report {
                 "Monthly Payments to Editors"
         ));
 
-        String query = "SELECT MONTH(p.paymentDate) AS Month, " +
-                "YEAR(p.paymentDate) AS Year, sum(amount) AS 'Monthly Payments to Editors' " +
-                "FROM payment p " +
-                "natural join editor e " +
-                "GROUP BY MONTH(p.paymentDate), YEAR(p.paymentDate);";
+        String query = "SELECT MONTH(paymentDate) AS Month, "+
+                "YEAR(paymentDate) AS Year, sum(amount) AS 'Monthly Payments to Editors' "+
+                "FROM payment where staffId in (select distinct(staffId) from editor) "+
+                "GROUP BY MONTH(paymentDate), YEAR(paymentDate);";
 
         return getReport(query, resultKeys);
     }
@@ -302,11 +296,10 @@ public class Report {
                 "Monthly Payments to Book Authors"
         ));
 
-        String query = "SELECT MONTH(p.paymentDate) AS Month, YEAR(p.paymentDate) AS Year, " +
-                "sum(amount) AS 'Monthly Payments to Book Authors' " +
-                "FROM payment p " +
-                "natural join writesbook " +
-                "GROUP BY MONTH(p.paymentDate), YEAR(p.paymentDate);";
+        String query = "SELECT MONTH(paymentDate) AS Month, "+
+                "YEAR(paymentDate) AS Year, sum(amount) AS 'Monthly Payments to Book Authors' "+
+                "FROM payment where staffId in (select distinct(staffId) from writesbook) "+
+                "GROUP BY MONTH(paymentDate), YEAR(paymentDate);";
 
         return getReport(query, resultKeys);
     }
@@ -325,13 +318,13 @@ public class Report {
                 "Monthly Payments to Article Authors"
         ));
 
-        String query = "SELECT MONTH(p.paymentDate) AS Month, YEAR(p.paymentDate) AS Year, " +
-                "sum(amount) AS 'Monthly Payments to Article Authors' " +
-                "FROM payment p " +
-                "natural join writesarticle " +
-                "GROUP BY MONTH(p.paymentDate), YEAR(p.paymentDate);";
+        String query = "SELECT MONTH(paymentDate) AS Month, "+
+                        "YEAR(paymentDate) AS Year, sum(amount) AS 'Monthly Payments to Article Authors' "+
+                        "FROM payment where staffId in (select distinct(staffId) from writesarticle) "+
+                        "GROUP BY MONTH(paymentDate), YEAR(paymentDate);";
 
         return getReport(query, resultKeys);
     }
 
 }
+

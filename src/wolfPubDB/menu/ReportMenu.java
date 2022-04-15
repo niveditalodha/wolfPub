@@ -27,8 +27,8 @@ public class ReportMenu {
             System.out.println("1. Report for number and total price of copies\n" +
                     "  of each publication bought per distributor\n" +
                     "  per month");
-            System.out.println("2. Total monthly publishing house revenue");
-            System.out.println("3. Total monthly publishing house expenses\n" +
+            System.out.println("2. Total publishing house revenue");
+            System.out.println("3. Total publishing house expenses\n" +
                     "   (shipping cost and salaries)");
             System.out.println("4. Total current number of distributors");
             System.out.println("5. Total revenue per city (since inception)");
@@ -53,12 +53,7 @@ public class ReportMenu {
                     ReportClass.printReport(report);
                     break;
                 case 3:
-                    report = Report.getMonthlyShippingCost();
-                    ReportClass.printReport(report);
-
-                    System.out.println("____________________________");
-
-                    report = Report.getMonthlySalaryCost();
+                    report = Report.getTotalExpenses();
                     ReportClass.printReport(report);
                     break;
                 case 4:
