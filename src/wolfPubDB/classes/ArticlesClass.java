@@ -1,5 +1,5 @@
 
-ckage wolfPubDB.classes;
+package wolfPubDB.classes;
 
 import java.util.Date;
 
