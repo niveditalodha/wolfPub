@@ -27,7 +27,7 @@ public class ResultClass {
     public void addRow(ResultSet res, int size) throws SQLException {
         List<String> row = new ArrayList<>();
         for (int i = 1; i <= size; i++) {
-            row.add(res.getString(i));
+            row.add(res.getString(i)+"");
         }
         rows.add(row);
     }

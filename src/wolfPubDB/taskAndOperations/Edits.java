@@ -67,10 +67,10 @@ public class Edits {
      * @return Returns the boolean true is success else boolean false
      * @throws SQLException For handling any DB related runtime exceptions.
      */
-    public static boolean addEdits(String staffId, String publicationId) {
-
+    public static boolean addEdits(String staffId, String publicationId) throws SQLException {
+        
+        Connection conn = DBConnect.getConnection();
         try {
-            Connection conn = DBConnect.getConnection();
             String query = "insert into edits(staffId, publicationId) values (?,?)";
             PreparedStatement stat = conn.prepareStatement(query);
             stat.setString(1, staffId);
@@ -79,9 +79,18 @@ public class Edits {
             conn.close();
             return true;
 
-        } catch (SQLException ex) {
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
+            return false;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return false;
+        }catch (SQLException ex) {
             ex.printStackTrace();
             return false;
+        }finally{
+                conn.close();
         }
     }
 
@@ -93,7 +102,7 @@ public class Edits {
      * @return Returns the ArrayList output of publications+book+issue table contents
      * @throws SQLException For handling any DB related runtime exceptions.
      */
-    public static ReportClass selectEditorPublication(String staffId) {
+    public static ReportClass selectEditorPublication(String staffId) throws SQLException{
         try {
 
             List<String> resultKeys = new ArrayList<>(Arrays.asList(
@@ -110,11 +119,18 @@ public class Edits {
                     "type"
             ));
 
-            String query = "select * from publication left outer join book on publication.publicationId = book.publicationId left outer join issue on publication.publicationId = issue.publicationId where publication.publicationId in (select publicationId from edits where staffId = '" + staffId + "');";
+            String query = "select * from publication left outer join book on publication.publicationId = book.publicationId left outer join issue on publication.publicationId = issue.publicationId where publication.publicationId in (select publicationId from edits where staffId = '" + staffId + "')";
 
             return getReport(query, resultKeys);
 
-        } catch (SQLException ex) {
+        } catch(SQLIntegrityConstraintViolationException ex){
+            System.out.println("Foreign key constrain violated!!!");
+            
+            return null;
+        } catch(SQLSyntaxErrorException ex){
+            System.out.println("Invalid SQL syntax!!!");
+            return null;
+        }catch (SQLException ex) {
             ex.printStackTrace();
             return null;
         }

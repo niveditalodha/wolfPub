@@ -37,7 +37,7 @@ public class Distributors{
                 DistributorsClass d = new DistributorsClass(res.getString("distributorId"), res.getString("name"), res.getString("type"), res.getFloat("balance"), res.getString("phone"), res.getString("city"), res.getString("street"), res.getString("contactPerson"));
                 output.add(d);
             }
-            System.out.println("distributorId\tname\ttype\tbalance\tphone\t\tcity\tstreet\t\t\tcontactPerson");
+            System.out.println("distributorId\tname\t\ttype\t\tbalance\t\tphone\t\tcity\tstreet\t\t\tcontactPerson");
             return output;
         }catch(SQLIntegrityConstraintViolationException ex){
             System.out.println("Foreign key constrain violated!!!");

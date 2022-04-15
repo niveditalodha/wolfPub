@@ -38,7 +38,7 @@ public class Display {
             System.out.println("5. View Chapters Table ");
             System.out.println("6. View Distributor Table");
             System.out.println("7. View Editor Table");
-            System.out.println("8. View Editor Table");
+            System.out.println("8. View Author Table");
             System.out.println("9. View Edits Table");
             System.out.println("10. View Orders Table");
             System.out.println("11. View Payment Table");

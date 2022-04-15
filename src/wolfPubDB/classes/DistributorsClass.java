@@ -164,7 +164,7 @@ public class DistributorsClass {
      * @returns this.distributorId + "\t" +this.type+ "\t"+String.valueOf(this.balance) + "\t"+this.phone+"\t"+this.city +"\t"+this.street+"\t"+this.contactPerson
      */
     public String toString(){
-        return this.distributorId + "\t" +this.type+ "\t"+String.valueOf(this.balance) + "\t"+this.phone+"\t"+this.city +"\t"+this.street+"\t"+this.contactPerson;
+        return this.distributorId + "\t\t" +this.name+"\t" +this.type+ "\t"+String.valueOf(this.balance) + "\t"+this.phone+"\t"+this.city +"\t"+this.street+"\t"+this.contactPerson;
     }
 
 }

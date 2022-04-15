@@ -234,6 +234,7 @@ public class ArticlesMenu {
                 case 11:
                     // Assign Author to an Article
                     System.out.println("Enter String StaffID and String articleId separated by |");
+                    System.out.print("-> " + sc.nextLine());
                     try{
                         args = sc.nextLine().split("[|]");
                         staffId = args[0].trim();
@@ -252,6 +253,7 @@ public class ArticlesMenu {
                 case 12:
                     // Deleting an Article
                     System.out.println("Enter String articleId");
+                    System.out.print("-> " + sc.nextLine());
                     try{
                         args = sc.nextLine().split("[|]");
                         articleId = args[0].trim();
