@@ -61,7 +61,7 @@ public class Publication {
      * @return Returns an ArrayList output
      * @throws SQLException For handling any DB related runtime exceptions.
      */ 
-    public static ArrayList<PublicationClass> selectPublication(String publicationId) {
+    public static ArrayList<PublicationClass> selectPublication(String publicationId) throws SQLException{
         try {
             Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
@@ -231,7 +231,7 @@ public class Publication {
      * @return Returns boolean
      * @throws SQLException For handling any DB related runtime exceptions.
      */ 
-    public static Boolean updatePublication(String publicationId, String title, String periodicity, String topics) {
+    public static Boolean updatePublication(String publicationId, String title, String periodicity, String topics) throws SQLException{
         try {
             Connection conn = DBConnect.getConnection();
             String query = "Update publication set title=?, periodicity=?, topics=? where publicationId =?";
@@ -268,7 +268,7 @@ public class Publication {
      * @return Returns boolean
      * @throws SQLException For handling any DB related runtime exceptions.
      */ 
-    public static Boolean deletePublication(String publicationId) {
+    public static Boolean deletePublication(String publicationId) throws SQLException{
         try {
             Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();

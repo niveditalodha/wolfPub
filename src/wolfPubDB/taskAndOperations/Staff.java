@@ -60,7 +60,7 @@ public class Staff {
      * @return Returns ArrayList output
      * @throws SQLException For handling any DB related runtime exceptions.
      */ 
-    public static ArrayList<StaffClass> selectStaff(Integer staffId) {
+    public static ArrayList<StaffClass> selectStaff(Integer staffId) throws SQLException{
         try {
             Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
@@ -186,7 +186,7 @@ public class Staff {
      * @throws SQLException For handling any DB related runtime exceptions.
      */ 
 
-    public static Boolean updateStaff(String staffId, String name, String type) {
+    public static Boolean updateStaff(String staffId, String name, String type) throws SQLException {
         try {
             Connection conn = DBConnect.getConnection();
             String query = "Update staff set name=?, type=? where staffId =" + staffId;
@@ -211,7 +211,7 @@ public class Staff {
      * @throws SQLException For handling any DB related runtime exceptions.
      */ 
     
-    public static Boolean deleteStaff(String staffId) {
+    public static Boolean deleteStaff(String staffId) throws SQLException {
         try {
             Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();

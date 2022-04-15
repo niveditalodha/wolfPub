@@ -62,7 +62,7 @@ public class Issue {
      * @return Returns an ArrayList output
      * @throws SQLException For handling any DB related runtime exceptions.
      */ 
-    public static ArrayList<IssueClass> selectIssue(String publicationId) {
+    public static ArrayList<IssueClass> selectIssue(String publicationId) throws SQLException {
         try {
             Connection conn = DBConnect.getConnection();
             Statement stat = conn.createStatement();
@@ -89,7 +89,7 @@ public class Issue {
      * @return Returns boolean
      * @throws SQLException For handling any DB related runtime exceptions.
      */ 
-    public static Boolean addIssue(Connection conn, String publicationId, Date issueDate, String type) {
+    public static Boolean addIssue(Connection conn, String publicationId, Date issueDate, String type) throws SQLException{
         try {
             String query = "insert into issue(publicationId, issueDate, type) values (?,?,?)";
             PreparedStatement stat = conn.prepareStatement(query);

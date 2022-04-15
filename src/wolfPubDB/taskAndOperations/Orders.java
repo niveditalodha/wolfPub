@@ -94,7 +94,7 @@ public class Orders {
      * @return Returns boolean
      * @throws SQLException For handling any DB related runtime exceptions.
      */ 
-    public static Boolean updateOrder(String orderId, Date deadline, Float price, Date orderDate, Integer noOfCopies, Float shippingCost, String publicationId, String distributorId) {
+    public static Boolean updateOrder(String orderId, Date deadline, Float price, Date orderDate, Integer noOfCopies, Float shippingCost, String publicationId, String distributorId) throws SQLException{
         try {
             Connection conn = DBConnect.getConnection();
             String query = "Update orders set deadline = ?, price = ?, orderDate = ?, noOfCopies = ?, shippingCost = ?, publicationId = ?, distributorId = ? where orderId =?";
@@ -124,7 +124,7 @@ public class Orders {
      * @return Returns boolean
      * @throws SQLException For handling any DB related runtime exceptions.
      */ 
-    public static Boolean deleteOrders(String orderId) {
+    public static Boolean deleteOrders(String orderId) throws SQLException {
 
         try {
             Connection conn = DBConnect.getConnection();
